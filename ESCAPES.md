@@ -29,9 +29,11 @@ This was originally written for bash, so the color escapes for bash are still in
 </table>
 
 Colors are declared with:
+
     \e[<number>m
 
 Colors should not add to the prompt width - surround them with:
+
     \[ \]
 
 
@@ -39,16 +41,20 @@ ZSH Trinary Construct
 ---------------------
 
 The ternary construct for zsh is:
+
     %(<condition>.<true>.<false>)
 
 In my prompt I use the fact that the shortcut:
+
     ?
+
 is the status of the last command
 
 Screen Color Escapes for ZSH
 ----------------------------
 
 Provided by the colors command, which can be loaded with:
+
     autoload colors zsh/terminfo
     if [[ "$terminfo[colors]" -ge 8 ]]; then
             colors
@@ -70,6 +76,7 @@ The entries in the arrays are:
 * white
 
 Colors should not add to the prompt width - surround them with:
+
     %{ %}
 
 Information Escapes for ZSH Prompt
@@ -108,5 +115,6 @@ Prompt Escapes for Screen
 </table>
 
 For zsh this is:
+
     %{\ek\e\\%}
 
