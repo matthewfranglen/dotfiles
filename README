@@ -1,0 +1,95 @@
+
+##########
+##########
+##      ##
+## BASH ##
+##      ##
+##########
+##########
+
+#################################
+# Screen Color Escapes for BASH #
+#################################
+
+# Colors	-	Foreground	-	Background
+# Black		-	30		-	40
+# Red		-	31		-	41
+# Green		-	32		-	42
+# Yellow	-	33		-	43
+# Blue		-	34		-	44
+# Purple	-	35		-	45
+# Cyan		-	36		-	46
+# White		-	37		-	47
+# Remove color	-	0		-	0
+#
+# Colors are declared with \e[<number>m
+# Colors should not add to the prompt width - surround them with \[ \]
+
+#########
+#########
+##     ##
+## ZSH ##
+##     ##
+#########
+#########
+
+#####################
+# Trinary Construct #
+#####################
+
+# %(<condition>.<true>.<false>)
+# trinary construct
+# ? = status of last command
+#
+
+#########################
+# Screen Colors for ZSH #
+#########################
+
+# Provided by the colors
+# loaded with
+# autoload colors zsh/terminfo
+# if [[ "$terminfo[colors]" -ge 8 ]]; then
+#         colors
+# fi
+#
+# Once this has been done the colors are available in the arrays
+# $fg[] $bg[]
+# The entries in the arrays are
+# red green yellow blue magenta cyan white
+# Colors should not add to the prompt width - surround them with %{ %}
+
+##########################
+# Escapes for ZSH Prompt #
+##########################
+
+# %#		-	# if superuser, else %
+# %n		-	username
+# %m		-	hostname
+# %.		-	last part of current directory
+# %~		-	full path of current directory
+# %T		-	time in 24h format 18:20
+# %@ or %t	-	time in 12h format 06:20
+# %*		-	time in 24h format with seconds 18:20:00
+# %D{%l:%M:%S}	-	time in 12h format with seconds 06:20:00
+# %D{%a %b %d}	-	date as Mon Jul 19
+# %w		-	date as Mon 19
+# %W		-	date as 07/19/2004
+# %!		-	line number in shell history (for history substitution)
+# %j		-	the number of background jobs
+
+############
+############
+##        ##
+## SCREEN ##
+##        ##
+############
+############
+
+#############################
+# Prompt Escapes for Screen #
+#############################
+
+# Escape-K Escape-\	-	Set the title of the screen
+# (for zsh this is %{\ek\e\\%})
+

@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+# This monitors a log file, using notify-send to inform the user when new log lines are produced
+
+LOG_FILE=${1:?You must specify the file to monitor}
+LOG_FILE_SHORT_NAME=$(echo ${LOG_FILE}(:t))
+
+tail -n0 -F ${LOG_FILE} | while read line
+do
+	notify-send "${LOG_FILE_SHORT_NAME}" "${line}"
+done
+
+# vim: set ai et sw=4 syntax=zsh :

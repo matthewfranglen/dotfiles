@@ -1,0 +1,32 @@
+################
+# Prompt stuff #
+################
+
+# Try to load colors
+autoload colors zsh/terminfo
+if [[ "$terminfo[colors]" -ge 8 ]]; then
+	colors
+fi
+for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+    eval PR_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
+    eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
+done
+PR_NO_COLOR="%{$terminfo[sgr0]%}"
+
+# Make the PS variables interpolate variables declared within them (and commands)
+setopt prompt_subst
+
+# The shell currently is [ history number ] [ time ] %         [ path ] [ host ]
+# Green if the last command was good, red otherwise
+
+PS1='%{%(?.$PR_GREEN.$PR_RED)%}[ %! ] [ %* ]%{$PR_NO_COLOR%} %# '
+RPS1='%{$PR_BLUE%}[ %~ ] [ %m ]%{$PR_NO_COLOR%}'
+
+# Set screen window title
+case "$TERM" in
+screen)
+  precmd() { echo -ne "\033k[ $USER@$HOST ] [ $PWD ]\033\\" }
+  ;;
+esac
+
+# vim: set ai et sw=4 syntax=zsh :

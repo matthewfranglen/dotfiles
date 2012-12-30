@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# This extracts the dependencies from a given pom and sorts them
+# by group id and then by artifact id
+# This takes its input from STDIN
+
+perl -ne '
+    if (m/<dependency>/../<\/dependency>/) { 
+        if ( m/<dependency>/ ) {
+            print "\n";
+        }
+        s/\s//g; 
+        chomp; 
+        print; 
+    } 
+' | perl -e '
+    %a = map { 
+        m#<groupId>(.*?)</groupId><artifactId>(.*?)</artifactId>#; 
+        "$1.$2" => $_ 
+    } <>; 
+    print "<dependencies>"; 
+    print join "", map { $a{ $_ } } sort keys %a; 
+    print "</dependencies>";
+' | xmllint -format -
+
+# vim: set ai et sw=4 syntax=sh :

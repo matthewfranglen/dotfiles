@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+# These commands were adapted from a post on the bugs for ubuntu website
+# Updated since iwlagn is no longer in mods
+# Found: http://ubuntuforums.org/showthread.php?t=1679776
+killall nm-applet
+
+/etc/init.d/NetworkManager restart
+
+nm-applet &
+disown
+
+# vim: set ai et sw=4 syntax=zsh :

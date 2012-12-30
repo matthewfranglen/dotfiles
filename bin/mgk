@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Just a quick way to do the 'gitk' command that I ALWAYS use
+
+gitk --all &
+disown
+
+# vim: set ai et sw=4 syntax=sh :

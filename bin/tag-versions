@@ -1,0 +1,79 @@
+#!/bin/zsh
+
+# This will tag all of the commits which alter the version number in
+# the pom file.
+
+# This is still pretty alpha, so a little bit of care is a good idea
+
+# This does restore the previous position after it has completed.
+# However, dont do anything to the project while this is running!
+
+# This (obviously) depends on having the version script available
+
+VERSION="0.0.2"
+
+# The pom file to track can be specified as the only argument on the command line
+PROJECT=$(pwd)
+POM_FILE=${PROJECT}/${1:-pom.xml}
+
+# This shows the hash that the given tag refers to
+# This is used to prevent recreating existing tags
+function show-tag() {
+    local tag_name=${1}
+
+    if [ ! -e .git/refs/tags/${tag_name} ]
+    then
+        echo ""
+    else
+        echo "$(git cat-file -p $(cat .git/refs/tags/${tag_name}) | head -n 1 | cut -d ' ' -f 2)"
+    fi 
+}
+
+cd ${PROJECT}
+
+OLD_POSITION=$(git branch | fgrep '*' | cut -d ' ' -f 2-) # This gets the branch name
+
+if [ "${OLD_POSITION}" = "(no branch)" ]
+then
+    # Get the current hash of the position
+    OLD_POSITION=$(git log --pretty=oneline -1 | cut -d ' ' -f 1)
+fi
+
+echo "ORIGINAL POSITION : ${OLD_POSITION}"
+
+for hash in $(git log --pretty=oneline ${POM_FILE} | cut -d ' ' -f 1)
+do
+    PRE_COMMIT_VERSION=$(git checkout ${hash}~1 2>/dev/null && [ -e ${POM_FILE} ] && version ${POM_FILE} )
+    POST_COMMIT_VERSION=$(git checkout ${hash} 2>/dev/null && [ -e ${POM_FILE} ] && version ${POM_FILE} )
+
+    if [ "${PRE_COMMIT_VERSION}" != "${POST_COMMIT_VERSION}" ]
+    then
+        if [ ! -e ".git/refs/tags/${POST_COMMIT_VERSION}" ]
+        then
+            echo "making tag ${POST_COMMIT_VERSION}"
+            git tag -a "${POST_COMMIT_VERSION}" -m "${POST_COMMIT_VERSION} : Auto tagged by tag-versions ${VERSION}" ${hash}
+        elif [ "$(show-tag ${POST_COMMIT_VERSION})" != "${hash}" ]
+        then
+            SUFFIX=1
+            while [ 1 ]
+            do
+                if [ ! -e .git/refs/tags/${POST_COMMIT_VERSION}-${SUFFIX} ]
+                then
+                    echo "making tag ${POST_COMMIT_VERSION}-${SUFFIX}"
+                    git tag -a "${POST_COMMIT_VERSION}-${SUFFIX}" -m "${POST_COMMIT_VERSION}-${SUFFIX} : Auto tagged by tag-versions ${VERSION}" ${hash}
+                    break;
+                elif [ "$(show-tag ${POST_COMMIT_VERSION}-${SUFFIX})" = "${hash}" ]
+                then
+                    echo "tag ${POST_COMMIT_VERSION}-${SUFFIX} already exists and is this hash"
+                    break;
+                fi
+                SUFFIX=$((${SUFFIX} + 1))
+            done
+        fi
+    fi
+done
+
+# Restore the previous checkout point
+git checkout ${OLD_POSITION}
+
+# vim: set ai et sw=4 syntax=zsh :

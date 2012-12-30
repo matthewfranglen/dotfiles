@@ -1,0 +1,19 @@
+#!/bin/zsh
+
+# This will send a mail to myself from myself
+# 'Myself' is my work email account
+# This takes the arguments as the subject line
+# The content of the mail is read from the standard input
+
+mytext=$( cat /dev/stdin )
+subject=$( echo $* )
+
+cat << EOF | ssmtp -t
+to:matthew@sensibledevelopment.com
+from:matthew@sensibledevelopment.com
+subject:${subject:-Mailme message}
+
+${mytext}
+EOF
+
+# vim: set ai et sw=4 syntax=zsh :

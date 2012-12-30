@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+# This will format a provided certificate according to the OpenSSL requirements
+# Those requirements are:
+# 1) Starts with '-----BEGIN CERTIFICATE-----'
+# 2) Ends with   '-----END CERTIFICATE-----'
+# 3) Each line is 64 characters long, except the last line which may be shorter
+#
+# This accepts pure base64 data without the header and footer, and with.
+
+use strict;
+use warnings;
+
+my $line = join "", map { chomp; $_ } grep { ! m/-----(?:BEGIN|END) CERTIFICATE-----/ } <>;
+my $current = "";
+
+print "-----BEGIN CERTIFICATE-----\n";
+while ( $line ) {
+    ( $current, $line ) = split "(?<=.{64})", $line, 2;
+    print $current, "\n";
+}
+print "-----END CERTIFICATE-----\n";
+
+# vim: set ai et sw=4 syntax=perl :

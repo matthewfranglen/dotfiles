@@ -1,0 +1,59 @@
+#!/bin/bash
+# This will print the permission tree for a file or directory
+# the permission tree is the permissions on that file and all
+# containing directories up to the root folder
+
+VERSION='0.01'
+FILE=$1
+
+if [ "$FILE" == "" ]; then
+    FILE=`pwd`;
+elif [ "${FILE:0:1}" != "/" ]; then
+    FILE="$(pwd)/$FILE";
+fi
+
+die() {
+    echo "
+usage: permission-tree file
+Permission Tree, version $VERSION
+
+This takes the file or directory to inspect and
+will print out the permissions on that file and
+on all containing directories until the root
+directory is found.
+
+A future improvement will be to indicate changes
+in permissions or ownerships of containing folders
+using colors.
+" 1>&2
+    exit 1;
+}
+
+print() {
+    FILE=$1
+
+    ls -ld $FILE | perl -ne 'if ( m/
+                                    ([drwxs-]+)\s+          # Permissions
+                                    \d+\s+                  # A number (unknown use)
+                                    (\w+)\s+                # Owner
+                                    (\w+)\s+                # Group
+                                    \d+\s+                  # A number (size?)
+                                    \w+\s+\d+\s\d+:\d+\s+   # Date (Oct 6 10:19)
+                                    (.*)
+                                   /x ) {
+                                my ( $permissions, $owner, $group, $file ) = ( $1, $2, $3, $4 );
+                                foreach ( $owner, $group ) {
+                                    $_ .= " " x ( 10 - length($_) );
+                                }
+                                print "$permissions $owner $group $file\n";
+                            }
+                            '
+}
+
+while [ "$FILE" != "" ]; do
+    print $FILE
+    FILE=${FILE%\/*}
+done
+print /
+
+# vim: set ai et sw=4 syntax=sh :

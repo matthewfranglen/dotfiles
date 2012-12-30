@@ -1,0 +1,82 @@
+#!/bin/zsh
+
+# This takes a pom file and applies the xslt stylesheet which then prints the complete artifact id, group id, and version for the project
+# This takes the same options as the version command:
+# -h help message
+# -p [PROJECT] get the dependencies for the project specified
+# -f [FILE] get the dependencies for the file specified
+
+help () {
+    cat << EOF
+This gets the declared maven group id, artifact id, and version for the current project.
+useage: $0 options
+
+OPTIONS:
+ -h This help message
+ -p [PROJECT] get the version number for the project specified
+ -f [FILE] get the version number for the pom.xml file specified
+EOF
+}
+error () {
+    echo $1 1>&2
+    exit 1
+}
+error_multiple_poms () {
+    error "You cannot specify the pom to parse more than once"
+}
+
+FILE=
+while getopts "hnsp:f:" option
+do
+    case ${option} in
+        h)
+            help
+            exit 1
+            ;;
+        p)
+            if [ "${FILE}" != "" ]
+            then
+                error_multiple_poms
+            fi
+
+            if [ "${OPTARG:0:1}" = "/" ]
+            then
+                # Absolute path provided
+                FILE=${OPTARG}/pom.xml
+            else
+                FILE=~/Programming/Java/${OPTARG}/pom.xml
+            fi
+            ;;
+        f)
+            if [ "${FILE}" != "" ]
+            then
+                error_multiple_poms
+            fi
+
+            FILE=${OPTARG}
+            ;;
+        ?)
+            # Exit if a required parameter is missing
+            # This is things like -p [NO PROJECT SPECIFIED]
+            # From http://aplawrence.com/Unix/getopts.html
+            # If "getopts" encounters an unwanted argument, and hasn't been silenced by a leading ":", the "$flag" in our script above will be set to "?":
+            echo
+            help
+            exit 1;
+            ;;
+    esac
+done
+
+if [ "${FILE}" = "" ]
+then
+    FILE=$(pwd)/pom.xml
+fi
+
+if [ ! -e ${FILE} ]
+then
+    error "The pom.xml file specified '${FILE}' does not exist"
+fi
+
+xsltproc ${0:h}/m-get-version.xslt ${FILE}
+
+# vim: set ai et sw=4 syntax=zsh :
