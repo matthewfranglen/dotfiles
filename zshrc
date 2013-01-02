@@ -58,7 +58,7 @@ bindkey "^[." insert-last-word
 
 # add bin folder to path
 # Also add the maven path
-PATH=$PATH:${0:h}/bin:/var/lib/gems/1.8/bin:$HOME/Programming/Java/maven/maven-3/bin
+PATH=$PATH:${0:h}/bin:${0:h}/host-specific-bin:/var/lib/gems/1.8/bin:$HOME/Programming/Java/maven/maven-3/bin
 
 # Load the fasd completion system.
 # See https://github.com/clvv/fasd
