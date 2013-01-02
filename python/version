@@ -1,0 +1,103 @@
+#!/usr/bin/python
+
+# This is a way to try out the new python code that has been introduced by John.
+# This starts by just being able to read the version from a specified pom.xml file
+# Soon enough this will read the version from the pom.xml file on an arbitrary commit
+# Finally this will be able to tell if the pom changed on that commit, and if it did it will print the new version
+
+from git import Repo
+from xml.dom.minidom import parseString
+import getopt
+import sys
+import os
+
+def help():
+    print "help!"
+    sys.exit(0)
+
+def error(message):
+    print >> sys.stderr, message
+    sys.exit(1)
+
+# Gets the commit and the pom file from the command arguments
+def parse_arguments(args):
+    try:
+        opts, args = getopt.getopt(args, "hf:c:", ["help", "file=", "commit="])
+    except getopt.GetoptError, err:
+        error(err)
+
+    pomFile = None
+    commit = None
+
+    for o, a in opts:
+        if o in ("-h", "--help"):
+            help()
+        elif o in ("-f", "--file"):
+            pomFile = a
+        elif o in ("-c", "--commit"):
+            commit = a
+        else:
+            error("Unhandled option %s %s" % ( o, a ))
+
+    if pomFile is None:
+        pomFile = "pom.xml"
+
+    return { 'pomFile': pomFile, 'commit': commit }
+
+# Gets the content of the pom file
+# The git repo library is nice enough to work on any version controlled file
+# such as the pom file.
+def get_pom_content(pomFile, commit=None):
+    print pomFile
+    try:
+        repo = Repo(pomFile)
+        blob = None
+        # The pomPath is the path relative to the root of the git repository
+        # This is how the pom file content is found
+        pomPath = os.path.relpath(pomFile, os.path.dirname(pomFile))
+
+        try:
+            if commit is None:
+                blob = repo.head.commit.tree/pomPath
+            else:
+                # See if the commit is a branch
+                if commit in repo.branches:
+                    blob = repo.branches[commit].tree/pomPath
+                # See if the commit is a tag
+                if commit in repo.tags:
+                    blob = repo.tags[commit].commit.tree/pomPath
+                # Commit must be a real commit
+                else:
+                    blob = [ c for c in repo.iter_commits() if c.hexsha == commit ][0].tree/pomPath
+
+            return blob.data_stream.read()
+
+        # Was able to load the repo, so something else went wrong
+        except Exception, gitErr:
+            error("Unable to read pom file from commit")
+
+    # Was not able to load the repo, so the pom file may not be version controlled
+    except Exception, gitErr:
+        try:
+            pom = open(pomFile, 'r')
+            data = pom.read()
+            pom.close()
+
+            return data
+        except Exception, fileErr:
+            error("Unable to read pom file")
+
+def parse_pom_content(pomXML):
+    pomDOM = parseString(pomXML)
+    print [ node for node in pomDOM.documentElement.childNodes if node.localName == u'version' ][0].childNodes[0].data
+
+parse_pom_content( get_pom_content( ** parse_arguments(sys.argv[1:]) ) )
+
+# Git type commands:
+# repo = Repo("/home/matthew/Programming/Java/cottandco")
+# repo.branches.master.commit.diff(repo.branches["dev-matthew"], "pom.xml")[0].a_blob.data_stream
+
+# xml type commands:
+# dom1 = xml.dom.minidom.parse(...data_stream)
+# [ node for node in dom1.documentElement.childNodes if node.localName == u'version' ][0].childNodes[0].data
+# Be careful! Text content of nodes is held in a text type node that is the child of the current node.
