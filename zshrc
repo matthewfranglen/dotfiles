@@ -62,8 +62,8 @@ PATH=$PATH:${0:h}/bin:${0:h}/host-specific-bin:/var/lib/gems/1.8/bin:$HOME/Progr
 
 # Load the fasd completion system.
 # See https://github.com/clvv/fasd
-eval "$(fasd --init auto)"
-. $HOME/Programming/Shell/bin/fasd-j
+eval "$(${0:h}/repos/fasd/fasd --init auto)"
+. ${0:h}/bin/fasd-j
 alias j="fasd-j"
 
 # Load aliases, prompt etc
