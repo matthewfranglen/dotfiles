@@ -1,0 +1,14 @@
+# This will _J_ump to the directory that is indicated by the command
+# line arguments. This will use the fasd completion system to allow
+# a minimal specification of the destination.
+
+# You can read more about fasd here: https://github.com/clvv/fasd
+
+# This needs to be sourced as a file in order to work. Executing this
+# as a script would not do anything, and if it did, it would just change
+# directory for the subshell which executes the script - not what you
+# want.
+
+function fasd-j () {
+    cd $(fasd -d $@)
+}
