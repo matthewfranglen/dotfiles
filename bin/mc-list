@@ -1,0 +1,94 @@
+#!/bin/zsh
+
+# This lists the keys available in memcached.
+# This is meant as a utility method, rather than a production tool.
+
+# See http://code.sixapart.com/svn/memcached/trunk/server/doc/protocol.txt for a full description of the protocol
+# Whenever using nc to interface with memcached, be sure you add '-q 1' to allow for the slightly slow response.
+
+# This is based on the work started here http://www.darkcoding.net/software/memcached-list-all-keys/
+
+# Basically, the output of 'stats items' has this kind of information:
+# STAT items:10:number 2
+
+# (there is more, but that is the important part).
+# The 10 in that line is the chunk number
+# The number value is the number of keys in that chunk
+# You can then request the keys like this:
+# stats cachedump <CACHE NUMBER> <LIMIT>
+# So
+# stats cachedump 10 2
+# would return the keys for that cache
+
+
+help () {
+    cat << EOF
+This lists the keys on the memcached server.
+This is able to connect to local and remote memcached servers.
+useage: $0 options
+
+OPTIONS:
+ -h This help message
+ -H [HOST] Memcached host to connect to. Default is 127.0.0.1
+ -P [PORT] Memcached port to connect to. Default is 11211
+
+For all options the last value specified is the one used.
+EOF
+}
+error () {
+    echo $@ 1>&2
+    exit 1
+}
+
+# This prints the cache number followed by the number of entries
+memcached_item_stats () {
+    local host=$1
+    local port=$2
+
+    # -i had a problem with the quantity of output i guess, it would cut off after about the third chunk
+    # -q works better
+    echo -n "stats items\r\n" | nc -q 1 "${host}" "${port}" | sed -n '/:number/p' | sed -e 's/STAT items://' -e 's/:number//'
+}
+
+# Pipe the item stats into this
+memcached_cachedump () {
+    local host=$1
+    local port=$2
+    local count=0
+
+    while read cache number
+    do
+        echo -n "stats cachedump ${cache} ${number}\r\n" | nc -q 1 "${host}" "${port}" | sed -e '$ d' | cut -d' ' -f 2
+        count=$(perl -e "print ${count} + ${number}")
+    done
+    echo "${count} items"
+}
+
+HOST=127.0.0.1
+PORT=11211
+while getopts "hH:P:" option
+do
+    case ${option} in
+        h)
+            help
+            exit 1
+            ;;
+        H)
+            HOST=${OPTARG}
+            ;;
+        P)
+            PORT=${OPTARG}
+            ;;
+        ?)
+            # Exit if a required parameter is missing
+            # This is things like -p [NO PROJECT SPECIFIED]
+            # From http://aplawrence.com/Unix/getopts.html
+            # If "getopts" encounters an unwanted argument, and hasn't been silenced by a leading ":", the "$flag" in our script above will be set to "?":
+            echo
+            help
+            exit 1;
+            ;;
+    esac
+done
+
+memcached_item_stats "${HOST}" "${PORT}" | memcached_cachedump "${HOST}" "${PORT}"

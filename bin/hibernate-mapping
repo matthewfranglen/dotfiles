@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+# Simple script that generates the hibernate mapping for the hibernate.cfg.xml file
+# that is used in some projects.
+# This scans ONLY the CURRENT project.
+
+grep -l '@Table' **/src/main/**/*.java |
+    perl -pe 's#.*src/main/java/##; s#/#.#g; s/$\.java//;' |
+        while read class_name
+        do
+            echo "<mapping class=\"$class_name\"/>"
+        done | sort

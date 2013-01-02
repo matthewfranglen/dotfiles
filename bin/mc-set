@@ -1,0 +1,82 @@
+#!/bin/zsh
+
+# This sets a single key on memcached.
+# This is meant as a utility method, rather than a production tool.
+
+# See http://code.sixapart.com/svn/memcached/trunk/server/doc/protocol.txt for a full description of the protocol
+# Whenever using nc to interface with memcached, be sure you add '-q 1' to allow for the slightly slow response.
+
+help () {
+    cat << EOF
+This sets a key on the memcached server.
+This is able to connect to local and remote memcached servers.
+The data to set is taken from standard in.
+useage: $0 options
+
+OPTIONS:
+ -h This help message
+ -H [HOST] Memcached host to connect to. Default is 127.0.0.1
+ -P [PORT] Memcached port to connect to. Default is 11211
+ -K [KEY] Key to set.
+EOF
+}
+error () {
+    echo $@ 1>&2
+    exit 1
+}
+
+memcached_set () {
+    local key=$1
+    local host=$2
+    local port=$3
+    local data=$4
+    local length=${#data}
+
+    echo -n "set ${key} 0 0 ${length}\r\n${data}\r\n" | nc -q 1 "${host}" "${port}"
+}
+
+HOST=127.0.0.1
+PORT=11211
+KEY=
+while getopts "hH:P:K:" option
+do
+    case ${option} in
+        h)
+            help
+            exit 1
+            ;;
+        H)
+            HOST=${OPTARG}
+            ;;
+        P)
+            PORT=${OPTARG}
+            ;;
+        K)
+            KEY=${OPTARG}
+            ;;
+        ?)
+            # Exit if a required parameter is missing
+            # This is things like -p [NO PROJECT SPECIFIED]
+            # From http://aplawrence.com/Unix/getopts.html
+            # If "getopts" encounters an unwanted argument, and hasn't been silenced by a leading ":", the "$flag" in our script above will be set to "?":
+            echo
+            help
+            exit 1;
+            ;;
+    esac
+done
+
+# This bit of fiddling allows raw arguments specified on the command line to be used as a key
+# currently this just takes the first argument after the ones processed by getopts
+if [ "${KEY}" = "" ]
+then
+    if [ "${@[$OPTIND]}" != "" ]
+    then
+        KEY=${@[$OPTIND]}
+    else
+        error "You must specify a key to set"
+    fi
+fi
+
+DATA=$(cat -)
+memcached_set "${KEY}" "${HOST}" "${PORT}" "${DATA}"

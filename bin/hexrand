@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+# Simply produces a number of hexadecimal characters
+
+NUM=${1:-8}
+HALF=$((${NUM} / 2 + 1)) # remember + comes after /
+
+od -An -v -N${HALF} -tx4 < /dev/urandom 2>&1 | while read line
+do
+    echo -n ${line} 
+done | sed -e 's/ //g' | cut -c-${NUM}
