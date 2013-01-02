@@ -73,7 +73,7 @@ do
 				# Absolute path provided
 				FILE=${OPTARG}/pom.xml
 			else
-                FILE=$(pwd)/${OPTARG}/pom.xml
+				FILE=$(pwd)/${OPTARG}/pom.xml
 			fi
 			;;
 		f)
@@ -106,32 +106,59 @@ then
 	error "The pom.xml file specified '${FILE}' does not exist"
 fi
 
-VERSION=$(xsltproc $(dirname $0)/version.xslt ${FILE})
-VERSION_SUFFIX=
+# P_SNAPSHOT = Predict the next snapshot version
+# P_RELEASE = Predict the next release version
+
+# VERSION = whole current version
+# V_MAJOR = first number of current version
+# V_MINOR = second number
+# V_MICRO = last number
+# V_SUFFIX = fixed suffix for the version (includes leading -). Excludes 'SNAPSHOT'
+# V_SNAPSHOT = 'SNAPSHOT' if current version is a snapshot, blank otherwise
+
+VERSION=$(xsltproc ${SHELL_CODE_DIR}/bin/version.xslt ${FILE})
 V_MAJOR=$(echo ${VERSION} | cut -d'.' -f 1)
 V_MINOR=$(echo ${VERSION} | cut -d'.' -f 2)
 V_MICRO=$(echo ${VERSION} | cut -d'.' -f 3 | cut -d'-' -f 1)
-V_SNAPSHOT=$(echo ${VERSION} | cut -d'-' -f 2 -s)
+V_SUFFIX=
+V_SNAPSHOT=
+
+SUFFIX_SECTIONS=$(echo ${VERSION} | sed -e 's/[^-]//g' | wc -c)
+if [ ${SUFFIX_SECTIONS} -gt 1 ]
+then
+    V_SUFFIX="-$(echo ${VERSION} | cut -d'-' -f 2- )"
+    LAST_SUFFIX=$(echo ${VERSION} | cut -d'-' -f ${SUFFIX_SECTIONS})
+    if [ ${LAST_SUFFIX} == "SNAPSHOT" ]
+    then
+        if [ ${SUFFIX_SECTIONS} -gt 2 ]
+        then
+            V_SUFFIX="-$(echo ${VERSION} | cut -d'-' -f 2-$((SUFFIX_SECTIONS - 1)) )"
+        else
+            V_SUFFIX=
+        fi
+        V_SNAPSHOT="SNAPSHOT"
+    fi
+fi
 
 if [ ${P_SNAPSHOT} -ne 0 ]
 then
-	if [ "${V_SNAPSHOT}" != "" ]
+	if [ "${V_SNAPSHOT}" = "SNAPSHOT" ]
 	then
 		# If its already a snapshot version, it can remain so
-		echo ${V_MAJOR}.${V_MINOR}.${V_MICRO}-SNAPSHOT
+		echo ${V_MAJOR}.${V_MINOR}.${V_MICRO}${V_SUFFIX}-SNAPSHOT
 	else
 		# Otherwise increment the counter and snapshot it
-		echo ${V_MAJOR}.${V_MINOR}.$(( ${V_MICRO} + 1 ))-SNAPSHOT
+		echo ${V_MAJOR}.${V_MINOR}.$(( ${V_MICRO} + 1 ))${V_SUFFIX}-SNAPSHOT
 	fi
 elif [ ${P_RELEASE} -ne 0 ]
 then
-	if [ "${V_SNAPSHOT}" != "" ]
+	if [ "${V_SNAPSHOT}" = "SNAPSHOT" ]
     then
 		# If its already a snapshot then the next release is the not-snapshot of this version
-        echo ${V_MAJOR}.${V_MINOR}.${V_MICRO}
+        echo ${V_MAJOR}.${V_MINOR}.${V_MICRO}${V_SUFFIX}
     else
 		# Otherwise its one release to the next with no snapshot
-        echo ${V_MAJOR}.${V_MINOR}.$(( ${V_MICRO} + 1 ))
+        echo ${V_MAJOR}.${V_MINOR}.$(( ${V_MICRO} + 1 ))${V_SUFFIX}
     fi
 else 
 	echo ${VERSION}

@@ -22,17 +22,26 @@ zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character t
 zstyle ':completion:*' list-suffixes true
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=** r:|=**'
 zstyle ':completion:*' max-errors 0
-zstyle ':completion:*' menu select=1
+
+# This gets unambigous matches completing with a single tab
+# zstyle ':completion:*' menu select=1
+zstyle ':completion:*' menu select=2
+setopt menu_complete
+
 zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' substitute 1
 zstyle ':completion:*' use-compctl true
 zstyle ':completion:*' verbose true
-zstyle :compinstall filename '/home/orfax/.zshrc'
+zstyle :compinstall filename "$HOME/.zshrc"
 
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+# This allows control-r to be used to perform a reverse search
+bindkey -M viins '^r' history-incremental-search-backward
+bindkey -M vicmd '^r' history-incremental-search-backward
 
 # This allows exclusions and the like in the pattern expansion
 setopt extended_glob
@@ -48,7 +57,14 @@ setopt extended_glob
 bindkey "^[." insert-last-word
 
 # add bin folder to path
-PATH=$PATH:${0:h}/bin
+# Also add the maven path
+PATH=$PATH:${0:h}/bin:/var/lib/gems/1.8/bin:$HOME/Programming/Java/maven/maven-3/bin
+
+# Load the fasd completion system.
+# See https://github.com/clvv/fasd
+eval "$(fasd --init auto)"
+. $HOME/Programming/Shell/bin/fasd-j
+alias j="fasd-j"
 
 # Load aliases, prompt etc
 . ${0:h}/aliases
@@ -63,4 +79,4 @@ export GIT_EDITOR=/usr/bin/vim
 export LESS=ir
 export JAVA_HOME=/usr/lib/jvm/default-java
 
-# vim: set ai et sw=4 syntax=sh :
+# vim: set ai et sw=4 syntax=zsh :

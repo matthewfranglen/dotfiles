@@ -44,7 +44,7 @@ do
                 # Absolute path provided
                 FILE=${OPTARG}/pom.xml
             else
-                FILE=~/Programming/Java/${OPTARG}/pom.xml
+                FILE=$(pwd)/${OPTARG}/pom.xml
             fi
             ;;
         f)
@@ -77,6 +77,17 @@ then
     error "The pom.xml file specified '${FILE}' does not exist"
 fi
 
-xsltproc ${0:h}/m-get-version.xslt ${FILE}
+maven=$(xsltproc ${SHELL_CODE_DIR}/bin/m-get-version.xslt ${FILE})
+groupId=$(echo ${maven} | cut -d':' -f1)
+artifactId=$(echo ${maven} | cut -d':' -f2)
+version=$(echo ${maven} | cut -d':' -f3)
+if [[ "${groupId}" = "" && "${version}" = "" ]] && echo ${artifactId} | grep '$' >/dev/null
+then
+    artifactId=$(echo ${artifactId} | tr '.' '_')
+    new_file=$(echo ${FILE}(:h:h))/pom.xml
+    read groupId parent_artifactId version<<<$(xsltproc ~/Programming/Shell/bin/m-get-version.xslt "${new_file}" | tr ':' ' ')
+    artifactId=$(eval "echo ${artifactId}" | tr '_' '.')
+fi
+echo "${groupId}:${artifactId}:${version}"
 
 # vim: set ai et sw=4 syntax=zsh :

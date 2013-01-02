@@ -10,70 +10,73 @@
 
 # This (obviously) depends on having the version script available
 
-VERSION="0.0.2"
+VERSION="0.1.0"
+MANY_TAGS=1
+# MANY_TAGS indicates if multiple tags for a given version should be created (like 1.0.0, 1.0.0-1, 1.0.0-2...)
+# bash truthiness, 0 = true, !0 = false.
 
 # The pom file to track can be specified as the only argument on the command line
 PROJECT=$(pwd)
-POM_FILE=${PROJECT}/${1:-pom.xml}
+POM_FILE=${1:-pom.xml}
 
 # This shows the hash that the given tag refers to
 # This is used to prevent recreating existing tags
-function show-tag() {
+function show_tag() {
     local tag_name=${1}
 
-    if [ ! -e .git/refs/tags/${tag_name} ]
-    then
-        echo ""
-    else
-        echo "$(git cat-file -p $(cat .git/refs/tags/${tag_name}) | head -n 1 | cut -d ' ' -f 2)"
-    fi 
+    git show-ref ${tag_name} | cut -d' ' -f1
+}
+
+# This verifies that the tag exists
+# If this returns 0 then the tag exists
+function tag_exists() {
+    local tag_name=${1}
+
+    git show-ref ${tag_name} | grep 'refs/tags' 2>&1 >/dev/null
+}
+
+# This creates a tag for the sha provided
+# This assumes that you have confirmed the tag is not a duplicate and the sha has not been tagged already
+function make_tag() {
+    local sha=${1}
+    local version=${2}
+
+    echo "making tag ${version}"
+    git tag -a "${version}" -m "${version} : Auto tagged by tag-versions ${VERSION}" ${sha}
+}
+
+# This takes all of the sha and version combos that show-versions produces
+# This then processes each line to see if it is appropriate to create a tag
+# for that entry.
+function handle_tags() {
+    while read sha version
+    do
+        if tag_exists "${version}"
+        then
+            if [ ${MANY_TAGS} -eq 0 ]
+            then
+                if [ "${sha}" = "$(show_tag '${version}')" ]
+                then
+                    echo "Tag ${version} exists and is this hash"
+                else
+                    count=-1
+                    while tag_exists "${version}${count}"
+                    do
+                        ;
+                    done
+                    make_tag "${sha}" "${version}${count}"
+                fi
+            else
+                echo "Tag ${version} exists"
+            fi
+        else
+            make_tag "${sha}" "${version}"
+        fi
+    done
 }
 
 cd ${PROJECT}
 
-OLD_POSITION=$(git branch | fgrep '*' | cut -d ' ' -f 2-) # This gets the branch name
-
-if [ "${OLD_POSITION}" = "(no branch)" ]
-then
-    # Get the current hash of the position
-    OLD_POSITION=$(git log --pretty=oneline -1 | cut -d ' ' -f 1)
-fi
-
-echo "ORIGINAL POSITION : ${OLD_POSITION}"
-
-for hash in $(git log --pretty=oneline ${POM_FILE} | cut -d ' ' -f 1)
-do
-    PRE_COMMIT_VERSION=$(git checkout ${hash}~1 2>/dev/null && [ -e ${POM_FILE} ] && version ${POM_FILE} )
-    POST_COMMIT_VERSION=$(git checkout ${hash} 2>/dev/null && [ -e ${POM_FILE} ] && version ${POM_FILE} )
-
-    if [ "${PRE_COMMIT_VERSION}" != "${POST_COMMIT_VERSION}" ]
-    then
-        if [ ! -e ".git/refs/tags/${POST_COMMIT_VERSION}" ]
-        then
-            echo "making tag ${POST_COMMIT_VERSION}"
-            git tag -a "${POST_COMMIT_VERSION}" -m "${POST_COMMIT_VERSION} : Auto tagged by tag-versions ${VERSION}" ${hash}
-        elif [ "$(show-tag ${POST_COMMIT_VERSION})" != "${hash}" ]
-        then
-            SUFFIX=1
-            while [ 1 ]
-            do
-                if [ ! -e .git/refs/tags/${POST_COMMIT_VERSION}-${SUFFIX} ]
-                then
-                    echo "making tag ${POST_COMMIT_VERSION}-${SUFFIX}"
-                    git tag -a "${POST_COMMIT_VERSION}-${SUFFIX}" -m "${POST_COMMIT_VERSION}-${SUFFIX} : Auto tagged by tag-versions ${VERSION}" ${hash}
-                    break;
-                elif [ "$(show-tag ${POST_COMMIT_VERSION}-${SUFFIX})" = "${hash}" ]
-                then
-                    echo "tag ${POST_COMMIT_VERSION}-${SUFFIX} already exists and is this hash"
-                    break;
-                fi
-                SUFFIX=$((${SUFFIX} + 1))
-            done
-        fi
-    fi
-done
-
-# Restore the previous checkout point
-git checkout ${OLD_POSITION}
+show-versions -p "${PROJECT}" -f "${POM_FILE}" | handle_tags
 
 # vim: set ai et sw=4 syntax=zsh :

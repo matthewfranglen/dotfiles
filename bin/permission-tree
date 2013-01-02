@@ -33,12 +33,12 @@ print() {
     FILE=$1
 
     ls -ld $FILE | perl -ne 'if ( m/
-                                    ([drwxs-]+)\s+          # Permissions
-                                    \d+\s+                  # A number (unknown use)
-                                    (\w+)\s+                # Owner
-                                    (\w+)\s+                # Group
-                                    \d+\s+                  # A number (size?)
-                                    \w+\s+\d+\s\d+:\d+\s+   # Date (Oct 6 10:19)
+                                    ([drwxs-]+)\s+                                    # Permissions
+                                    \d+\s+                                            # A number (unknown use)
+                                    (\w+)\s+                                          # Owner
+                                    (\w+)\s+                                          # Group
+                                    \d+\s+                                            # A number (size?)
+                                    (?:\w+\s+\d+\s\d+:\d+\s+|\d+-\d+-\d+\s+\d+:\d+)   # Date (Oct 6 10:19)(2011-11-27 18:58)
                                     (.*)
                                    /x ) {
                                 my ( $permissions, $owner, $group, $file ) = ( $1, $2, $3, $4 );

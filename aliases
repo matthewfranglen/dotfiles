@@ -7,4 +7,7 @@ alias la='ls -a'
 alias lal='ls -al'
 alias lla='ls -al'
 
+# Quick way to notify me of events with a memorable name
+alias say='notify-send'
+
 # vim: set ai et sw=4 syntax=zsh :
