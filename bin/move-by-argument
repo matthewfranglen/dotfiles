@@ -1,0 +1,70 @@
+#!/bin/zsh
+
+# From http://superuser.com/questions/541366/way-to-move-cursor-by-arguments-in-bash
+# Awesome answer by a really handsome guy!
+
+# This creates two ZSH widgets that can be used to move around the current line
+# by argument. The names of them are:
+# my_move_forwards
+# my_move_backwards
+
+function move_word {
+    local direction=$1
+
+    buffer=$BUFFER
+    words=${(z)buffer}
+    index=1
+    old_index=0
+    for word in $words[@]
+    do
+        if [[ ! ${buffer} =~ ${${(q)word}:gs#\\\'#\'#} ]]
+        then
+            echo "Something strange happened... no match for current word $word in $buffer"
+            return 1
+        fi
+
+        old_length=${#buffer}
+        buffer=${buffer[$MEND,-1]}
+        new_length=${#buffer}
+        index=$(($index + $old_length - $new_length))
+
+        case "$direction" in
+            forward)
+                if [[ $old_index -le $CURSOR && $index -gt $CURSOR ]]
+                then
+                    CURSOR=$index
+                    return
+                fi
+                ;;
+            backward)
+                if [[ $old_index -lt $CURSOR && $index -ge $CURSOR ]]
+                then
+                    CURSOR=$old_index
+                    return
+                fi
+                ;;
+        esac
+        old_index=$index
+    done
+    case "$direction" in
+        forward)
+            CURSOR=${#BUFFER}
+            ;;
+        backward)
+            CURSOR=0
+            ;;
+    esac
+}
+
+function move_forward_word {
+    move_word "forward"
+}
+
+function move_backward_word {
+    move_word "backward"
+}
+
+zle -N my_move_backwards move_backward_word
+zle -N my_move_forwards move_forward_word
+
+# vim: set ai et sw=4 syntax=zsh :

@@ -70,6 +70,12 @@ alias j="fasd-j"
 . ${0:h}/aliases
 . ${0:h}/prompt
 
+# Move by argument
+. ${0:h}/bin/move-by-argument
+bindkey '^j' my_move_backwards
+bindkey '^k' my_move_forwards
+
+
 # Editor stuff
 
 export VISUAL=/usr/bin/vim
