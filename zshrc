@@ -35,6 +35,8 @@ zstyle ':completion:*' use-compctl true
 zstyle ':completion:*' verbose true
 zstyle :compinstall filename "$HOME/.zshrc"
 
+fpath=(${0:h}/autocomplete $fpath)
+
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
