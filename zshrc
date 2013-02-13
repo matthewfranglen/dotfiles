@@ -22,12 +22,7 @@ zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character t
 zstyle ':completion:*' list-suffixes true
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=** r:|=**'
 zstyle ':completion:*' max-errors 0
-
-# This gets unambigous matches completing with a single tab
-# zstyle ':completion:*' menu select=1
 zstyle ':completion:*' menu select=2
-setopt menu_complete
-
 zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' substitute 1
