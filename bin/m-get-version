@@ -77,7 +77,7 @@ then
     error "The pom.xml file specified '${FILE}' does not exist"
 fi
 
-maven=$(xsltproc ${SHELL_CODE_DIR}/bin/m-get-version.xslt ${FILE})
+maven=$(xsltproc ${0:h:A}/m-get-version.xslt ${FILE})
 groupId=$(echo ${maven} | cut -d':' -f1)
 artifactId=$(echo ${maven} | cut -d':' -f2)
 version=$(echo ${maven} | cut -d':' -f3)

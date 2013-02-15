@@ -116,7 +116,7 @@ fi
 # V_SUFFIX = fixed suffix for the version (includes leading -). Excludes 'SNAPSHOT'
 # V_SNAPSHOT = 'SNAPSHOT' if current version is a snapshot, blank otherwise
 
-VERSION=$(xsltproc ${SHELL_CODE_DIR}/bin/version.xslt ${FILE})
+VERSION=$(xsltproc $(readlink -f $(dirname $0))/version.xslt ${FILE})
 V_MAJOR=$(echo ${VERSION} | cut -d'.' -f 1)
 V_MINOR=$(echo ${VERSION} | cut -d'.' -f 2)
 V_MICRO=$(echo ${VERSION} | cut -d'.' -f 3 | cut -d'-' -f 1)
