@@ -23,10 +23,19 @@ PS1='%{%(?.$PR_GREEN.$PR_RED)%}[ %! ] [ %* ]%{$PR_NO_COLOR%} %# '
 RPS1='%{$PR_BLUE%}[ %~ ] [ %m ]%{$PR_NO_COLOR%}'
 
 # Set screen window title
-case "$TERM" in
-screen)
-  precmd() { echo -ne "\033k[ $USER@$HOST ] [ $PWD ]\033\\" }
-  ;;
-esac
+# Now setting it to be ssh style, to be a little more compact
+# TMux is a little different, so I am disabling this when tmux is enabled.
+# $TERM in tmux is screen, so it has to be done using the $TMUX variable instead.
+# http://unix.stackexchange.com/questions/10689/how-can-i-tell-if-im-in-a-tmux-session-from-a-bash-script
+# -z = true if string is zero length
+# -n = true if string is non-zero length
+if [ -z "$TMUX" ]
+then
+    case "$TERM" in
+        screen)
+            precmd() { echo -ne "\033k${USER}@${HOST}:${PWD}\033\\" }
+            ;;
+    esac
+fi
 
 # vim: set ai et sw=4 syntax=zsh :
