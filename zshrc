@@ -53,6 +53,10 @@ setopt extended_glob
 # Extra key mappings
 bindkey "^[." insert-last-word
 
+# Disable ctrl-s ctrl-q (suspend, resume. frequently really really annoying!)
+# http://geekanova.blogspot.co.uk/2012/11/ctrl-s-freezes-terminal.html
+stty -ixon -ixoff
+
 # keyboard mappings
 xmodmap ${0:h}/keymapping
 
