@@ -3,20 +3,27 @@
 # A very simple Bash script to download a YouTube video
 # and extract the music file from it.
 
-address=$1
-regex='v=(.*)'
+function download () {
+    local address=$1
+    regex='v=(.*)'
 
-if [[ $address =~ $regex ]]; then
-    video_id=$(echo ${BASH_REMATCH[1]} | cut -d'&' -f1)
-    video_title="$(youtube-dl --get-title $address)"
+    if [[ $address =~ $regex ]]; then
+        video_id=$(echo ${BASH_REMATCH[1]} | cut -d'&' -f1)
+        video_title="$(youtube-dl --get-title $address)"
 
-    youtube-dl $address
-    ffmpeg -i $video_id.* "$video_title".wav
-    lame "$video_title".wav "$video_title".mp3
+        youtube-dl $address
+        ffmpeg -i $video_id.* "$video_title".wav
+        lame "$video_title".wav "$video_title".mp3
 
-    rm $video_id.* "$video_title".wav
-else
-    echo "That youtube address does not appear valid"
-fi
+        rm $video_id.* "$video_title".wav
+    else
+        echo "The address '$address' does not appear valid"
+    fi
+}
+
+for address in $@
+do
+    download "${address}"
+done
 
 # vim: set ai et sw=4 syntax=sh :
