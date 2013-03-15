@@ -57,8 +57,10 @@ bindkey "^[." insert-last-word
 # http://geekanova.blogspot.co.uk/2012/11/ctrl-s-freezes-terminal.html
 stty -ixon -ixoff
 
-# keyboard mappings
-xmodmap ${0:h}/keymapping
+# keyboard mappings.
+# Don't want to run this on remote hosts!
+# This updates X!
+[ -z "$SSH_CONNECTION" ] && xmodmap ${0:h}/keymapping
 
 # add bin folder to path
 # Also add the maven path
