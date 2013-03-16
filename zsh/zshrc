@@ -88,4 +88,7 @@ export GIT_EDITOR=/usr/bin/vim
 export LESS=ir
 export JAVA_HOME=/usr/lib/jvm/default-java
 
+# Changes solarized coloring
+# export TERM=screen-256color-bce
+
 # vim: set ai et sw=4 syntax=zsh :

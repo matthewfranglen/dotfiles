@@ -21,4 +21,4 @@
 	url = git://github.com/altercation/vim-colors-solarized.git
 [submodule "zsh/packages/mate-terminal-colors-solarized"]
 	path = zsh/packages/mate-terminal-colors-solarized
-	url = https://github.com/michelefoga/mate-terminal-colors-solarized.git
+	url = git://github.com/michelefoga/mate-terminal-colors-solarized.git

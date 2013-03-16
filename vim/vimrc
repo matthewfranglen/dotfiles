@@ -11,3 +11,11 @@ set shiftwidth=4
 
 " http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
 let NERDTreeIgnore = ['\.pyc$']
+
+syntax enable
+set background=dark
+colorscheme solarized
+
+" Convince Vim it can use 256 colors inside Gnome Terminal.
+" Needs CSApprox plugin
+set t_Co=256
