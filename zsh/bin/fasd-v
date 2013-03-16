@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# This will edit, with vim, the file that is indicated by the command
-# line arguments. This will use the fasd completion system to allow
-# a minimal specification of the file.
-
-# You can read more about fasd here: https://github.com/clvv/fasd
-
-vim $(fasd -f $@)
