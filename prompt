@@ -19,8 +19,8 @@ setopt prompt_subst
 # The shell currently is [ history number ] [ time ] %         [ path ] [ host ]
 # Green if the last command was good, red otherwise
 
-PS1='%{%(?.$PR_GREEN.$PR_RED)%}[ %! ] [ %* ]%{$PR_NO_COLOR%} %# '
-RPS1='%{$PR_BLUE%}[ %~ ] [ %m ]%{$PR_NO_COLOR%}'
+PS1='%{%(?.$PR_GREEN.$PR_RED)%}%# %{$PR_NO_COLOR%}'
+RPS1='%{$PR_BLUE%}[ %* ] [ %~ ] [ %m ]%{$PR_NO_COLOR%}'
 
 # Set screen window title
 # Now setting it to be ssh style, to be a little more compact
