@@ -60,7 +60,7 @@ stty -ixon -ixoff
 # keyboard mappings.
 # Don't want to run this on remote hosts!
 # This updates X!
-[ -z "$SSH_CONNECTION" ] && xmodmap ${0:h}/keymapping
+[ -z "$SSH_CONNECTION" ] && xmodmap ${0:h}/config/keymapping
 
 # add bin folder to path
 # Also add the maven path
@@ -68,13 +68,13 @@ PATH=$PATH:${0:h}/bin:${0:h}/host-specific-bin:/var/lib/gems/1.8/bin:$HOME/Progr
 
 # Load the fasd completion system.
 # See https://github.com/clvv/fasd
-eval "$(${0:h}/repos/fasd/fasd --init auto)"
+eval "$(${0:h}/packages/fasd --init auto)"
 . ${0:h}/bin/fasd-j
 alias j="fasd-j"
 
 # Load aliases, prompt etc
-. ${0:h}/aliases
-. ${0:h}/prompt
+. ${0:h}/config/aliases
+. ${0:h}/config/prompt
 
 # Move by argument
 . ${0:h}/bin/move-by-argument
