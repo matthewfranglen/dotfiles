@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+echo ". ${0:h:A}/zsh/zshrc" > ~/.zshrc
+ln -s   ${0:h:A}/tmux.conf    ~/.tmux.conf
+ln -s   ${0:h:A}/vim          ~/.vim
+ln -s   ${0:h:A}/vim/vimrc    ~/.vimrc
+
+# vim: set ai et sw=4 syntax=zsh :
