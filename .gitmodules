@@ -10,3 +10,15 @@
 [submodule "vim/bundle/vim-dart"]
 	path = vim/bundle/vim-dart
 	url = git://github.com/bartekd/vim-dart.git
+[submodule "vim/bundle/pyflakes"]
+	path = vim/bundle/pyflakes
+	url = git://github.com/kevinw/pyflakes-vim.git
+[submodule "vim/bundle/fugitive"]
+	path = vim/bundle/fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule "vim/bundle/solarized"]
+	path = vim/bundle/solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule "zsh/packages/mate-terminal-colors-solarized"]
+	path = zsh/packages/mate-terminal-colors-solarized
+	url = https://github.com/michelefoga/mate-terminal-colors-solarized.git
