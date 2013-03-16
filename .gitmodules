@@ -1,3 +1,12 @@
 [submodule "zsh/packages/fasd"]
 	path = zsh/packages/fasd
 	url = https://github.com/clvv/fasd.git
+[submodule "vim/bundle/nerdtree"]
+	path = vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "vim/bundle/tabular"]
+	path = vim/bundle/tabular
+	url = git://github.com/godlygeek/tabular.git
+[submodule "vim/bundle/vim-dart"]
+	path = vim/bundle/vim-dart
+	url = git://github.com/bartekd/vim-dart.git
