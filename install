@@ -1,9 +1,10 @@
 #!/bin/zsh
 
-for source target in ${0:h:A}/zsh/zshrc ~/.zshrc     \
-                     ${0:h:A}/tmux.conf ~/.tmux.conf \
+[ ! -e ~/.zshrc ] && echo ". ${0:h:A}/zsh/zshrc" >> ~/.zshrc || echo "~/.zshrc already exists, skipping"
+
+for source target in ${0:h:A}/tmux.conf ~/.tmux.conf \
                      ${0:h:A}/vim       ~/.vim       \
-                     ${0:h:A}/vimrc     ~/.vimrc
+                     ${0:h:A}/vim/vimrc ~/.vimrc
 do
     if [ -e ${target} ]
     then

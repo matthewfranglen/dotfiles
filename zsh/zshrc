@@ -30,7 +30,7 @@ zstyle ':completion:*' use-compctl true
 zstyle ':completion:*' verbose true
 zstyle :compinstall filename "$HOME/.zshrc"
 
-fpath=(${0:h}/autocomplete $fpath)
+fpath=(${0:h:A}/autocomplete $fpath)
 
 autoload -Uz compinit
 compinit
@@ -63,7 +63,7 @@ stty -ixon -ixoff
 [ -z "$SSH_CONNECTION" ] && xmodmap ${0:h}/config/keymapping
 
 # add bin folder to path
-PATH=$PATH:${0:h}/bin:${0:h}/host-specific-bin:${0:h}/packages/fasd
+PATH=$PATH:${0:h:A}/bin:${0:h:A}/host-specific-bin:${0:h:A}/packages/fasd
 
 # Load the fasd completion system.
 # See https://github.com/clvv/fasd
