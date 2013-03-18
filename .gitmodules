@@ -22,3 +22,6 @@
 [submodule "zsh/packages/mate-terminal-colors-solarized"]
 	path = zsh/packages/mate-terminal-colors-solarized
 	url = git://github.com/michelefoga/mate-terminal-colors-solarized.git
+[submodule "vim/bundle/vim-xpath"]
+	path = vim/bundle/vim-xpath
+	url = git://github.com/actionshrimp/vim-xpath.git
