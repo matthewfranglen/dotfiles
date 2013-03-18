@@ -1,5 +1,10 @@
 # This adds additional functionality to the zsh above and beyond the default settings
 
+# $0 does not work if this is symlinked. Essentially the script is not invoked or sourced
+# see http://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
+ZSHRC=${ZDOTDIR-~}/.zshrc
+ZSH_FOLDER=${ZSHRC:A:h}
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -30,7 +35,7 @@ zstyle ':completion:*' use-compctl true
 zstyle ':completion:*' verbose true
 zstyle :compinstall filename "$HOME/.zshrc"
 
-fpath=(${0:h:A}/autocomplete $fpath)
+fpath=(${ZSH_FOLDER}/autocomplete $fpath)
 
 autoload -Uz compinit
 compinit
@@ -60,21 +65,21 @@ stty -ixon -ixoff
 # keyboard mappings.
 # Don't want to run this on remote hosts!
 # This updates X!
-[ -z "$SSH_CONNECTION" ] && xmodmap ${0:h}/config/keymapping
+[ -z "$SSH_CONNECTION" ] && xmodmap ${ZSH_FOLDER}/config/keymapping
 
 # add bin folder to path
-PATH=$PATH:${0:h:A}/bin:${0:h:A}/host-specific-bin:${0:h:A}/packages/fasd
+PATH=$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin:${ZSH_FOLDER}/packages/fasd
 
 # Load the fasd completion system.
 # See https://github.com/clvv/fasd
-eval "$(${0:h}/packages/fasd/fasd --init auto)"
+eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
 
 # Load aliases, prompt etc
-. ${0:h}/config/aliases
-. ${0:h}/config/prompt
+. ${ZSH_FOLDER}/config/aliases
+. ${ZSH_FOLDER}/config/prompt
 
 # Move by argument
-. ${0:h}/bin/move-by-argument
+. ${ZSH_FOLDER}/bin/move-by-argument
 bindkey '^j' my_move_backwards
 bindkey '^k' my_move_forwards
 

@@ -1,17 +1,17 @@
 #!/bin/zsh
 
-[ ! -e ~/.zshrc ] && echo ". ${0:h:A}/zsh/zshrc" >> ~/.zshrc || echo "~/.zshrc already exists, skipping"
-
-for source target in ${0:h:A}/tmux.conf ~/.tmux.conf \
-                     ${0:h:A}/vim       ~/.vim       \
-                     ${0:h:A}/vim/vimrc ~/.vimrc
+for folder in ${0:A:h}/*/files(:h)
 do
-    if [ -e ${target} ]
-    then
-        echo "${target} already exists, skipping"
-    else
-        ln -s ${source} ${target}
-    fi
+    for file link in $(cat ${folder}/files)
+    do
+        if [[ -e ${~link} || -h ${~link} ]]
+            # Apparently symlinks don't pass the -e test, dirs do
+        then
+            echo "$link exists, skipping"
+        else
+            ln -s ${folder}/${file} ${~link}
+        fi
+    done
 done
 
 return 0
