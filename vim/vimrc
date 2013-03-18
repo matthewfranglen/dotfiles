@@ -9,6 +9,10 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
+" I tried lots of different things (like putting swap files in /tmp) but
+" really, just die swap files. DIE!
+set noswapfile
+
 " http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
 let NERDTreeIgnore = ['\.pyc$']
 
