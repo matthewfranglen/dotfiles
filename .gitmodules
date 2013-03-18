@@ -28,3 +28,6 @@
     ignore = dirty
     # See http://stackoverflow.com/questions/7993413/git-submodules-with-modified-and-untracked-content-why-and-how-to-remove-it
     # This module will generate a tags file which will trigger the dirtyness
+[submodule "vim/bundle/kwbdi"]
+	path = vim/bundle/kwbdi
+	url = git://github.com/vim-scripts/kwbdi.vim.git
