@@ -25,3 +25,6 @@
 [submodule "vim/bundle/vim-xpath"]
 	path = vim/bundle/vim-xpath
 	url = git://github.com/actionshrimp/vim-xpath.git
+    ignore = dirty
+    # See http://stackoverflow.com/questions/7993413/git-submodules-with-modified-and-untracked-content-why-and-how-to-remove-it
+    # This module will generate a tags file which will trigger the dirtyness
