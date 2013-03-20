@@ -25,12 +25,6 @@
 [submodule "vim/bundle/kwbdi"]
 	path = vim/bundle/kwbdi
 	url = git://github.com/vim-scripts/kwbdi.vim.git
-[submodule "zsh/packages/repos/https-COLON--SLASH--SLASH-github.com-SLASH-clvv-SLASH-fasd.git"]
-	path = zsh/packages/repos/https-COLON--SLASH--SLASH-github.com-SLASH-clvv-SLASH-fasd.git
-	url = https://github.com/clvv/fasd.git
-[submodule "zsh/packages/repos/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-syntax-highlighting.git"]
-	path = zsh/packages/repos/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-syntax-highlighting.git
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "zsh/antigen"]
 	path = zsh/antigen
 	url = git://github.com/zsh-users/antigen.git
