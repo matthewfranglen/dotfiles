@@ -72,7 +72,6 @@ PATH=$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
 
 # load antigen. I might stop trying to submodule all this crap at some point.
 . ${ZSH_FOLDER}/antigen/antigen.zsh
-antigen-bundle clvv/fasd
 antigen-bundle zsh-users/zsh-syntax-highlighting
 antigen-apply
 
