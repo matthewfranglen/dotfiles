@@ -3,13 +3,21 @@
 # A very simple Bash script to download a YouTube video
 # and extract the music file from it.
 
+function title () {
+    # Only / and \0 are invalid in linux filenames.
+    # / is the path separator.
+    # \0 is the terminator.
+    # See http://unix.stackexchange.com/questions/36734/is-there-a-way-to-detect-null-bytes-nul-0-in-sed for \0 handling
+    youtube-dl --get-title $1 | sed -e 's#/##g' -e 's/\x00//g'
+}
+
 function download () {
     local address=$1
     regex='v=(.*)'
 
     if [[ $address =~ $regex ]]; then
         video_id=$(echo ${BASH_REMATCH[1]} | cut -d'&' -f1)
-        video_title="$(youtube-dl --get-title $address)"
+        video_title="$(title $address)"
 
         youtube-dl $address
         ffmpeg -i $video_id.* "$video_title".wav
