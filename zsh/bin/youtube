@@ -20,10 +20,11 @@ function download () {
         video_title="$(title $address)"
 
         youtube-dl $address
-        ffmpeg -i $video_id.* "$video_title".wav
-        lame "$video_title".wav "$video_title".mp3
 
-        rm $video_id.* "$video_title".wav
+        # Using ./ handles filenames that begin with -
+        ffmpeg -i ./$video_id.*        ./"$video_title".wav
+        lame      ./"$video_title".wav ./"$video_title".mp3
+        rm        ./$video_id.*        ./"$video_title".wav
     else
         echo "The address '$address' does not appear valid"
     fi
