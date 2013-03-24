@@ -65,3 +65,8 @@ nnoremap ; :
 
 " Make mouse middle click paste without formatting it.
 map <MouseMiddle> <Esc>"*p
+
+" Ctrl-J now adds a newline (without going into insert), so it is the reverse
+" of Shift-J. See:
+" http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
+nnoremap <C-J> a<CR><Esc>k$
