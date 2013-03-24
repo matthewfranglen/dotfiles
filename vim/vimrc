@@ -1,10 +1,18 @@
+""""""""""""
+" PATHOGEN "
+""""""""""""
+
 call pathogen#infect()
 call pathogen#helptags()
+
+""""""""""""
+" SETTINGS "
+""""""""""""
+
 syntax on
 filetype plugin indent on
 
 set modeline
-
 set expandtab
 set tabstop=4
 set shiftwidth=4
@@ -16,7 +24,10 @@ set noswapfile
 " http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
 let NERDTreeIgnore = ['\.pyc$']
 
-syntax enable
+""""""""""
+" COLORS "
+""""""""""
+
 set background=dark
 colorscheme solarized
 
@@ -24,6 +35,9 @@ colorscheme solarized
 " Needs CSApprox plugin
 set t_Co=256
 
+""""""""""""""
+" KEYMAPPING "
+""""""""""""""
 
 " Left/Right arrow keys change buffers in all modes
 noremap  <Left> <Esc>:bp<CR>
