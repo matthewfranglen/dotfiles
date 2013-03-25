@@ -1,1 +1,3 @@
-tmux.conf ~/.tmux.conf
+tmux.conf        ~/.tmux.conf
+tmux-powerlinerc ~/.tmux-powerlinerc
+packages         ~/.tmux

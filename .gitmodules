@@ -40,3 +40,6 @@
 [submodule "irssi/scripts/znxster"]
 	path = irssi/scripts/znxster
 	url = git://github.com/znxster/irssi-scripts.git
+[submodule "tmux/packages/tmux-powerline"]
+	path = tmux/packages/tmux-powerline
+	url = git://github.com/erikw/tmux-powerline.git
