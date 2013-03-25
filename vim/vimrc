@@ -79,4 +79,5 @@ nnoremap <C-J> a<CR><Esc>k$
 " BUNDLE SETTINGS "
 """""""""""""""""""
 
+set rtp+=~/.tmux/packages/powerline/powerline/bindings/vim
 let g:Powerline_symbols = 'unicode'
