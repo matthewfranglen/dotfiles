@@ -52,6 +52,6 @@
 [submodule "tmux/packages/rainbarf"]
 	path = tmux/packages/rainbarf
 	url = git://github.com/creaktive/rainbarf.git
-[submodule "zsh/packages/powerline"]
-	path = zsh/packages/powerline
+[submodule "tmux/packages/powerline"]
+	path = tmux/packages/powerline
 	url = git://github.com/Lokaltog/powerline.git
