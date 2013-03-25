@@ -9,6 +9,7 @@ do
         then
             echo "$link exists, skipping"
         else
+            [ ! -d ${~link:h} ] && mkdir -p ${~link:h}
             ln -s ${folder}/${file} ${~link}
         fi
     done
