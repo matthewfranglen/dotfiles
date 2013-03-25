@@ -31,3 +31,12 @@
 [submodule "zsh/packages/fasd"]
 	path = zsh/packages/fasd
 	url = git://github.com/clvv/fasd.git
+[submodule "irssi/scripts/wertarbyte"]
+	path = irssi/scripts/wertarbyte
+	url = git://github.com/wertarbyte/irssi-scripts.git
+[submodule "irssi/scripts/libnotify"]
+	path = irssi/scripts/libnotify
+	url = https://code.google.com/p/irssi-libnotify/
+[submodule "irssi/scripts/znxster"]
+	path = irssi/scripts/znxster
+	url = git://github.com/znxster/irssi-scripts.git
