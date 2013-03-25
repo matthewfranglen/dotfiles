@@ -1,3 +1,4 @@
 .*.swp
 host-specific-bin
 vim/.netrwhist
+irssi/config
