@@ -46,9 +46,6 @@
 [submodule "fonts/packages/powerline-fonts"]
 	path = fonts/packages/powerline-fonts
 	url = git://github.com/Lokaltog/powerline-fonts.git
-[submodule "vim/bundle/vim-powerline"]
-	path = vim/bundle/vim-powerline
-	url = git://github.com/Lokaltog/vim-powerline.git
 [submodule "tmux/packages/rainbarf"]
 	path = tmux/packages/rainbarf
 	url = git://github.com/creaktive/rainbarf.git
