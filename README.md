@@ -1,9 +1,6 @@
 dot files
 =========
 
-Introduction
-------------
-
 This is my current set of dotfiles.
 
 
