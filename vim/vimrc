@@ -74,3 +74,9 @@ map <MouseMiddle> <Esc>"*p
 " of Shift-J. See:
 " http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
 nnoremap <C-J> a<CR><Esc>k$
+
+"""""""""""""""""""
+" BUNDLE SETTINGS "
+"""""""""""""""""""
+
+let g:Powerline_symbols = 'unicode'
