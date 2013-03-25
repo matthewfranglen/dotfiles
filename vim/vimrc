@@ -17,6 +17,10 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
+set nocompatible   " Disable vi-compatibility
+set laststatus=2   " Always show the statusline
+set encoding=utf-8 " Necessary to show Unicode glyphs
+
 " I tried lots of different things (like putting swap files in /tmp) but
 " really, just die swap files. DIE!
 set noswapfile
