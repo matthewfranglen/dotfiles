@@ -68,7 +68,7 @@ stty -ixon -ixoff
 [ -z "$SSH_CONNECTION" ] && xmodmap ${ZSH_FOLDER}/config/keymapping
 
 # add bin folder to path
-PATH=$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
+PATH=$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin:~/.local/bin/
 
 # load antigen. I might stop trying to submodule all this crap at some point.
 . ${ZSH_FOLDER}/antigen/antigen.zsh
