@@ -1,3 +1,1 @@
-tmux.conf        ~/.tmux.conf
-packages         ~/.tmux
-config/powerline ~/.config/powerline
+tmux.conf ~/.tmux.conf

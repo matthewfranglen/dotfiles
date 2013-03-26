@@ -43,3 +43,6 @@
 [submodule "fonts/packages/powerline-fonts"]
 	path = fonts/packages/powerline-fonts
 	url = git://github.com/Lokaltog/powerline-fonts.git
+[submodule "powerline/packages/powerline"]
+	path = powerline/packages/powerline
+	url = git://github.com/Lokaltog/powerline.git
