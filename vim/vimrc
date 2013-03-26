@@ -79,4 +79,4 @@ nnoremap <C-J> a<CR><Esc>k$
 " BUNDLE SETTINGS "
 """""""""""""""""""
 
-set rtp+=~/.tmux/powerline/powerline/bindings/vim
+set rtp+=~/.powerline/powerline/bindings/vim
