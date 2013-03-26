@@ -21,10 +21,6 @@
 	"segments": {
 		"right": [
 			{
-				"name": "uptime",
-				"priority": 50
-			},
-			{
 				"name": "network_load",
 				"priority": 50
 			},
