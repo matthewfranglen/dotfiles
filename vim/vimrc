@@ -75,6 +75,9 @@ map <MouseMiddle> <Esc>"*p
 " http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
 nnoremap <C-J> a<CR><Esc>k$
 
+" Ctrl-F now formats perl scripts with perltidy
+map <C-F> :1,$!perltidy<CR> 
+
 """""""""""""""""""
 " BUNDLE SETTINGS "
 """""""""""""""""""
