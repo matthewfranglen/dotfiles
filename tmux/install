@@ -1,7 +1,0 @@
-#!/bin/sh
-# This installs the powerline command.
-# This needs to be run after the install script at the root of this repository.
-
-pip install --user git+git://github.com/Lokaltog/powerline
-# fontforge can create new compatible fonts, see https://powerline.readthedocs.org/en/latest/fontpatching.html
-# sudo apt-get install python-fontforge
