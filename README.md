@@ -12,6 +12,9 @@ The install command does not delete any files, and will indicate any
 existing files. This allows you to delete (or move) some files and then
 try out some specific parts of this.
 
+This works best on mate-terminal. Konqueror has also been tested, but
+some minor graphical artifacts with the tmux powerline were found.
+
 
 Modules
 -------
