@@ -46,3 +46,6 @@
 [submodule "powerline/packages/powerline"]
 	path = powerline/packages/powerline
 	url = git://github.com/Lokaltog/powerline.git
+[submodule "vim/bundle/vim-sensible"]
+	path = vim/bundle/vim-sensible
+	url = https://github.com/tpope/vim-sensible.git
