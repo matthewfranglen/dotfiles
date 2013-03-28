@@ -15,6 +15,7 @@ do
             ln -s ${folder}/${file} ${~link}
         fi
     done
+    [ -e ${folder}/install ] && ${folder}/install
 done
 
 return 0
