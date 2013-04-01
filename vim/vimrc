@@ -73,7 +73,7 @@ map <MouseMiddle> <Esc>"*p
 nnoremap <C-J> a<CR><Esc>k$
 
 " Ctrl-F now formats perl scripts with perltidy
-map <C-F> :1,$!perltidy<CR> 
+nnoremap <C-F> :1,$!perltidy<CR>
 
 """""""""""""""""""
 " BUNDLE SETTINGS "
