@@ -64,9 +64,6 @@ vnoremap <down> <nop>
 inoremap <up>   <nop>
 inoremap <down> <nop>
 
-" ; is an alias for :
-nnoremap ; :
-
 " Make mouse middle click paste without formatting it.
 map <MouseMiddle> <Esc>"*p
 
