@@ -46,3 +46,6 @@
 [submodule "vim/bundle/vim-sensible"]
 	path = vim/bundle/vim-sensible
 	url = https://github.com/tpope/vim-sensible.git
+[submodule "vim/bundle/dart-vim-plugin"]
+	path = vim/bundle/dart-vim-plugin
+	url = git://github.com/dart-lang/dart-vim-plugin.git
