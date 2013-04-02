@@ -2,4 +2,4 @@
 # This installs the fonts, allowing them to be selected using the default picker.
 # This needs to be run after the install script at the root of this repository.
 
-sudo fc-cache -vf ~/.fonts
+[ "$CHANGE_X" = "0" ] && sudo fc-cache -vf ~/.fonts

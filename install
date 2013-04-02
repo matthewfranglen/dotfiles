@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+# If this is over an ssh connection then don't be updating fonts etc
+CHANGE_X=$([ -z $SSH_CONNECTION ]; echo $?)
+
 git submodule init && git submodule update
 
 for folder in ${0:A:h}/*/files(:h)
