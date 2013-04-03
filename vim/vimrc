@@ -25,9 +25,6 @@ set encoding=utf-8 " Necessary to show Unicode glyphs
 " really, just die swap files. DIE!
 set noswapfile
 
-" http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
-let NERDTreeIgnore = ['\.pyc$']
-
 """"""""""
 " COLORS "
 """"""""""
@@ -84,3 +81,12 @@ nnoremap <C-L> diWiprint Data::Dumper->new( [ <Esc>pa ] )->Dump;<Esc>
 """""""""""""""""""
 
 set rtp+=~/.powerline/powerline/bindings/vim
+
+" http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
+let NERDTreeIgnore = ['\.pyc$']
+
+" Auto launch NERDTree on startup
+autocmd VimEnter * NERDTree
+
+" Move from NERDTree to main window
+autocmd VimEnter * wincmd p
