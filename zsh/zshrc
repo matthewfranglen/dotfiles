@@ -85,11 +85,11 @@ eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
 . ${ZSH_FOLDER}/config/aliases
 . ${ZSH_FOLDER}/config/prompt
 
-# Move by argument
-. ${ZSH_FOLDER}/bin/move-by-argument
-bindkey '^j' my_move_backwards
-bindkey '^k' my_move_forwards
-
+# alt-hjkl for movement in insert (ctrl-h is backspace!)
+bindkey -M viins '^[h' vi-backward-blank-word
+bindkey -M viins '^[k' up-line-or-history
+bindkey -M viins '^[j' down-line-or-history
+bindkey -M viins '^[l' vi-forward-blank-word
 
 # Editor stuff
 
