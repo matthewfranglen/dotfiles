@@ -1,4 +1,0 @@
-! This maps the caps lock key to escape to help with general vimity
-
-clear Lock
-keycode 0x42 = Escape

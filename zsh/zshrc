@@ -64,8 +64,9 @@ stty -ixon -ixoff
 
 # keyboard mappings.
 # Don't want to run this on remote hosts!
-# This updates X!
-[ -z "$SSH_CONNECTION" ] && xmodmap ${ZSH_FOLDER}/config/keymapping
+# This updates X! Doing this via a keyboard map option now, 
+# hopefully this approach will stop it occasionally failing.
+[ -z "$SSH_CONNECTION" ] && setxkbmap -option caps:escape
 
 # add bin folder to path
 PATH=$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
