@@ -41,10 +41,6 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-# This allows control-r to be used to perform a reverse search
-bindkey -M viins '^r' history-incremental-search-backward
-bindkey -M vicmd '^r' history-incremental-search-backward
-
 # This allows exclusions and the like in the pattern expansion
 setopt extended_glob
 
@@ -55,8 +51,37 @@ setopt extended_glob
 ###############################
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
-# Extra key mappings
-bindkey "^[." insert-last-word
+
+####################
+# MODULES AND PATH #
+####################
+
+# load antigen.
+. ${ZSH_FOLDER}/antigen/antigen.zsh
+antigen-bundle zsh-users/zsh-syntax-highlighting
+antigen-bundle Tarrasch/zsh-functional
+antigen-apply
+
+# Load the fasd completion system.
+# See https://github.com/clvv/fasd
+PATH=$PATH:${ZSH_FOLDER}/packages/fasd
+eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
+
+# add bin folder to path
+PATH=$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
+
+
+######################
+# PROMPT AND ALIASES #
+######################
+
+. ${ZSH_FOLDER}/config/aliases
+. ${ZSH_FOLDER}/config/prompt
+
+
+###############
+# KEY MAPPING #
+###############
 
 # Disable ctrl-s ctrl-q (suspend, resume. frequently really really annoying!)
 # http://geekanova.blogspot.co.uk/2012/11/ctrl-s-freezes-terminal.html
@@ -68,23 +93,12 @@ stty -ixon -ixoff
 # hopefully this approach will stop it occasionally failing.
 [ -z "$SSH_CONNECTION" ] && setxkbmap -option caps:escape
 
-# add bin folder to path
-PATH=$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
+# This allows control-r to be used to perform a reverse search
+bindkey -M viins '^r' history-incremental-search-backward
+bindkey -M vicmd '^r' history-incremental-search-backward
 
-# load antigen. I might stop trying to submodule all this crap at some point.
-. ${ZSH_FOLDER}/antigen/antigen.zsh
-antigen-bundle zsh-users/zsh-syntax-highlighting
-antigen-bundle Tarrasch/zsh-functional
-antigen-apply
-
-# Load the fasd completion system.
-# See https://github.com/clvv/fasd
-PATH=$PATH:${ZSH_FOLDER}/packages/fasd
-eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
-
-# Load aliases, prompt etc
-. ${ZSH_FOLDER}/config/aliases
-. ${ZSH_FOLDER}/config/prompt
+# Extra key mappings
+bindkey "^[." insert-last-word
 
 # alt-hjkl for movement in insert (ctrl-h is backspace!)
 bindkey -M viins '^[h' vi-backward-blank-word
@@ -92,7 +106,10 @@ bindkey -M viins '^[k' up-line-or-history
 bindkey -M viins '^[j' down-line-or-history
 bindkey -M viins '^[l' vi-forward-blank-word
 
-# Editor stuff
+
+################
+# EDITOR STUFF #
+################
 
 export VISUAL=/usr/bin/vim
 export EDITOR=/usr/bin/vim
@@ -100,8 +117,5 @@ export SVN_EDITOR=/usr/bin/vim
 export GIT_EDITOR=/usr/bin/vim
 export LESS=ir
 export JAVA_HOME=/usr/lib/jvm/default-java
-
-# Changes solarized coloring
-# export TERM=screen-256color-bce
 
 # vim: set ai et sw=4 syntax=zsh :
