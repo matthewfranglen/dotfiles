@@ -106,6 +106,14 @@ bindkey -M viins '^[k' up-line-or-history
 bindkey -M viins '^[j' down-line-or-history
 bindkey -M viins '^[l' vi-forward-blank-word
 
+# Enter command mode and v will provide a full $EDITOR for commands
+# See https://news.ycombinator.com/item?id=5508341
+# http://stackoverflow.com/questions/890620/unable-to-have-bash-like-c-x-e-in-zsh
+# http://nuclearsquid.com/writings/edit-long-commands/
+# etc etc
+autoload -U         edit-command-line
+zle      -N         edit-command-line
+bindkey  -M vicmd v edit-command-line
 
 ################
 # EDITOR STUFF #
