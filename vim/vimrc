@@ -90,3 +90,7 @@ autocmd VimEnter * NERDTree
 
 " Move from NERDTree to main window
 autocmd VimEnter * wincmd p
+
+" Toggle Tags with <F8>, Nerdtree with <F7>
+nnoremap <F7> :NERDTreeToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
