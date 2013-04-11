@@ -20,13 +20,13 @@ http://vimcasts.org/blog/2011/05/the-fugitive-series/
 ### [kwbdi](https://github.com/vim-scripts/kwbdi.vim)
 
 Allows you to close a buffer without changing the layout.
-The buffer can be closed in this way using <leader>bd
+The buffer can be closed in this way using [leader]bd
 
 ### [nerdtree](https://github.com/scrooloose/nerdtree)
 
 Provides a file browser in a split.
 Can open it with :NERDTree, which will autocomplete from :N
-A change in my vimrc allows it to be toggled with <F7>
+A change in my vimrc allows it to be toggled with [F7]
 
 ### [pyflakes](https://github.com/kevinw/pyflakes-vim)
 
@@ -53,10 +53,10 @@ Allows you to easily line up code statements so that assignments can be more eas
 read. There is an excellent help document available at :help Tabular.txt. The basic
 use is:
 
-:Tab /<PATTERN>
+:Tab /[PATTERN]
 
 This will operate on the current line, and all lines above and below that also match
-<PATTERN>. This will indent every occurance of pattern to be at the same point.
+[PATTERN]. This will indent every occurance of pattern to be at the same point.
 Example:
 
     a = b = c
@@ -77,7 +77,7 @@ Provides an overview of the current file, showing a list of methods, variables, 
 packages. You can navigate to the window and jump to the listed elements. Remember that
 you can use '' (double single quote) to jump back to where you were previously.
 
-A vimrc change allows you to toggle the (initially hidden) tagbar with <F8>.
+A vimrc change allows you to toggle the (initially hidden) tagbar with [F8].
 
 ### [vim-markdown](https://github.com/tpope/vim-markdown)
 
@@ -103,13 +103,13 @@ HTML / XML type tag opening and closing, as well as the various pairs of
 
 #### Quick Reference
 
-cs<FROM><TO>            Change Surround (from single characters)
-cst<TO>                 Change tag to ...
+cs[FROM][TO]            Change Surround (from single characters)
+cst[TO]                 Change tag to ...
 
-ds<SURROUND>            Delete surround
+ds[SURROUND]            Delete surround
 
-ys<MOTION><SURROUND>    Add surround. Not limited to single characters.
-yss<SURROUND>           Wrap entire line.
+ys[MOTION][SURROUND]    Add surround. Not limited to single characters.
+yss[SURROUND]           Wrap entire line.
 
 Using { [ ( etc will add a surrounding space. Using } ] ) will not add that space.
 
