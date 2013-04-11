@@ -97,6 +97,10 @@ you can use '' (double single quote) to jump back to where you were previously.
 
 A vimrc change allows you to toggle the (initially hidden) tagbar with <F8>.
 
+### [vim-markdown](https://github.com/tpope/vim-markdown)
+
+Syntax and stuff for markdown? I was hoping for more somehow.
+
 ### vim-sensible
 
 https://github.com/tpope/vim-sensible
