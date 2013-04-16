@@ -25,6 +25,9 @@ set encoding=utf-8 " Necessary to show Unicode glyphs
 " really, just die swap files. DIE!
 set noswapfile
 
+" Highlight from the start of the file
+autocmd BufEnter * :syntax sync fromstart
+
 """"""""""
 " COLORS "
 """"""""""
