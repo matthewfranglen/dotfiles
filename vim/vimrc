@@ -73,11 +73,11 @@ map <MouseMiddle> <Esc>"*p
 nnoremap <C-J> a<CR><Esc>k$
 
 " Ctrl-F now formats perl scripts with perltidy
-nnoremap <C-F> :1,$!perltidy<CR>
+nnoremap <leader>f :1,$!perltidy<CR>
 
 " Ctrl-L now Data::Dumps the current WORD
 " nnoremap <C-L> diWi{ print Data::Dumper->new( [ <Esc>p$a ] )->Dump; <Esc>p$a }<Esc>
-nnoremap <C-L> diWiprint Data::Dumper->new( [ <Esc>pa ] )->Dump;<Esc>
+nnoremap <leader>l diWiprint Data::Dumper->new( [ <Esc>pa ] )->Dump;<Esc>
 
 """""""""""""""""""
 " BUNDLE SETTINGS "
