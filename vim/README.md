@@ -17,6 +17,10 @@ both commit and read the git repo. Good tutorials here:
 
 http://vimcasts.org/blog/2011/05/the-fugitive-series/
 
+### [jslint.vim](https://github.com/hallettj/jslint.vim)
+
+JSLint integration for VIM.
+
 ### [kwbdi](https://github.com/vim-scripts/kwbdi.vim)
 
 Allows you to close a buffer without changing the layout.
