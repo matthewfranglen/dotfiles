@@ -32,12 +32,12 @@ autocmd BufEnter * :syntax sync fromstart
 " COLORS "
 """"""""""
 
-set background=dark
-colorscheme solarized
-
 " Convince Vim it can use 256 colors inside Gnome Terminal.
 " Needs CSApprox plugin
 set t_Co=256
+
+set background=dark
+colorscheme telstar
 
 """"""""""""""
 " KEYMAPPING "
