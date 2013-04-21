@@ -5,7 +5,7 @@
 
 
 # Change this to your own username
-DEFAULT_USERNAME='sindresorhus'
+DEFAULT_USERNAME='matthew'
 
 # Threshold (sec) for showing cmd exec time
 CMD_MAX_EXEC_TIME=5
@@ -29,8 +29,8 @@ zstyle ':vcs_info:*' enable git # You can add hg too if needed: `git hg`
 zstyle ':vcs_info:git*' formats ' %b'
 zstyle ':vcs_info:git*' actionformats ' %b|%a'
 
-# Only show username if not default
-[ $USER != $DEFAULT_USERNAME ] && local username='%n@%m '
+# Show username if not default or if on another server
+[[ $USER != $DEFAULT_USERNAME || ! -z $SSH_CONNECTION ]] && local username='%n@%m '
 
 # Fastest possible way to check if repo is dirty
 git_dirty() {
@@ -58,6 +58,12 @@ precmd() {
 }
 
 # Prompt turns red if the previous command didn't exit with 0
-PROMPT='%(?.%F{magenta}.%F{red})❯%f '
+PROMPT='%(?.%F{green}.%F{red})❯%f '
 # Can be disabled:
 # PROMPT='%F{magenta}❯%f '
+
+# Change Terminal / Screen / TMux title for terminal when moving to another machine
+if [ ! -z $SSH_CONNECTION ]
+then
+    echo -ne "\033k${USER}@${HOST}\033\\"
+fi
