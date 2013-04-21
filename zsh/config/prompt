@@ -1,5 +1,4 @@
-# Pure
-# by Sindre Sorhus
+# Prompt based on Pure by Sindre Sorhus
 # https://github.com/sindresorhus/pure
 # MIT License
 
@@ -26,15 +25,15 @@ CMD_MAX_EXEC_TIME=5
 
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git # You can add hg too if needed: `git hg`
-zstyle ':vcs_info:git*' formats ' %b'
-zstyle ':vcs_info:git*' actionformats ' %b|%a'
+zstyle ':vcs_info:git*' formats       ' %F{black}%K{green} %F{white} %b'
+zstyle ':vcs_info:git*' actionformats ' %F{black}%K{green} %F{white} %b|%a'
 
 # Show username if not default or if on another server
 [[ $USER != $DEFAULT_USERNAME || ! -z $SSH_CONNECTION ]] && local username='%n@%m '
 
 # Fastest possible way to check if repo is dirty
 git_dirty() {
-    git diff --quiet --ignore-submodules HEAD 2>/dev/null; [ $? -eq 1 ] && echo '*'
+    git diff --quiet --ignore-submodules HEAD 2>/dev/null; [ $? -eq 1 ] && echo '%B%F{yellow} M %b%F{green}%K{black}' || echo '%F{green}%K{black}'
 }
 
 # Displays the exec time of the last command if set threshold was exceeded
@@ -52,7 +51,8 @@ preexec() {
 precmd() {
     vcs_info
     # Add `%*` to display the time
-    print -P "\n%F{blue}%~%F{236}$vcs_info_msg_0_`git_dirty` $username%f %F{yellow}`cmd_exec_time`%f"
+    print -P "\n%F{black}%K{white}%~ %F{white}%K{black}$vcs_info_msg_0_`git_dirty` %F{236}$username%f %F{yellow}`cmd_exec_time`%f%F{black}%k"
+
     # Reset value since `preexec` isn't always triggered
     unset cmd_timestamp
 }
@@ -67,3 +67,5 @@ if [ ! -z $SSH_CONNECTION ]
 then
     echo -ne "\033k${USER}@${HOST}\033\\"
 fi
+
+# vim: set ai et sw=4 syntax=zsh :
