@@ -50,7 +50,7 @@ cmd_exec_time() {
     local stop=`date +%s`
     local start=${cmd_timestamp:-$stop}
     let local elapsed=$stop-$start
-    [ $elapsed -gt $CMD_MAX_EXEC_TIME ] && echo ${elapsed}s
+    [ $elapsed -gt $CMD_MAX_EXEC_TIME ] && echo "${elapsed}s "
 }
 
 preexec() {
