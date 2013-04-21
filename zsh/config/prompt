@@ -1,42 +1,63 @@
-################
-# Prompt stuff #
-################
+# Pure
+# by Sindre Sorhus
+# https://github.com/sindresorhus/pure
+# MIT License
 
-# Try to load colors
-autoload colors zsh/terminfo
-if [[ "$terminfo[colors]" -ge 8 ]]; then
-	colors
-fi
-for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
-    eval PR_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
-    eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
-done
-PR_NO_COLOR="%{$terminfo[sgr0]%}"
 
-# Make the PS variables interpolate variables declared within them (and commands)
-setopt prompt_subst
+# Change this to your own username
+DEFAULT_USERNAME='sindresorhus'
 
-# The shell currently is [ history number ] [ time ] %         [ path ] [ host ]
-# Green if the last command was good, red otherwise
+# Threshold (sec) for showing cmd exec time
+CMD_MAX_EXEC_TIME=5
 
-PS1='%{%(?.$PR_GREEN.$PR_RED)%}%# %{$PR_NO_COLOR%}'
-RPS1='%{$PR_BLUE%}[ %* ] [ %~ ] [ %m ]%{$PR_NO_COLOR%}'
 
-# Set screen window title
-# Now setting it to be ssh style, to be a little more compact
-# TMux is a little different, so I am disabling this when tmux is enabled.
-# $TERM in tmux is screen, so it has to be done using the $TMUX variable instead.
-# http://unix.stackexchange.com/questions/10689/how-can-i-tell-if-im-in-a-tmux-session-from-a-bash-script
-# -z = true if string is zero length
-# -n = true if string is non-zero length
-# Can use $SSH_CONNECTION to test if the current terminal is over ssh
-if [ -z "$TMUX" ]
-then
-    case "$TERM" in
-        screen)
-            precmd() { echo -ne "\033k${USER}@${HOST}:${PWD}\033\\" }
-            ;;
-    esac
-fi
+# For my own and others sanity
+# git:
+# %b => current branch
+# %a => current action (rebase/merge)
+# prompt:
+# %F => color dict
+# %f => reset color
+# %~ => current path
+# %* => time
+# %n => username
+# %m => shortname host
+# %(?..) => prompt conditional - %(condition.true.false)
 
-# vim: set ai et sw=4 syntax=zsh :
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git # You can add hg too if needed: `git hg`
+zstyle ':vcs_info:git*' formats ' %b'
+zstyle ':vcs_info:git*' actionformats ' %b|%a'
+
+# Only show username if not default
+[ $USER != $DEFAULT_USERNAME ] && local username='%n@%m '
+
+# Fastest possible way to check if repo is dirty
+git_dirty() {
+    git diff --quiet --ignore-submodules HEAD 2>/dev/null; [ $? -eq 1 ] && echo '*'
+}
+
+# Displays the exec time of the last command if set threshold was exceeded
+cmd_exec_time() {
+    local stop=`date +%s`
+    local start=${cmd_timestamp:-$stop}
+    let local elapsed=$stop-$start
+    [ $elapsed -gt $CMD_MAX_EXEC_TIME ] && echo ${elapsed}s
+}
+
+preexec() {
+    cmd_timestamp=`date +%s`
+}
+
+precmd() {
+    vcs_info
+    # Add `%*` to display the time
+    print -P '\n%F{blue}%~%F{236}$vcs_info_msg_0_`git_dirty` $username%f %F{yellow}`cmd_exec_time`%f'
+    # Reset value since `preexec` isn't always triggered
+    unset cmd_timestamp
+}
+
+# Prompt turns red if the previous command didn't exit with 0
+PROMPT='%(?.%F{magenta}.%F{red})❯%f '
+# Can be disabled:
+# PROMPT='%F{magenta}❯%f '
