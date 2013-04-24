@@ -45,12 +45,36 @@ git_status() {
     fi
 }
 
+pretty_print_time() {
+    local seconds=$1
+    local minutes=$(($seconds / 60))
+    local hours=$(($minutes / 60))
+    local days=$(($hours / 24))
+
+    seconds=$(($seconds % 60))
+    minutes=$(($minutes % 60))
+    hours=$(($hours % 60))
+
+    # Create array of the non-zero times
+    local result
+    for value unit in $days d $hours h $minutes m $seconds s
+    do
+        if [ $value -gt 0 ]
+        then
+            result[$(($#result + 1))]="${value}${unit}"
+        fi
+    done
+
+    # Join the array with spaces - could be much fancier
+    echo ${(j: :)result}
+}
+
 # Displays the exec time of the last command if set threshold was exceeded
 cmd_exec_time() {
     local stop=`date +%s`
     local start=${cmd_timestamp:-$stop}
     let local elapsed=$stop-$start
-    [ $elapsed -gt $CMD_MAX_EXEC_TIME ] && echo "${elapsed}s "
+    [ $elapsed -gt $CMD_MAX_EXEC_TIME ] && pretty_print_time $elapsed
 }
 
 preexec() {
