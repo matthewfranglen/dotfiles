@@ -55,8 +55,10 @@ pretty_print_time() {
     minutes=$(($minutes % 60))
     hours=$(($hours % 60))
 
-    # Create array of the non-zero times
+    # Create array of the non-zero times.
+    # Got to declare this separate from the local definition, otherwise things get all funny.
     local result
+    result=()
     for value unit in $days d $hours h $minutes m $seconds s
     do
         if [ $value -gt 0 ]
