@@ -53,7 +53,7 @@ pretty_print_time() {
 
     seconds=$(($seconds % 60))
     minutes=$(($minutes % 60))
-    hours=$(($hours % 60))
+    hours=$(($hours % 24))
 
     # Create array of the non-zero times.
     # Got to declare this separate from the local definition, otherwise things get all funny.
