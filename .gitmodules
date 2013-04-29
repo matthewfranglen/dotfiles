@@ -67,3 +67,6 @@
 [submodule "vim/bundle/jslint.vim"]
 	path = vim/bundle/jslint.vim
 	url = git://github.com/hallettj/jslint.vim.git
+[submodule "vim/bundle/vim-visual-star-search"]
+	path = vim/bundle/vim-visual-star-search
+	url = https://github.com/bronson/vim-visual-star-search
