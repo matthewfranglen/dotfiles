@@ -67,3 +67,6 @@
 [submodule "vim/bundle/vim-visual-star-search"]
 	path = vim/bundle/vim-visual-star-search
 	url = https://github.com/bronson/vim-visual-star-search
+[submodule "vim/bundle/nginx.vim"]
+	path = vim/bundle/nginx.vim
+	url = git://github.com/vim-scripts/nginx.vim.git
