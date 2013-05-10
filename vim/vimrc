@@ -88,7 +88,7 @@ nnoremap <leader>f :1,$!perltidy<CR>
 
 " \l now Data::Dumps the current WORD
 " nnoremap <C-L> diWi{ print Data::Dumper->new( [ <Esc>p$a ] )->Dump; <Esc>p$a }<Esc>
-nnoremap <leader>l diWiprint Data::Dumper->new( [ <Esc>pa ] )->Dump;<Esc>
+nnoremap <leader>l diWiprint Data::Dumper->new( [ <C-R>" ] )->Dump;<Esc>
 
 """""""""""""""""""
 " BUNDLE SETTINGS "
