@@ -90,6 +90,9 @@ nnoremap <leader>f :1,$!perltidy<CR>
 " nnoremap <C-L> diWi{ print Data::Dumper->new( [ <Esc>p$a ] )->Dump; <Esc>p$a }<Esc>
 nnoremap <leader>l diWiprint Data::Dumper->new( [ <C-R>" ] )->Dump;<Esc>
 
+" \s syncs syntax from start
+nnoremap <leader>s :syntax sync fromstart<CR>
+
 """""""""""""""""""
 " BUNDLE SETTINGS "
 """""""""""""""""""
