@@ -93,6 +93,11 @@ nnoremap <leader>l diWiprint Data::Dumper->new( [ <C-R>" ] )->Dump;<Esc>
 " \s syncs syntax from start
 nnoremap <leader>s :syntax sync fromstart<CR>
 
+" \= and \=> do :Tabularize stuff
+nnoremap <leader>=> :Tabularize /=><CR>
+nnoremap <leader>=  :Tabularize /=<CR>
+
+
 """""""""""""""""""
 " BUNDLE SETTINGS "
 """""""""""""""""""
