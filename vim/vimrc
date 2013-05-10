@@ -108,10 +108,10 @@ set rtp+=~/.powerline/powerline/bindings/vim
 let NERDTreeIgnore = ['\.pyc$']
 
 " Auto launch NERDTree on startup
-autocmd VimEnter * NERDTree
+" autocmd VimEnter * NERDTree
 
 " Move from NERDTree to main window
-autocmd VimEnter * wincmd p
+" autocmd VimEnter * wincmd p
 
 " Toggle Tags with <F8>, Nerdtree with <F7>
 nnoremap <F7> :NERDTreeToggle<CR><C-W>l
