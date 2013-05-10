@@ -83,10 +83,10 @@ map <MouseMiddle> <Esc>"*p
 " http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
 nnoremap <C-J> a<CR><Esc>k$
 
-" Ctrl-F now formats perl scripts with perltidy
+" \f now formats perl scripts with perltidy
 nnoremap <leader>f :1,$!perltidy<CR>
 
-" Ctrl-L now Data::Dumps the current WORD
+" \l now Data::Dumps the current WORD
 " nnoremap <C-L> diWi{ print Data::Dumper->new( [ <Esc>p$a ] )->Dump; <Esc>p$a }<Esc>
 nnoremap <leader>l diWiprint Data::Dumper->new( [ <Esc>pa ] )->Dump;<Esc>
 
