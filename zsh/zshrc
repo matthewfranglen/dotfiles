@@ -60,6 +60,7 @@ setopt extended_glob
 . ${ZSH_FOLDER}/antigen/antigen.zsh
 antigen-bundle zsh-users/zsh-syntax-highlighting
 antigen-bundle Tarrasch/zsh-functional
+antigen-bundle zsh-users/zsh-history-substring-search
 antigen-apply
 
 # Load the fasd completion system.

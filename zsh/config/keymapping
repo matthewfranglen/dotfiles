@@ -17,6 +17,13 @@ function keyboard_map_caps_lock() {
 }
 keyboard_map_caps_lock
 
+# Requires https://github.com/zsh-users/zsh-history-substring-search
+# (handled by antigen)
+# This allows the entire line to be used as a search when pressing up or down.
+# Move to the start of the line to prevent this.
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
 # This allows control-r to be used to perform a reverse search
 bindkey -M viins '^r' history-incremental-search-backward
 bindkey -M vicmd '^r' history-incremental-search-backward
