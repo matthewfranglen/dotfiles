@@ -77,45 +77,8 @@ PATH=$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
 
 . ${ZSH_FOLDER}/config/aliases
 . ${ZSH_FOLDER}/config/prompt
+. ${ZSH_FOLDER}/config/keymapping
 
-
-###############
-# KEY MAPPING #
-###############
-
-# Disable ctrl-s ctrl-q (suspend, resume. frequently really really annoying!)
-# http://geekanova.blogspot.co.uk/2012/11/ctrl-s-freezes-terminal.html
-stty -ixon -ixoff
-
-# keyboard mappings.
-# Don't want to run this on remote hosts!
-# This updates X! Doing this via a keyboard map option now, 
-# hopefully this approach will stop it occasionally failing.
-[ -z "$SSH_CONNECTION" ] && setxkbmap -option caps:escape
-
-# This allows control-r to be used to perform a reverse search
-bindkey -M viins '^r' history-incremental-search-backward
-bindkey -M vicmd '^r' history-incremental-search-backward
-
-# Extra key mappings
-bindkey "^[." insert-last-word
-
-# alt-hjkl for movement in insert (ctrl-h is backspace!)
-bindkey -M viins '^[h' vi-backward-blank-word
-bindkey -M viins '^[k' up-line-or-history
-bindkey -M viins '^[j' down-line-or-history
-bindkey -M viins '^[l' vi-forward-blank-word
-
-# Enter command mode and v will provide a full $EDITOR for commands
-# See https://news.ycombinator.com/item?id=5508341
-# http://stackoverflow.com/questions/890620/unable-to-have-bash-like-c-x-e-in-zsh
-# http://nuclearsquid.com/writings/edit-long-commands/
-# etc etc
-autoload -U         edit-command-line
-zle      -N         edit-command-line
-bindkey  -M vicmd v edit-command-line
-
-# N.B. The builtin fc (fix command) can be used to edit and rerun history
 
 ################
 # EDITOR STUFF #
