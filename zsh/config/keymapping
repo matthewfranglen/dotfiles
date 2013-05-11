@@ -24,12 +24,6 @@ bindkey -M vicmd '^r' history-incremental-search-backward
 # This allows alt-. to insert the last word of the last command (i.e. !$)
 bindkey "^[." insert-last-word
 
-# alt-hjkl for movement in insert (ctrl-h is backspace!)
-bindkey -M viins '^[h' vi-backward-blank-word
-bindkey -M viins '^[k' up-line-or-history
-bindkey -M viins '^[j' down-line-or-history
-bindkey -M viins '^[l' vi-forward-blank-word
-
 # Enter command mode and v will provide a full $EDITOR for commands
 # See https://news.ycombinator.com/item?id=5508341
 # http://stackoverflow.com/questions/890620/unable-to-have-bash-like-c-x-e-in-zsh
