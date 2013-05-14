@@ -30,7 +30,16 @@ set encoding=utf-8 " Necessary to show Unicode glyphs
 set noswapfile
 
 " Highlight from the start of the file
-autocmd BufEnter * :syntax sync fromstart
+" :help autocmd to learn more
+" BufEnter    - After entering a buffer.
+" BufRead     - When starting to edit a new buffer, after reading the file
+"               into the buffer, before executing the modelines.
+" BufWinEnter - After a buffer is displayed in a window.
+" For some reason, :source $MYVIMRC can cause syntax failures, but switching
+" to an existing buffer no longer causes such issues.
+autocmd BufEnter    * :syntax sync fromstart
+autocmd BufRead     * :syntax sync fromstart
+autocmd BufWinEnter * :syntax sync fromstart
 
 " Show trailing whitepace and spaces before a tab:
 highlight ExtraWhitespace ctermbg=red guibg=red
