@@ -116,11 +116,13 @@ set rtp+=~/.powerline/powerline/bindings/vim
 " http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
 let NERDTreeIgnore = ['\.pyc$']
 
-" Auto launch NERDTree on startup
-" autocmd VimEnter * NERDTree
+if argc() == 0
+    " Auto launch NERDTree on startup
+    autocmd VimEnter * NERDTree
 
-" Move from NERDTree to main window
-" autocmd VimEnter * wincmd p
+    " Move from NERDTree to main window
+    autocmd VimEnter * wincmd p
+endif
 
 " Toggle Tags with <F8>, Nerdtree with <F7>
 nnoremap <F7> :NERDTreeToggle<CR><C-W>l
