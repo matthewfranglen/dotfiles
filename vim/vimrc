@@ -18,7 +18,7 @@ set tabstop=4
 set shiftwidth=4
 
 " Highlight searches to allow refinement
-" Turn off for the current search with :nohlsearch
+" Turn off for the current search with :nohlsearch (or <leader>h)
 set hls 
 
 set nocompatible   " Disable vi-compatibility
@@ -106,6 +106,8 @@ nnoremap <leader>s :syntax sync fromstart<CR>
 nnoremap <leader>=> :Tabularize /=><CR>
 nnoremap <leader>=  :Tabularize /=<CR>
 
+" \h turns off highlighting for the current search
+nnoremap <leader>h  :nohls
 
 """""""""""""""""""
 " BUNDLE SETTINGS "
