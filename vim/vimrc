@@ -107,7 +107,7 @@ nnoremap <leader>=> :Tabularize /=><CR>
 nnoremap <leader>=  :Tabularize /=<CR>
 
 " \h turns off highlighting for the current search
-nnoremap <leader>h  :nohls
+nnoremap <leader>h  :nohls<CR>
 
 """""""""""""""""""
 " BUNDLE SETTINGS "
