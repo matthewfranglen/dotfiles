@@ -119,3 +119,14 @@ let NERDTreeIgnore = ['\.pyc$']
 " Toggle Tags with <F8>, Nerdtree with <F7>
 nnoremap <F7> :NERDTreeToggle<CR><C-W>l
 nnoremap <F8> :TagbarToggle<CR>
+
+"""""""""""""""""""""""""""
+" CUSTOM RUNTIME SETTINGS "
+"""""""""""""""""""""""""""
+
+function! LoadCustomSettings()
+if filereadable("./vimrc")
+    source ./vimrc
+endif
+endfunction
+autocmd BufEnter * :call LoadCustomSettings()
