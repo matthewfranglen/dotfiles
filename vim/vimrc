@@ -129,6 +129,9 @@ let g:ctrlp_prompt_mappings = {
             \    'ToggleRegex()':  []
             \}
 
+" expand('<cfile>') will return the 'current file name under cursor' (like
+" gf). Need to find a way to make a mapping to pass the gf file to CtrlP.
+
 """""""""""""""""""""""""""
 " CUSTOM RUNTIME SETTINGS "
 """""""""""""""""""""""""""
