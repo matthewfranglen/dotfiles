@@ -122,6 +122,13 @@ let NERDTreeIgnore = ['\.pyc$']
 nnoremap <F7> :NERDTreeToggle<CR><C-W>l
 nnoremap <F8> :TagbarToggle<CR>
 
+" CtrlP make <C-R> fetch the specified register
+" If you want regex mode then tough cookies
+let g:ctrlp_prompt_mappings = {
+            \    'PrtInsert("r")': ['<c-r>'],
+            \    'ToggleRegex()':  []
+            \}
+
 """""""""""""""""""""""""""
 " CUSTOM RUNTIME SETTINGS "
 """""""""""""""""""""""""""
