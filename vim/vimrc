@@ -1,3 +1,12 @@
+" Guard against loading this twice. This does mean you cannot do:
+" source $MYVIMRC
+" to pick up changes, but that isn't usually what you want anyway (it does not
+" clear existing settings that are no longer being set).
+if ( exists('g:loaded_vimrc') && g:loaded_vimrc )
+    finish
+endif
+let g:loaded_vimrc = 1
+
 """"""""""""
 " PATHOGEN "
 """"""""""""
