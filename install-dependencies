@@ -1,0 +1,19 @@
+#!/bin/zsh
+# This handles installing the apt-get dependencies required by this shell. A
+# small amount of effort has been added to allow comments in the dependencies,
+# as the reason for them may not be clear. 
+
+function collect-dependencies () {
+    for file in ${0:A:h}/*/dependencies
+    do
+        echo ${(j/ /)$(cat ${file} | sed -e 's/#.*$//' -e 's/^\s*//' -e 's/\s*$//' -e '/^$/d')}
+    done
+}
+
+dependencies=$(collect-dependencies)
+
+echo "Installing $dependencies"
+sudo apt-get install ${(s/ /)dependencies}
+return 0
+
+# vim: set ai et sw=4 syntax=zsh :

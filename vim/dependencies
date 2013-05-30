@@ -1,0 +1,13 @@
+# Allows you to pass selected text into the clipboard, for example:
+# :'<,'> ! xsel -i -b
+# See http://unix.stackexchange.com/questions/3892/how-do-i-send-stdin-to-the-clipboard
+xsel
+
+# Allows use of the tagbar, and at some point proper tags may be set up
+exuberant-ctags
+
+# Allows use of the xpath vim plugin
+libxml2-dev libxslt-dev
+
+# Allows perl formatting
+perltidy
