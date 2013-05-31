@@ -5,14 +5,6 @@
 ZSHRC=${ZDOTDIR-~}/.zshrc
 ZSH_FOLDER=${ZSHRC:A:h}
 
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-setopt appendhistory notify
-bindkey -v
-# End of lines configured by zsh-newuser-install
-
 # The following lines were added by compinstall
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _list _expand _complete _ignored _match
@@ -44,6 +36,10 @@ compinit
 # This allows exclusions and the like in the pattern expansion
 setopt extended_glob
 
+# Report the status of background jobs immediately, rather than waiting until
+# just before printing a prompt.
+setopt notify
+
 ###############################
 # make less more friendly for #
 # non-text input files, see   #
@@ -51,6 +47,20 @@ setopt extended_glob
 ###############################
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
+###########
+# HISTORY #
+###########
+
+HISTFILE=~/.histfile
+HISTSIZE=1000000
+SAVEHIST=1000000
+
+# This option both imports new commands from the history file, and also causes
+# your typed commands to be appended to the history file (the latter is like
+# specifying INC_APPEND_HISTORY). The history lines are also output with
+# timestamps ala EXTENDED_HISTORY (which makes it easier to find the spot where
+# we left off reading the file after it gets re-written).
+setopt share_history
 
 ####################
 # MODULES AND PATH #
