@@ -11,7 +11,3 @@ libxml2-dev libxslt-dev
 
 # Allows perl formatting
 perltidy
-
-# (could well be in zsh/dependencies, but ack.vim uses this too)
-# http://beyondgrep.com/
-ack-grep

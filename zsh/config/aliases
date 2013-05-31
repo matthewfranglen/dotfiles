@@ -10,4 +10,8 @@ alias lla='ls -al'
 # Quick way to notify me of events with a memorable name
 alias say='notify-send'
 
+# ack should actually be called ack otherwise it isn't quicker to type than
+# grep!
+alias ack='ack-grep'
+
 # vim: set ai et sw=4 syntax=zsh :
