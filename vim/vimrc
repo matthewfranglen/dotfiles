@@ -7,6 +7,12 @@ if ( exists('g:loaded_vimrc') && g:loaded_vimrc )
 endif
 let g:loaded_vimrc = 1
 
+""""""""""""""""""""""""""""
+" PRE PLUGIN CONFIGURATION "
+""""""""""""""""""""""""""""
+
+let g:NumberToggleTrigger="<leader>n"
+
 """"""""""""
 " PATHOGEN "
 """"""""""""
@@ -67,12 +73,6 @@ set t_Co=256
 
 set background=dark
 colorscheme telstar
-
-""""""""""""""""
-" LINE NUMBERS "
-""""""""""""""""
-
-nnoremap <leader>n :call NumberToggle()<CR>
 
 """"""""""""""
 " KEYMAPPING "
