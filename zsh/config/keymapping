@@ -20,6 +20,16 @@ function keyboard_map_caps_lock() {
 }
 keyboard_map_caps_lock
 
+# Fix delete, home and end which would otherwise just caps a random bunch of
+# characters. Thanks to Michael Francis for this fix!
+# (Amazingly these bindings vary, so this may not work for you. inputrc is
+# supposed to be the source for this sort of thing)
+source =(cat /etc/inputrc |
+            sed -ne '/^#/d'    \
+            -e 's/://'         \
+            -e 's/^/bindkey /' \
+            -e '/\(delete-char\|beginning-of-line\|end-of-line\)/p')
+
 # Requires https://github.com/zsh-users/zsh-history-substring-search
 # (handled by antigen)
 # This allows the entire line to be used as a search when pressing up or down.
