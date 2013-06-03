@@ -72,16 +72,6 @@ colorscheme telstar
 " LINE NUMBERS "
 """"""""""""""""
 
-" See http://jeffkreeftmeijer.com/2012/relative-line-numbers-in-vim-for-super-fast-movement/
-set relativenumber
-function! NumberToggle()
-    if(&relativenumber == 1)
-        set number
-    else
-        set relativenumber
-    endif
-endfunc
-
 nnoremap <leader>n :call NumberToggle()<CR>
 
 """"""""""""""
