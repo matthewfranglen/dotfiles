@@ -6,7 +6,7 @@
 function collect-dependencies () {
     for file in ${0:A:h}/*/dependencies
     do
-        echo ${(j/ /)$(cat ${file} | sed -e 's/#.*$//' -e 's/^\s*//' -e 's/\s*$//' -e '/^$/d')}
+        echo -n ${(j/ /)$(cat ${file} | sed -e 's/#.*$//' -e 's/^\s*//' -e 's/\s*$//' -e '/^$/d')}" "
     done
 }
 
