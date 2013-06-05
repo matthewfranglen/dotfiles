@@ -56,12 +56,9 @@ autocmd BufEnter    * :syntax sync fromstart
 autocmd BufRead     * :syntax sync fromstart
 autocmd BufWinEnter * :syntax sync fromstart
 
-" Show trailing whitepace and spaces before a tab:
-highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+" highlight tabs & trailing spaces
+set list listchars=tab:\ \ ,trail:·
 
-" Show tabs that are not at the start of a line:
-autocmd Syntax * syn match ExtraWhitespace /[^\t]\zs\t\+/
 
 """"""""""
 " COLORS "
