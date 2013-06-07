@@ -34,7 +34,7 @@ set shiftwidth=4
 
 " Highlight searches to allow refinement
 " Turn off for the current search with :nohlsearch (or <leader>h)
-set hls 
+set hls
 
 set nocompatible   " Disable vi-compatibility
 set laststatus=2   " Always show the statusline
