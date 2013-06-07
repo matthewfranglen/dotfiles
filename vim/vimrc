@@ -71,8 +71,9 @@ set sidescrolloff=5
 " Needs CSApprox plugin
 set t_Co=256
 
+let g:solarized_termcolors=256
 set background=dark
-colorscheme telstar
+colorscheme solarized
 
 """"""""""""""
 " KEYMAPPING "
