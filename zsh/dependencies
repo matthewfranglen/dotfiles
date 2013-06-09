@@ -1,3 +1,5 @@
+zsh
+
 # (could well be in vim/dependencies, but is aliased, so might as well be here)
 # http://beyondgrep.com/
 ack-grep

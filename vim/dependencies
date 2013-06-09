@@ -1,3 +1,5 @@
+vim
+
 # Allows you to pass selected text into the clipboard, for example:
 # :'<,'> ! xsel -i -b
 # See http://unix.stackexchange.com/questions/3892/how-do-i-send-stdin-to-the-clipboard
