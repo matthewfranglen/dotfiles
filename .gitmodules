@@ -87,7 +87,7 @@
 	url = git://github.com/mileszs/ack.vim.git
 [submodule "vim/bundle/vim-numbertoggle"]
 	path = vim/bundle/vim-numbertoggle
-	url = git://github.com/matthewfranglen/vim-numbertoggle.git
+	url = git://github.com/jeffkreeftmeijer/vim-numbertoggle
 [submodule "vim/bundle/vim-unimpaired"]
 	path = vim/bundle/vim-unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
