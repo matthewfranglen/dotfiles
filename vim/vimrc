@@ -13,12 +13,56 @@ let g:loaded_vimrc = 1
 
 let g:NumberToggleTrigger="<leader>n"
 
-""""""""""""
-" PATHOGEN "
-""""""""""""
+""""""""""
+" VUNDLE "
+""""""""""
 
-call pathogen#infect()
-call pathogen#helptags()
+" install vundle stuff!
+" jacked from: http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+
+if !filereadable(vundle_readme)
+    echo "Installing Vundle.."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+    let iCanHazVundle=0
+endif
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle "actionshrimp/vim-xpath.git"
+Bundle "altercation/vim-colors-solarized.git"
+Bundle "bronson/vim-visual-star-search"
+Bundle "dart-lang/dart-vim-plugin.git"
+Bundle "godlygeek/tabular.git"
+Bundle "groenewege/vim-less.git"
+Bundle "hail2u/vim-css3-syntax.git"
+Bundle "hallettj/jslint.vim.git"
+Bundle "jeffkreeftmeijer/vim-numbertoggle"
+Bundle "jnwhiteh/vim-golang.git"
+Bundle "kien/ctrlp.vim.git"
+Bundle "majutsushi/tagbar.git"
+Bundle "mileszs/ack.vim.git"
+Bundle "scrooloose/nerdtree.git"
+Bundle "scrooloose/syntastic.git"
+Bundle "tpope/vim-fugitive.git"
+Bundle "tpope/vim-markdown.git"
+Bundle "tpope/vim-repeat"
+Bundle "tpope/vim-sensible.git"
+Bundle "tpope/vim-speeddating.git"
+Bundle "tpope/vim-surround.git"
+Bundle "tpope/vim-unimpaired.git"
+Bundle "vim-scripts/kwbdi.vim.git"
+Bundle "vim-scripts/nginx.vim.git"
+
+if iCanHazVundle == 0
+  echo "Installing Bundles, please ignore key map error messages"
+  echo ""
+  :BundleInstall
+endif
 
 """"""""""""
 " SETTINGS "
