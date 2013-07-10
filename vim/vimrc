@@ -33,6 +33,7 @@ endif
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+Bundle "Valloric/YouCompleteMe"
 Bundle "actionshrimp/vim-xpath.git"
 Bundle "altercation/vim-colors-solarized.git"
 Bundle "bronson/vim-visual-star-search"
