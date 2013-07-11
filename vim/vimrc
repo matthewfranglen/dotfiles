@@ -108,6 +108,25 @@ set list listchars=tab:\ \ ,trail:·
 set scrolloff=5
 set sidescrolloff=5
 
+""""""""
+" UNDO "
+""""""""
+
+" The settings from vim-sensible no longer appear to apply. May have to just
+" rip them out directly into this vimrc, but for now the undo history has
+" proved its worth.
+
+let undodir=expand('~/.vim/undo')
+
+if !isdirectory(undodir)
+    silent !mkdir -p ~/.vim/undo
+endif
+
+set undofile
+set undodir=$HOME/.vim/undo
+set undolevels=1000
+set undoreload=10000
+
 """"""""""
 " COLORS "
 """"""""""
