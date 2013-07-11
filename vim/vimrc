@@ -49,6 +49,7 @@ Bundle "majutsushi/tagbar.git"
 Bundle "mileszs/ack.vim.git"
 Bundle "scrooloose/nerdtree.git"
 Bundle "scrooloose/syntastic.git"
+Bundle "terryma/vim-multiple-cursors"
 Bundle "tpope/vim-fugitive.git"
 Bundle "tpope/vim-markdown.git"
 Bundle "tpope/vim-repeat"
@@ -214,6 +215,12 @@ let g:ctrlp_prompt_mappings = {
 
 " expand('<cfile>') will return the 'current file name under cursor' (like
 " gf). Need to find a way to make a mapping to pass the gf file to CtrlP.
+
+" vim-multiple-cursors default mapping
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
 
 """""""""""""""""""""""""""
 " CUSTOM RUNTIME SETTINGS "
