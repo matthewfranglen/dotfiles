@@ -223,12 +223,6 @@ nnoremap <C-P>     :Unite file_rec/async<CR>
 nnoremap <leader>/ :Unite grep:.<CR>
 nnoremap <leader>s :Unite -quick-match buffer<CR>
 
-" This provides the old CtrlP command as a unite command. Technically not
-" needed as you can execute the longer command from the command line, and the
-" binding within vim does not change. Just ensure that you have built vimproc
-" first.
-command CtrlP Unite file_rec/async
-
 """""""""""""""""""""""""""
 " CUSTOM RUNTIME SETTINGS "
 """""""""""""""""""""""""""
