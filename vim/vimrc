@@ -35,7 +35,9 @@ call vundle#rc()
 
 Bundle "Shougo/unite.vim"
 Bundle "Shougo/vimproc.vim"
-Bundle "Valloric/YouCompleteMe"
+if ( v:version > 704 || ( v:version > 703 && has( 'patch584' ) ) ) && has( 'python' )
+    Bundle "Valloric/YouCompleteMe"
+endif
 Bundle "actionshrimp/vim-xpath.git"
 Bundle "altercation/vim-colors-solarized.git"
 Bundle "bronson/vim-visual-star-search"
