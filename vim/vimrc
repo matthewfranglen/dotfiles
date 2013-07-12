@@ -33,6 +33,8 @@ endif
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+Bundle "Shougo/unite.vim"
+Bundle "Shougo/vimproc.vim"
 Bundle "Valloric/YouCompleteMe"
 Bundle "actionshrimp/vim-xpath.git"
 Bundle "altercation/vim-colors-solarized.git"
@@ -44,7 +46,6 @@ Bundle "hail2u/vim-css3-syntax.git"
 Bundle "hallettj/jslint.vim.git"
 Bundle "jeffkreeftmeijer/vim-numbertoggle"
 Bundle "jnwhiteh/vim-golang.git"
-Bundle "kien/ctrlp.vim.git"
 Bundle "majutsushi/tagbar.git"
 Bundle "mileszs/ack.vim.git"
 Bundle "scrooloose/nerdtree.git"
@@ -64,6 +65,10 @@ if iCanHazVundle == 0
   echo "Installing Bundles, please ignore key map error messages"
   echo ""
   :BundleInstall
+
+  " vimproc requires making, see https://github.com/Shougo/vimproc.vim for
+  " details
+  silent !( cd ~/.vim/bundle/vimproc.vim ; make )
 endif
 
 """"""""""""
@@ -206,21 +211,23 @@ let NERDTreeIgnore = ['\.pyc$']
 nnoremap <F7> :NERDTreeToggle<CR><C-W>l
 nnoremap <F8> :TagbarToggle<CR>
 
-" CtrlP make <C-R> fetch the specified register
-" If you want regex mode then tough cookies
-let g:ctrlp_prompt_mappings = {
-            \    'PrtInsert("r")': ['<c-r>'],
-            \    'ToggleRegex()':  []
-            \}
-
-" expand('<cfile>') will return the 'current file name under cursor' (like
-" gf). Need to find a way to make a mapping to pass the gf file to CtrlP.
-
 " vim-multiple-cursors default mapping
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
+
+" Unite settings from
+" http://bling.github.io/blog/2013/06/02/unite-dot-vim-the-plugin-you-didnt-know-you-need/
+nnoremap <C-P>     :Unite file_rec/async<CR>
+nnoremap <leader>/ :Unite grep:.<CR>
+nnoremap <leader>s :Unite -quick-match buffer<CR>
+
+" This provides the old CtrlP command as a unite command. Technically not
+" needed as you can execute the longer command from the command line, and the
+" binding within vim does not change. Just ensure that you have built vimproc
+" first.
+command CtrlP Unite file_rec/async
 
 """""""""""""""""""""""""""
 " CUSTOM RUNTIME SETTINGS "
