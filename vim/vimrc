@@ -20,15 +20,11 @@ let g:NumberToggleTrigger="<leader>n"
 if has('vim_starting')
     " install neobundle stuff!
     " inspired by: http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
-    let iCanHazNeoBundle=1
-    let neobundle_readme=expand('~/.vim/bundle/neobundle.vim/README.md')
-
-    if !filereadable(neobundle_readme)
+    if !filereadable(expand('~/.vim/bundle/neobundle.vim/README.md'))
         echo "Installing NeoBundle.."
         echo ""
         silent !mkdir -p ~/.vim/bundle
         silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-        let iCanHazNeoBundle=0
     endif
 
     set runtimepath+=~/.vim/bundle/neobundle.vim/
