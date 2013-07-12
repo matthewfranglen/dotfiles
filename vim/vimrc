@@ -13,9 +13,9 @@ let g:loaded_vimrc = 1
 
 let g:NumberToggleTrigger="<leader>n"
 
-""""""""""
-" VUNDLE "
-""""""""""
+"""""""""""""
+" NEOBUNDLE "
+"""""""""""""
 
 if has('vim_starting')
     " install neobundle stuff!
