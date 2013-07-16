@@ -33,6 +33,10 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+# zmv allows for mass renames. Use -n to test the rename. Example:
+# zmv '(*)-HDTV-WAKKA-WAKKA.(*)' '$1.$2'
+autoload -U zmv
+
 # This allows exclusions and the like in the pattern expansion
 setopt extended_glob
 
