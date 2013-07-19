@@ -116,6 +116,9 @@ set list listchars=tab:\ \ ,trail:·
 set scrolloff=5
 set sidescrolloff=5
 
+" No more complaints about unsaved buffers. Man up.
+set hidden
+
 """"""""
 " UNDO "
 """"""""
