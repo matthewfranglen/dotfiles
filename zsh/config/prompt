@@ -86,7 +86,14 @@ preexec() {
 precmd() {
     vcs_info
     # Add `%*` to display the time
-    print -P "\n%F{black}%K{white}%~ %F{white}%K{black}`git_status` %F{236}$username%f %F{yellow}`cmd_exec_time`%f%F{black}%k"
+    local _color
+    if [ -z $SSH_CONNECTION ]
+    then
+        _color=white
+    else
+        _color=red
+    fi
+    print -P "\n%F{black}%K{$_color}%~ %F{$_color}%K{black}`git_status` %F{236}$username%f %F{yellow}`cmd_exec_time`%f%F{black}%k"
 
     # Reset value since `preexec` isn't always triggered
     unset cmd_timestamp
