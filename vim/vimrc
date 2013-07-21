@@ -227,6 +227,8 @@ nnoremap <C-P>     :Unite file_rec/async<CR>
 nnoremap <leader>/ :Unite grep:.<CR>
 nnoremap <leader>s :Unite -quick-match buffer<CR>
 
+let g:syntastic_python_checkers=['python', 'pyflakes', 'pep8', 'pylint']
+
 """""""""""""""""""""""""""
 " CUSTOM RUNTIME SETTINGS "
 """""""""""""""""""""""""""
