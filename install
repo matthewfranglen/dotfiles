@@ -1,26 +1,34 @@
-#!/bin/zsh
+#!/bin/bash
 
-# If this is over an ssh connection then don't be updating fonts etc
-CHANGE_X=$([ -z $SSH_CONNECTION ]; echo $?)
+# Get zsh to handle the next bit.
+[ ! -e /bin/zsh ] && sudo apt-get install zsh
 
-git submodule init && git submodule update
+# Single quoting the EOF prevents parameter expansion in the heredoc. It also
+# allows me to add spaces to it, to make it visually match the indented code.
+# Plays havoc with the syntax highlighting though.
+zsh -c "$( cat <<'    EOF'
+    # If this is over an ssh connection then don't be updating fonts etc
+    CHANGE_X=$([ -z $SSH_CONNECTION ]; echo $?)
 
-for folder in ${0:A:h}/*/files(:h)
-do
-    for file link in $(cat ${folder}/files)
+    git submodule init && git submodule update
+
+    setopt extended_glob
+    for folder in ${0:A:h}/*/files(:h)
     do
-        if [[ -e ${~link} || -h ${~link} ]]
-            # Apparently symlinks don't pass the -e test, dirs do
-        then
-            echo "$link exists, skipping"
-        else
-            [ ! -d ${~link:h} ] && mkdir -p ${~link:h}
-            ln -s ${folder}/${file} ${~link}
-        fi
+        for file link in $(cat ${folder}/files)
+        do
+            if [[ -e ${~link} || -h ${~link} ]]
+                # Apparently symlinks don't pass the -e test, dirs do
+            then
+                echo "$link exists, skipping"
+            else
+                [ ! -d ${~link:h} ] && mkdir -p ${~link:h}
+                ln -s ${folder}/${file} ${~link}
+            fi
+        done
+        [ -e ${folder}/install ] && ${folder}/install
     done
-    [ -e ${folder}/install ] && ${folder}/install
-done
-
-return 0
+    EOF
+)"
 
 # vim: set ai et sw=4 syntax=zsh :
