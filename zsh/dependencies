@@ -4,5 +4,12 @@ zsh
 # http://beyondgrep.com/
 ack-grep
 
+# Probably have this by now, since this is a git repo. It is still a
+# dependency.
+git
+
+# Need this for mgk.
+gitk
+
 # git workflow extension. antigen gets the autocomplete for this
 git-flow
