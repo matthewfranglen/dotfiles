@@ -3,11 +3,8 @@
 # Get zsh to handle the next bit.
 [ ! -e /bin/zsh ] && sudo apt-get install zsh
 
-# Single quoting the EOF prevents parameter expansion in the heredoc. It also
-# allows me to add spaces to it, to make it visually match the indented code.
-# Plays havoc with the syntax highlighting though.
-zsh -c "$( cat <<'    EOF'
-    # If this is over an ssh connection then don't be updating fonts etc
+zsh -c '
+    # If this is over an ssh connection then do not be updating fonts etc
     CHANGE_X=$([ -z $SSH_CONNECTION ]; echo $?)
 
     git submodule init && git submodule update
@@ -18,7 +15,7 @@ zsh -c "$( cat <<'    EOF'
         for file link in $(cat ${folder}/files)
         do
             if [[ -e ${~link} || -h ${~link} ]]
-                # Apparently symlinks don't pass the -e test, dirs do
+                # Apparently symlinks do not pass the -e test, dirs do
             then
                 echo "$link exists, skipping"
             else
@@ -28,7 +25,6 @@ zsh -c "$( cat <<'    EOF'
         done
         [ -e ${folder}/install ] && ${folder}/install
     done
-    EOF
-)"
+'
 
 # vim: set ai et sw=4 syntax=zsh :
