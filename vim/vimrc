@@ -67,6 +67,7 @@ NeoBundle "tpope/vim-repeat"
 NeoBundle "tpope/vim-sensible.git"
 NeoBundle "tpope/vim-surround.git"
 NeoBundle "tpope/vim-unimpaired.git"
+NeoBundle "vim-perl/vim-perl"
 NeoBundle "vim-scripts/kwbdi.vim.git"
 NeoBundle "vim-scripts/nginx.vim.git"
 
