@@ -105,9 +105,7 @@ set noswapfile
 " BufWinEnter - After a buffer is displayed in a window.
 " For some reason, :source $MYVIMRC can cause syntax failures, but switching
 " to an existing buffer no longer causes such issues.
-autocmd BufEnter    * :syntax sync fromstart
-autocmd BufRead     * :syntax sync fromstart
-autocmd BufWinEnter * :syntax sync fromstart
+autocmd BufEnter,BufRead,BufWinEnter * :syntax sync fromstart
 
 " highlight tabs & trailing spaces
 set list listchars=tab:\ \ ,trail:·
