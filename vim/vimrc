@@ -53,7 +53,9 @@ NeoBundle "dart-lang/dart-vim-plugin.git"
 NeoBundle "godlygeek/tabular.git"
 NeoBundle "groenewege/vim-less.git"
 NeoBundle "hail2u/vim-css3-syntax.git"
-NeoBundle "hallettj/jslint.vim.git"
+if exists("$JS_CMD") || executable('node') || executable('nodejs') || executable('js')
+    NeoBundle "hallettj/jslint.vim.git"
+endif
 NeoBundle "jeffkreeftmeijer/vim-numbertoggle"
 NeoBundle "jnwhiteh/vim-golang.git"
 NeoBundle "majutsushi/tagbar.git"
