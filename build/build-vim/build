@@ -23,7 +23,7 @@ function prepare_source () {
         # Clean any changes from previous attempts to build
         for file in $(git status --porcelain | awk ' { print $2 } ')
         do
-            ( git checkout ${file} || rm ${file} ) 2>&1 >/dev/null
+            ( git checkout ${file} || rm -r ${file} ) 2>&1 >/dev/null
         done
     )
 }
