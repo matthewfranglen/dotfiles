@@ -1,7 +1,7 @@
 #!/bin/zsh
 # This handles installing the apt-get dependencies required by this shell. A
 # small amount of effort has been added to allow comments in the dependencies,
-# as the reason for them may not be clear. 
+# as the reason for them may not be clear.
 
 function collect-dependencies () {
     for file in ${0:A:h}/*/dependencies
