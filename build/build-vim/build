@@ -34,11 +34,14 @@ exec_prefix = ${VIM_BIN_DIR}" | cat Makefile - > Makefile.tmp && mv Makefile{.tm
     )
 }
 
+function do_configure () {
+    ./configure --enable-perlinterp --enable-pythoninterp --enable-multibyte --enable-fontset
+}
 function build () {
     (
         cd ${VIM_SOURCE_DIR}
 
-        ./configure   &&
+        do_configure  &&
             make      &&
             make test &&
             make install
