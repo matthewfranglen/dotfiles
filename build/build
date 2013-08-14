@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+setopt extended_glob
+for builder in ${0:A:h}/*/build
+    ${builder}
+
+# vim: set ai et sw=4 syntax=zsh :
