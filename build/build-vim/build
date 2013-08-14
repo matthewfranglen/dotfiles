@@ -6,7 +6,14 @@ VIM_TARGET_DIR=${BUILD_DIR}/target
 VIM_BIN_DIR=${BUILD_DIR}/bin
 
 function get_source () {
-    git clone https://github.com/b4winckler/vim.git ${VIM_SOURCE_DIR}
+    (
+        if [ ! -e ${VIM_SOURCE_DIR} ]
+        then
+            git clone https://github.com/b4winckler/vim.git ${VIM_SOURCE_DIR}
+        else
+            cd ${VIM_SOURCE_DIR} && git pull
+        fi
+    )
 }
 
 function prepare_source () {
