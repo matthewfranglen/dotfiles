@@ -25,17 +25,19 @@ function prepare_source () {
         do
             ( git checkout ${file} || rm ${file} ) 2>&1 >/dev/null
         done
-
-        # prefix is the location to put the result of building vim.
-        # exec_prefix is the location to put the executable links.
-        echo "
-prefix = ${VIM_TARGET_DIR}
-exec_prefix = ${VIM_BIN_DIR}" | cat Makefile - > Makefile.tmp && mv Makefile{.tmp,}
     )
 }
 
 function do_configure () {
-    ./configure --enable-perlinterp --enable-pythoninterp --enable-multibyte --enable-fontset
+    # prefix is the location to put the result of building vim.
+    # exec_prefix is the location to put the executable links.
+    ./configure \
+        --prefix=${VIM_TARGET_DIR} \
+        --exec-prefix=${VIM_BIN_DIR} \
+        --enable-perlinterp \
+        --enable-pythoninterp \
+        --enable-multibyte \
+        --enable-fontset
 }
 function build () {
     (
