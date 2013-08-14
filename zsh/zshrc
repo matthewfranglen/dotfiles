@@ -101,10 +101,10 @@ PATH=$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
 # EDITOR STUFF #
 ################
 
-export VISUAL=/usr/bin/vim
-export EDITOR=/usr/bin/vim
-export SVN_EDITOR=/usr/bin/vim
-export GIT_EDITOR=/usr/bin/vim
+export VISUAL=vim
+export EDITOR=vim
+export SVN_EDITOR=vim
+export GIT_EDITOR=vim
 export LESS=ir
 export JAVA_HOME=/usr/lib/jvm/default-java
 
