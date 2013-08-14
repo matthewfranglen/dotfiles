@@ -1,0 +1,24 @@
+#!/bin/zsh
+
+BUILD_DIR=${0:A:h:h}
+VIM_SOURCE_DIR=${BUILD_DIR}/source/vim
+VIM_TARGET_DIR=${BUILD_DIR}/target
+VIM_BIN_DIR=${BUILD_DIR}/bin
+
+git clone https://github.com/b4winckler/vim.git ${VIM_SOURCE_DIR}
+(
+    cd ${VIM_SOURCE_DIR}
+    echo "
+prefix = ${VIM_TARGET_DIR}
+exec_prefix = ${VIM_BIN_DIR}" | cat Makefile - > Makefile.tmp && mv Makefile{.tmp,}
+
+    ./configure   &&
+        make      &&
+        make test &&
+        make install
+
+    # prefix is the location to put the result of building vim.
+    # exec_prefix is the location to put the executable links.
+)
+
+# vim: set ai et sw=4 syntax=zsh :
