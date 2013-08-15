@@ -8,7 +8,9 @@ function prepare () {
 
 function do_build () {
     for builder in ${BUILD_FOLDER}/*/build
+    do
         ${builder}
+    done
 }
 
 prepare && do_build
