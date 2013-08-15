@@ -8,14 +8,14 @@ FOLDER=$(dirname $0)
 function collect-dependencies () {
     for file in ${FOLDER}/*/dependencies
     do
-        echo -n ${(j/ /)$(cat ${file} | sed -e 's/#.*$//' -e 's/^\s*//' -e 's/\s*$//' -e '/^$/d')}" "
+        echo -n $(cat ${file} | sed -e 's/#.*$//' -e 's/^\s*//' -e 's/\s*$//' -e '/^$/d')" "
     done
 }
 
 dependencies=$(collect-dependencies)
 
 echo "Installing $dependencies"
-sudo apt-get install ${(s/ /)dependencies}
-return 0
+sudo apt-get install ${dependencies}
+exit 0
 
 # vim: set ai et sw=4 syntax=zsh :
