@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Get zsh to handle the next bit.
-[ ! -e /bin/zsh ] && sudo apt-get install zsh
+type zsh &>/dev/null || sudo apt-get install zsh
 
 zsh -c '
     # If this is over an ssh connection then do not be updating fonts etc
