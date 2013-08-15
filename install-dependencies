@@ -1,10 +1,12 @@
-#!/bin/zsh
+#!/bin/bash
 # This handles installing the apt-get dependencies required by this shell. A
 # small amount of effort has been added to allow comments in the dependencies,
 # as the reason for them may not be clear.
 
+FOLDER=$(dirname $0)
+
 function collect-dependencies () {
-    for file in ${0:A:h}/*/dependencies
+    for file in ${FOLDER}/*/dependencies
     do
         echo -n ${(j/ /)$(cat ${file} | sed -e 's/#.*$//' -e 's/^\s*//' -e 's/\s*$//' -e '/^$/d')}" "
     done
