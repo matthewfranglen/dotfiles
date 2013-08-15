@@ -6,26 +6,22 @@ VIM_TARGET_DIR=${BUILD_DIR}/target
 VIM_BIN_DIR=${BUILD_DIR}/bin
 
 function get_source () {
-    (
-        if [ ! -e ${VIM_SOURCE_DIR} ]
-        then
-            git clone https://github.com/b4winckler/vim.git ${VIM_SOURCE_DIR}
-        else
-            cd ${VIM_SOURCE_DIR} && git pull
-        fi
-    )
+    if [ ! -e ${VIM_SOURCE_DIR} ]
+    then
+        git clone https://github.com/b4winckler/vim.git ${VIM_SOURCE_DIR}
+    else
+        cd ${VIM_SOURCE_DIR} && git pull
+    fi
 }
 
+# Clean any changes from previous attempts to build
 function prepare_source () {
-    (
-        cd ${VIM_SOURCE_DIR}
+    cd ${VIM_SOURCE_DIR}
 
-        # Clean any changes from previous attempts to build
-        for file in $(git status --porcelain | awk ' { print $2 } ')
-        do
-            ( git checkout ${file} || rm -r ${file} ) 2>&1 >/dev/null
-        done
-    )
+    for file in $(git status --porcelain | awk ' { print $2 } ')
+    do
+        ( git checkout ${file} || rm -r ${file} ) 2>&1 >/dev/null
+    done
 }
 
 function do_configure () {
@@ -39,16 +35,15 @@ function do_configure () {
         --enable-multibyte \
         --enable-fontset
 }
-function build () {
-    (
-        cd ${VIM_SOURCE_DIR}
 
-        do_configure  &&
-            make      &&
-            make test &&
-            make install
-    )
+function build () {
+    do_configure  &&
+        make      &&
+        make test &&
+        make install
 }
+
+cd ${VIM_SOURCE_DIR}
 
 get_source && prepare_source && build
 
