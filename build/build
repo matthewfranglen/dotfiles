@@ -1,7 +1,15 @@
 #!/bin/zsh
 
-setopt extended_glob
-for builder in ${0:A:h}/*/build
-    ${builder}
+function prepare () {
+    setopt extended_glob
+    ${0:h}/install-dependencies
+}
+
+function do_build () {
+    for builder in ${0:A:h}/*/build
+        ${builder}
+}
+
+prepare && do_build
 
 # vim: set ai et sw=4 syntax=zsh :
