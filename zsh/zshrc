@@ -85,7 +85,7 @@ PATH=$PATH:${ZSH_FOLDER}/packages/fasd
 eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
 
 # add bin folder to path
-PATH=${ZSH_FOLDER}/build/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
+PATH=${ZSH_FOLDER:h}/build/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
 
 
 ######################
