@@ -3,7 +3,6 @@
 BUILD_DIR=${0:A:h:h}
 VIM_SOURCE_DIR=${BUILD_DIR}/source/vim
 VIM_TARGET_DIR=${BUILD_DIR}/target
-VIM_BIN_DIR=${BUILD_DIR}/bin
 
 function get_source () {
     if [ ! -e ${VIM_SOURCE_DIR} ]
@@ -29,7 +28,7 @@ function do_configure () {
     # exec_prefix is the location to put the executable links.
     ./configure \
         --prefix=${VIM_TARGET_DIR} \
-        --exec-prefix=${VIM_BIN_DIR} \
+        --exec-prefix=${BUILD_DIR} \
         --enable-perlinterp \
         --enable-pythoninterp \
         --enable-multibyte \
