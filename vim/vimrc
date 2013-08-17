@@ -43,21 +43,12 @@ NeoBundle 'Shougo/vimproc', {
 
 NeoBundle "Shougo/unite.vim"
 NeoBundle "Shougo/vimproc.vim"
-if ( v:version > 704 || ( v:version > 703 && has( 'patch584' ) ) ) && has( 'python' )
-    NeoBundle "Valloric/YouCompleteMe"
-endif
-if has( 'python' )
-    NeoBundle "actionshrimp/vim-xpath.git"
-endif
 NeoBundle "altercation/vim-colors-solarized.git"
 NeoBundle "bronson/vim-visual-star-search"
 NeoBundle "dart-lang/dart-vim-plugin.git"
 NeoBundle "godlygeek/tabular.git"
 NeoBundle "groenewege/vim-less.git"
 NeoBundle "hail2u/vim-css3-syntax.git"
-if exists("$JS_CMD") || executable('node') || executable('nodejs') || executable('js')
-    NeoBundle "hallettj/jslint.vim.git"
-endif
 NeoBundle "jeffkreeftmeijer/vim-numbertoggle"
 NeoBundle "jnwhiteh/vim-golang.git"
 NeoBundle "majutsushi/tagbar.git"
@@ -74,6 +65,17 @@ NeoBundle "tpope/vim-unimpaired.git"
 NeoBundle "vim-perl/vim-perl"
 NeoBundle "vim-scripts/kwbdi.vim.git"
 NeoBundle "vim-scripts/nginx.vim.git"
+
+if has( 'python' )
+    NeoBundle "actionshrimp/vim-xpath.git"
+
+    if ( v:version > 704 || ( v:version > 703 && has( 'patch584' ) ) )
+        NeoBundle "Valloric/YouCompleteMe"
+    endif
+endif
+if exists("$JS_CMD") || executable('node') || executable('nodejs') || executable('js')
+    NeoBundle "hallettj/jslint.vim.git"
+endif
 
 NeoBundleCheck
 
@@ -173,14 +175,15 @@ nnoremap <Right> <Esc>:bn<CR>
 vnoremap <Right> <Esc>:bn<CR>
 
 " Disable up/down arrow keys
-noremap  <up>   <nop>
-noremap  <down> <nop>
-nnoremap <up>   <nop>
-nnoremap <down> <nop>
-vnoremap <up>   <nop>
-vnoremap <down> <nop>
-inoremap <up>   <nop>
-inoremap <down> <nop>
+noremap  <Up>   <nop>
+nnoremap <Up>   <nop>
+vnoremap <Up>   <nop>
+inoremap <Up>   <nop>
+
+noremap  <Down> <nop>
+nnoremap <Down> <nop>
+vnoremap <Down> <nop>
+inoremap <Down> <nop>
 
 " Make mouse middle click paste without formatting it.
 map <MouseMiddle> <Esc>"*p
