@@ -194,7 +194,7 @@ map <MouseMiddle> <Esc>"*p
 nnoremap <C-J> a<CR><Esc>k$
 
 " \f now formats perl scripts with perltidy
-nnoremap <leader>f :1,$!perltidy<CR>
+autocmd FileType perl :nnoremap <leader>f :1,$!perltidy<CR>
 
 " \l now Data::Dumps the current WORD
 " nnoremap <C-L> diWi{ print Data::Dumper->new( [ <Esc>p$a ] )->Dump; <Esc>p$a }<Esc>
