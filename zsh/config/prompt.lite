@@ -3,6 +3,7 @@
 # MIT License
 # This version will strip all potentially failing commands for older servers.
 
+autoload -U colors && colors
 
 # Change this to your own username
 DEFAULT_USERNAME=$(ls -l $0 | awk '{ print $3 }')
@@ -32,11 +33,12 @@ precmd() {
     else
         _color=red
     fi
-    print -P "\n%F{black}%K{$_color}%~ %F{236}$username%f %F{black}%k"
+    print -P "\n$fg[blue]$bg[$_color]~ $fg[$_color]$bg[blue] "\
+        "$fg[white]$username $reset_color$fg[blue]$reset_color"
 }
 
 # Prompt turns red if the previous command didn't exit with 0
-PROMPT='%(?.%F{green}.%F{red})❯%f '
+PROMPT="%(?.$fg[green].$fg[red])❯%{$reset_color%} "
 # Can be disabled:
 # PROMPT='%F{magenta}❯%f '
 
