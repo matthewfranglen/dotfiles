@@ -7,10 +7,13 @@ zsh -c '
     # If this is over an ssh connection then do not be updating fonts etc
     CHANGE_X=$([ -z $SSH_CONNECTION ]; echo $?)
 
+    # Older boxes just cant handle the :A, so just use dirname.
+    DOTFILES_FOLDER=$(dirname $0)
+
     git submodule init && git submodule update
 
     setopt extended_glob
-    for folder in ${0:A:h}/*/files(:h)
+    for folder in ${DOTFILES_FOLDER}/*/files(:h)
     do
         for file link in $(cat ${folder}/files)
         do
