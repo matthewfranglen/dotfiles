@@ -8,7 +8,7 @@ zsh -c '
     CHANGE_X=$([ -z $SSH_CONNECTION ]; echo $?)
 
     # Older boxes just cant handle the :A, so just use dirname.
-    DOTFILES_FOLDER=$(dirname $0)
+    DOTFILES_FOLDER=$(dirname $(readlink -f $0))
 
     git submodule init && git submodule update
 
