@@ -3,7 +3,7 @@
 # $0 does not work if this is symlinked. Essentially the script is not invoked or sourced
 # see http://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
 ZSHRC=${ZDOTDIR-~}/.zshrc
-ZSH_FOLDER=$(dirname $(readlink -e $ZSHRC))
+ZSH_FOLDER=$(dirname $(readlink -f $ZSHRC))
 
 # If the :A switch cannot be used then must use a less capable shell setup.
 if eval '[ "${${:-one}:A}" != "" ]' &>/dev/null
