@@ -93,7 +93,13 @@ PATH=${ZSH_FOLDER:h}/build/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specif
 ######################
 
 . ${ZSH_FOLDER}/config/aliases
-. ${ZSH_FOLDER}/config/prompt
+
+if eval '[ "${${:-one}:A}" != "" ]' &>/dev/null
+then
+    . ${ZSH_FOLDER}/config/prompt
+else
+    . ${ZSH_FOLDER}/config/prompt.lite
+fi
 . ${ZSH_FOLDER}/config/keymapping
 
 
