@@ -5,6 +5,14 @@
 ZSHRC=${ZDOTDIR-~}/.zshrc
 ZSH_FOLDER=$(dirname $(readlink -e $ZSHRC))
 
+# If the :A switch cannot be used then must use a less capable shell setup.
+if eval '[ "${${:-one}:A}" != "" ]' &>/dev/null
+then
+    is_lite () { [ 0 -ne 0 ] }
+else
+    is_lite () { [ 1 -ne 0 ] }
+fi
+
 # The following lines were added by compinstall
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _list _expand _complete _ignored _match
@@ -70,14 +78,17 @@ setopt share_history
 # MODULES AND PATH #
 ####################
 
-# load antigen.
-. ${ZSH_FOLDER}/antigen/antigen.zsh
-antigen-bundle zsh-users/zsh-syntax-highlighting
-antigen-bundle Tarrasch/zsh-functional
-antigen-bundle zsh-users/zsh-history-substring-search
-antigen-bundle bobthecow/git-flow-completion
-antigen-bundle matthewfranglen/git-update
-antigen-apply
+if ! is_lite
+then
+    # load antigen.
+    . ${ZSH_FOLDER}/antigen/antigen.zsh
+    antigen-bundle zsh-users/zsh-syntax-highlighting
+    antigen-bundle Tarrasch/zsh-functional
+    antigen-bundle zsh-users/zsh-history-substring-search
+    antigen-bundle bobthecow/git-flow-completion
+    antigen-bundle matthewfranglen/git-update
+    antigen-apply
+fi
 
 # Load the fasd completion system.
 # See https://github.com/clvv/fasd
@@ -94,11 +105,11 @@ PATH=${ZSH_FOLDER:h}/build/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specif
 
 . ${ZSH_FOLDER}/config/aliases
 
-if eval '[ "${${:-one}:A}" != "" ]' &>/dev/null
+if is_lite
 then
-    . ${ZSH_FOLDER}/config/prompt
-else
     . ${ZSH_FOLDER}/config/prompt.lite
+else
+    . ${ZSH_FOLDER}/config/prompt
 fi
 . ${ZSH_FOLDER}/config/keymapping
 
