@@ -1,10 +1,14 @@
+#!/bin/zsh
+
 local HASTE_SERVER
-local help
+local COMMAND
+
+COMMAND=${0:t}
 
 function help () {
     cat <<EOF
 This pastes the input to a paste server for easy sharing.
-useage: [PASTE |] $0 [FILE|PASTE]
+useage: [PASTE |] ${COMMAND} [FILE|PASTE]
 
 This will take the paste from the following sources:
 
@@ -65,14 +69,7 @@ function haste_client {
     echo $url
 }
 
-function pasti {
-  HASTE_SERVER="http://pasti.co"
-  haste_client $*
-}
-
-function haste {
-  HASTE_SERVER="http://hastebin.com"
-  haste_client $*
-}
+HASTE_SERVER="http://pasti.co"
+haste_client $*
 
 # vim: set ai et sw=4 syntax=zsh :
