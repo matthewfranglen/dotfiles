@@ -49,9 +49,10 @@ function haste_client {
         return 0
     fi
 
+    # The response from the curl is JSON such as {"key":"sixicupevo"}
     output=$(
-        curl -s -X POST -d "${content}" $HASTE_SERVER/documents |
-            perl -pi -e 's|.+:\"(.+)\"}|$1|'
+        curl --silent --request POST --data "${content}" $HASTE_SERVER/documents |
+            perl -MJSON -ne '$obj = decode_json($_); print "raw/$obj->{key}"'
     )
     url="${HASTE_SERVER}/${output}"
 
