@@ -111,7 +111,7 @@ set noswapfile
 " BufWinEnter - After a buffer is displayed in a window.
 " For some reason, :source $MYVIMRC can cause syntax failures, but switching
 " to an existing buffer no longer causes such issues.
-autocmd BufEnter,BufRead,BufWinEnter * :syntax sync fromstart
+autocmd! BufEnter,BufRead,BufWinEnter * :syntax sync fromstart
 
 " highlight tabs & trailing spaces
 set list listchars=tab:\ \ ,trail:·
@@ -194,7 +194,7 @@ map <MouseMiddle> <Esc>"*p
 nnoremap <C-J> a<CR><Esc>k$
 
 " \f now formats perl scripts with perltidy
-autocmd FileType perl :nnoremap <leader>f :1,$!perltidy<CR>
+autocmd! FileType perl :nnoremap <leader>f :1,$!perltidy<CR>
 
 " \l now Data::Dumps the current WORD
 " nnoremap <C-L> diWi{ print Data::Dumper->new( [ <Esc>p$a ] )->Dump; <Esc>p$a }<Esc>
@@ -251,4 +251,4 @@ if filereadable("./vimrc")
     source ./vimrc
 endif
 endfunction
-autocmd BufEnter * :call LoadCustomSettings()
+autocmd! BufEnter * :call LoadCustomSettings()
