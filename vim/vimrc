@@ -123,6 +123,9 @@ set sidescrolloff=5
 " No more complaints about unsaved buffers. Man up.
 set hidden
 
+" Allow the + register to copy between vim instances
+set clipboard=unnamedplus
+
 """"""""
 " UNDO "
 """"""""
