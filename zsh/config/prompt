@@ -100,7 +100,7 @@ precmd() {
 }
 
 # Prompt turns red if the previous command didn't exit with 0
-PROMPT='%(?.%F{green}.%F{red})➜%f '
+PROMPT='%{%(?.%F{green}.%F{red})%}➜%{%f%} '
 # Can be disabled:
 # PROMPT='%F{magenta}❯%f '
 
