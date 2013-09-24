@@ -125,6 +125,28 @@ export GIT_EDITOR=vim
 export LESS=ir
 export JAVA_HOME=/usr/lib/jvm/default-java
 
+#############
+# SSH AGENT #
+#############
+
+function load_ssh_agent () {
+    if [ -f ~/.agent.env ]
+    then
+        . ~/.agent.env > /dev/null
+        if ! kill -0 $SSH_AGENT_PID &> /dev/null
+        then
+            echo "Stale agent file found. Spawning new agent… "
+            eval `ssh-agent | tee ~/.agent.env`
+            ssh-add
+        fi
+    else
+        echo "Starting ssh-agent"
+        eval `ssh-agent | tee ~/.agent.env`
+        ssh-add
+    fi
+}
+load_ssh_agent
+
 #########
 # SILLY #
 #########
