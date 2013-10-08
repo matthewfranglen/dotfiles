@@ -87,6 +87,7 @@ then
     antigen-bundle zsh-users/zsh-history-substring-search
     antigen-bundle bobthecow/git-flow-completion
     antigen-bundle matthewfranglen/git-update
+    antigen-bundle matthewfranglen/easy-ln
     antigen-apply
 fi
 
