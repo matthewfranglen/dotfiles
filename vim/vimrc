@@ -51,6 +51,7 @@ NeoBundle "groenewege/vim-less.git"
 NeoBundle "hail2u/vim-css3-syntax.git"
 NeoBundle "jeffkreeftmeijer/vim-numbertoggle"
 NeoBundle "jnwhiteh/vim-golang.git"
+NeoBundle "kien/ctrlp.vim"
 NeoBundle "majutsushi/tagbar.git"
 NeoBundle "mileszs/ack.vim.git"
 NeoBundle "scrooloose/nerdtree.git"
@@ -254,7 +255,6 @@ let g:multi_cursor_quit_key='<Esc>'
 
 " Unite settings from
 " http://bling.github.io/blog/2013/06/02/unite-dot-vim-the-plugin-you-didnt-know-you-need/
-nnoremap <C-P>     :Unite file_rec/async<CR>
 nnoremap <leader>/ :Unite grep:.<CR>
 nnoremap <leader>s :Unite -quick-match buffer<CR>
 
