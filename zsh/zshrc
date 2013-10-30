@@ -146,7 +146,8 @@ function load_ssh_agent () {
         ssh-add
     fi
 }
-load_ssh_agent
+# Don't dirty up the process tree on remote servers
+[ -z $SSH_CONNECTION ] && load_ssh_agent
 
 #########
 # SILLY #
