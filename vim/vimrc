@@ -232,6 +232,11 @@ nmap <leader>s<right>  :rightbelow vnew<CR>
 nmap <leader>s<up>     :leftabove  new<CR>
 nmap <leader>s<down>   :rightbelow new<CR>
 
+" Fugitive bindings
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gd :Git diff<CR>
+nnoremap <leader>gc :Gcommit<CR>
+
 """""""""""""""""""
 " BUNDLE SETTINGS "
 """""""""""""""""""
