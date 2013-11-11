@@ -252,6 +252,10 @@ nnoremap <leader>gd :MyGitDiff<CR>
 " Execute shell commands as :Shell <CMD> and they will be written to a buffer.
 " Slight adjustment to:
 " http://vim.wikia.com/wiki/Display_shell_commands%27_output_on_Vim_window
+"
+" This does preserve buffers, but realise that new buffers are created for
+" different commands. Inside the buffer for a command you can rerun the
+" command that generated that buffer with <leader>r.
 
 function! s:ExecuteInShell(command)
     let command = join(map(split(a:command), 'expand(v:val)'))
@@ -265,6 +269,13 @@ function! s:ExecuteInShell(command)
     " the command. That can be much too big sometimes so it is disabled for
     " now.
     " silent! execute 'resize ' . line('$')
+
+    " This resizes to the length of the output, but no more than one third of
+    " the screen.
+    let one_third = &lines / 3
+    let command_size = line('$')
+    let window_size = command_size < one_third ? command_size : one_third
+    silent! execute 'resize ' . window_size
 
     silent! redraw
     silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
