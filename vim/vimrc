@@ -234,8 +234,16 @@ nmap <leader>s<down>   :rightbelow new<CR>
 
 " Fugitive bindings
 nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gd :Git diff<CR>
 nnoremap <leader>gc :Gcommit<CR>
+
+" Just want the syntax highlighting to work!
+function! s:MyGitDiff()
+    execute s:ExecuteInShell('git diff')
+    set syntax=diff
+endfunction
+command! MyGitDiff call s:MyGitDiff()
+
+nnoremap <leader>gd :MyGitDiff<CR>
 
 """""""""""""""""""
 " SHELL TO BUFFER "
