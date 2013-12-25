@@ -67,78 +67,9 @@ if exists("$JS_CMD") || executable('node') || executable('nodejs') || executable
     NeoBundle "hallettj/jslint.vim.git"
 endif
 
+NeoBundle "matthewfranglen/vim-mf-defaults.git"
+
 NeoBundleCheck
-
-""""""""""""
-" SETTINGS "
-""""""""""""
-
-syntax on
-filetype plugin indent on
-
-set modeline
-set expandtab
-set tabstop=4
-set shiftwidth=4
-
-" Highlight searches to allow refinement
-" Turn off for the current search with :nohlsearch (or <leader>h)
-set hls
-
-set nocompatible   " Disable vi-compatibility
-set laststatus=2   " Always show the statusline
-set encoding=utf-8 " Necessary to show Unicode glyphs
-
-" I tried lots of different things (like putting swap files in /tmp) but
-" really, just die swap files. DIE!
-set noswapfile
-
-" Highlight from the start of the file
-" :help autocmd to learn more
-" BufEnter    - After entering a buffer.
-" BufRead     - When starting to edit a new buffer, after reading the file
-"               into the buffer, before executing the modelines.
-" BufWinEnter - After a buffer is displayed in a window.
-" For some reason, :source $MYVIMRC can cause syntax failures, but switching
-" to an existing buffer no longer causes such issues.
-autocmd! BufEnter,BufRead,BufWinEnter * :syntax sync fromstart
-
-" highlight tabs & trailing spaces
-set list listchars=tab:\ \ ,trail:·
-
-" Always have 5 lines around the cursor
-set scrolloff=5
-set sidescrolloff=5
-
-" No more complaints about unsaved buffers. Man up.
-set hidden
-
-" Allow the + register to copy between vim instances
-set clipboard=unnamedplus
-
-""""""""
-" UNDO "
-""""""""
-
-" The settings from vim-sensible no longer appear to apply. May have to just
-" rip them out directly into this vimrc, but for now the undo history has
-" proved its worth.
-"
-" Not 100% on when the undofile functionality was included, but it is
-" available from at least 7.3
-
-if ( v:version >= 703 )
-    let undodir=expand('~/.vim/undo')
-
-    if !isdirectory(undodir)
-        silent !mkdir -p ~/.vim/undo
-    endif
-
-    set undofile
-    set undodir=$HOME/.vim/undo
-    set undolevels=1000
-    set undoreload=10000
-endif
 
 """"""""""
 " COLORS "
@@ -149,42 +80,12 @@ endif
 set t_Co=256
 
 let g:solarized_termcolors=256
-set background=dark
 colorscheme solarized
+set background=dark
 
 """"""""""""""
 " KEYMAPPING "
 """"""""""""""
-
-" Left/Right arrow keys change buffers in all modes
-noremap  <Left> <Esc>:bp<CR>
-inoremap <Left> <Esc>:bp<CR>
-nnoremap <Left> <Esc>:bp<CR>
-vnoremap <Left> <Esc>:bp<CR>
-
-noremap  <Right> <Esc>:bn<CR>
-inoremap <Right> <Esc>:bn<CR>
-nnoremap <Right> <Esc>:bn<CR>
-vnoremap <Right> <Esc>:bn<CR>
-
-" Disable up/down arrow keys
-noremap  <Up>   <nop>
-nnoremap <Up>   <nop>
-vnoremap <Up>   <nop>
-inoremap <Up>   <nop>
-
-noremap  <Down> <nop>
-nnoremap <Down> <nop>
-vnoremap <Down> <nop>
-inoremap <Down> <nop>
-
-" Make mouse middle click paste without formatting it.
-map <MouseMiddle> <Esc>"*p
-
-" Ctrl-J now adds a newline (without going into insert), so it is the reverse
-" of Shift-J. See:
-" http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
-nnoremap <C-J> a<CR><Esc>k$
 
 " \f now formats perl scripts with perltidy
 autocmd! FileType perl :nnoremap <leader>f :1,$!perltidy<CR>
@@ -192,34 +93,6 @@ autocmd! FileType perl :nnoremap <leader>f :1,$!perltidy<CR>
 " \l now Data::Dumps the current WORD
 " nnoremap <C-L> diWi{ print Data::Dumper->new( [ <Esc>p$a ] )->Dump; <Esc>p$a }<Esc>
 nnoremap <leader>l diWiprint Data::Dumper->new( [ <C-R>" ] )->Dump;<Esc>
-
-" \s syncs syntax from start
-nnoremap <leader>s :syntax sync fromstart<CR>
-
-" \= and \=> do :Tabularize stuff
-nnoremap <leader>=> :Tabularize /=><CR>
-nnoremap <leader>=  :Tabularize /=<CR>
-
-" \h turns off highlighting for the current search
-nnoremap <leader>h  :nohls<CR>
-
-" \p changes paste mode.
-nnoremap <leader>p :set paste!<CR>
-
-" Split commands from:
-" https://technotales.wordpress.com/2010/04/29/vim-splits-a-guide-to-doing-exactly-what-you-want/
-
-" Split by window
-nmap <leader>sw<left>  :topleft  vnew<CR>
-nmap <leader>sw<right> :botright vnew<CR>
-nmap <leader>sw<up>    :topleft  new<CR>
-nmap <leader>sw<down>  :botright new<CR>
-
-" Split by buffer
-nmap <leader>s<left>   :leftabove  vnew<CR>
-nmap <leader>s<right>  :rightbelow vnew<CR>
-nmap <leader>s<up>     :leftabove  new<CR>
-nmap <leader>s<down>   :rightbelow new<CR>
 
 " Fugitive bindings
 nnoremap <leader>gs :Gstatus<CR>
@@ -290,14 +163,3 @@ nnoremap <F7> :NERDTreeToggle<CR><C-W>l
 nnoremap <F8> :TagbarToggle<CR>
 
 let g:syntastic_python_checkers=['python', 'pyflakes', 'pep8', 'pylint']
-
-"""""""""""""""""""""""""""
-" CUSTOM RUNTIME SETTINGS "
-"""""""""""""""""""""""""""
-
-function! LoadCustomSettings()
-if filereadable("./vimrc")
-    source ./vimrc
-endif
-endfunction
-autocmd! BufEnter * :call LoadCustomSettings()
