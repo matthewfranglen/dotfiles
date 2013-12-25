@@ -32,17 +32,7 @@ endif
 call neobundle#rc(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc', {
-  \ 'build' : {
-  \     'windows' : 'make -f make_mingw32.mak',
-  \     'cygwin'  : 'make -f make_cygwin.mak',
-  \     'mac'     : 'make -f make_mac.mak',
-  \     'unix'    : 'make -f make_unix.mak',
-  \     },
-  \ }
 
-NeoBundle "Shougo/unite.vim"
-NeoBundle "Shougo/vimproc.vim"
 NeoBundle "altercation/vim-colors-solarized.git"
 NeoBundle "bronson/vim-visual-star-search"
 NeoBundle "dart-lang/dart-vim-plugin.git"
@@ -56,7 +46,6 @@ NeoBundle "majutsushi/tagbar.git"
 NeoBundle "mileszs/ack.vim.git"
 NeoBundle "scrooloose/nerdtree.git"
 NeoBundle "scrooloose/syntastic.git"
-NeoBundle "terryma/vim-multiple-cursors"
 NeoBundle "tpope/vim-fugitive.git"
 NeoBundle "tpope/vim-markdown.git"
 NeoBundle "tpope/vim-repeat"
@@ -299,17 +288,6 @@ let NERDTreeIgnore = ['\.pyc$']
 " Toggle Tags with <F8>, Nerdtree with <F7>
 nnoremap <F7> :NERDTreeToggle<CR><C-W>l
 nnoremap <F8> :TagbarToggle<CR>
-
-" vim-multiple-cursors default mapping
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
-
-" Unite settings from
-" http://bling.github.io/blog/2013/06/02/unite-dot-vim-the-plugin-you-didnt-know-you-need/
-nnoremap <leader>/ :Unite grep:.<CR>
-nnoremap <leader>s :Unite -quick-match buffer<CR>
 
 let g:syntastic_python_checkers=['python', 'pyflakes', 'pep8', 'pylint']
 
