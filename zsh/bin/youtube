@@ -3,36 +3,9 @@
 # A very simple Bash script to download a YouTube video
 # and extract the music file from it.
 
-function title () {
-    # Only / and \0 are invalid in linux filenames.
-    # / is the path separator.
-    # \0 is the terminator.
-    # See http://unix.stackexchange.com/questions/36734/is-there-a-way-to-detect-null-bytes-nul-0-in-sed for \0 handling
-    youtube-dl --get-title $1 | sed -e 's#/##g' -e 's/\x00//g'
-}
-
-function download () {
-    local address=$1
-    regex='v=(.*)'
-
-    if [[ $address =~ $regex ]]; then
-        video_id=$(echo ${BASH_REMATCH[1]} | cut -d'&' -f1)
-        video_title="$(title $address)"
-
-        youtube-dl $address
-
-        # Using ./ handles filenames that begin with -
-        ffmpeg -i ./$video_id.*        ./"$video_title".wav
-        lame      ./"$video_title".wav ./"$video_title".mp3
-        rm        ./$video_id.*        ./"$video_title".wav
-    else
-        echo "The address '$address' does not appear valid"
-    fi
-}
-
 for address in $@
 do
-    download "${address}"
+    youtube-dl --extract-audio --output "%(title)s.%(ext)s" $address
 done
 
 # vim: set ai et sw=4 syntax=sh :
