@@ -124,3 +124,14 @@ nnoremap <F7> :NERDTreeToggle<CR><C-W>l
 nnoremap <F8> :TagbarToggle<CR>
 
 let g:syntastic_python_checkers=['python', 'pyflakes', 'pep8', 'pylint']
+
+"""""""""""""""""""""""""""
+" CUSTOM RUNTIME SETTINGS "
+"""""""""""""""""""""""""""
+
+function! LoadCustomSettings()
+if filereadable("./vimrc")
+    source ./vimrc
+endif
+endfunction
+autocmd! VimEnter * :call LoadCustomSettings()
