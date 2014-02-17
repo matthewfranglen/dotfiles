@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use HTML::Entities;
+
+print encode_entities($_) foreach (<>);
+
+# vim: set ai et sw=4 syntax=perl :
