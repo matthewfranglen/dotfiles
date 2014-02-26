@@ -61,7 +61,7 @@ bindkey  -M vicmd v edit-command-line
 # Map control-p to the vim ctrlp command. Will open vim and run ctrlp.
 # This is lovely and dirty - will wipe out the current line.
 function vim-ctrlp () {
-    BUFFER='vim "+:Unite file_rec/async"'
+    BUFFER='vim +:CtrlP'
     zle accept-line
 }
 zle -N                vim-ctrlp
