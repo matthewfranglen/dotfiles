@@ -8,9 +8,9 @@ ZSH_FOLDER=$(dirname $(readlink -f $ZSHRC))
 # If the :A switch cannot be used then must use a less capable shell setup.
 if eval '[ "${${:-one}:A}" != "" ]' &>/dev/null
 then
-    is_lite () { true }
-else
     is_lite () { false }
+else
+    is_lite () { true }
 fi
 
 # The following lines were added by compinstall
