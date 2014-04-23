@@ -17,60 +17,66 @@ let g:NumberToggleTrigger="<leader>n"
 " NEOBUNDLE "
 """""""""""""
 
-if has('vim_starting')
-    " install neobundle stuff!
-    " inspired by: http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
-    if !filereadable(expand('~/.vim/bundle/neobundle.vim/README.md'))
-        echo "Installing NeoBundle.."
-        echo ""
-        silent !mkdir -p ~/.vim/bundle
-        silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+" Neobundle requires 7.2.051 or later.
+" You can see the test in autoload/neobundle.vim and plugin/neobundle.vim
+" Even though it states a patch version, it does not test for that, so neither
+" will I.
+if ( v:version > 701 )
+    if has('vim_starting')
+        " install neobundle stuff!
+        " inspired by: http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
+        if !filereadable(expand('~/.vim/bundle/neobundle.vim/README.md'))
+            echo "Installing NeoBundle.."
+            echo ""
+            silent !mkdir -p ~/.vim/bundle
+            silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+        endif
+
+        set runtimepath+=~/.vim/bundle/neobundle.vim/
+    endif
+    call neobundle#rc(expand('~/.vim/bundle/'))
+
+    NeoBundleFetch 'Shougo/neobundle.vim'
+
+    NeoBundle "altercation/vim-colors-solarized.git"
+    NeoBundle "bronson/vim-visual-star-search"
+    NeoBundle "dart-lang/dart-vim-plugin.git"
+    NeoBundle "godlygeek/tabular.git"
+    NeoBundle "groenewege/vim-less.git"
+    NeoBundle "hail2u/vim-css3-syntax.git"
+    NeoBundle "jeffkreeftmeijer/vim-numbertoggle"
+    NeoBundle "jnwhiteh/vim-golang.git"
+    NeoBundle "kien/ctrlp.vim"
+    NeoBundle "majutsushi/tagbar.git"
+    NeoBundle "mileszs/ack.vim.git"
+    NeoBundle "scrooloose/nerdtree.git"
+    NeoBundle "scrooloose/syntastic.git"
+    NeoBundle "tpope/vim-fugitive.git"
+    NeoBundle "tpope/vim-markdown.git"
+    NeoBundle "tpope/vim-repeat"
+    NeoBundle "tpope/vim-sensible.git"
+    NeoBundle "tpope/vim-surround.git"
+    NeoBundle "tpope/vim-unimpaired.git"
+    NeoBundle "vim-perl/vim-perl"
+    NeoBundle "vim-scripts/kwbdi.vim.git"
+    NeoBundle "vim-scripts/nginx.vim.git"
+
+    if has( 'python' )
+        NeoBundle "actionshrimp/vim-xpath.git"
+
+        if ( v:version > 704 || ( v:version > 703 && has( 'patch584' ) ) )
+            NeoBundle "Valloric/YouCompleteMe"
+        endif
+    endif
+    if exists("$JS_CMD") || executable('node') || executable('nodejs') || executable('js')
+        NeoBundle "hallettj/jslint.vim.git"
     endif
 
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    NeoBundle "matthewfranglen/vim-shell.git"
+    NeoBundle "matthewfranglen/vim-mf-defaults.git"
+
+    NeoBundleCheck
 endif
-call neobundle#rc(expand('~/.vim/bundle/'))
-
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-NeoBundle "altercation/vim-colors-solarized.git"
-NeoBundle "bronson/vim-visual-star-search"
-NeoBundle "dart-lang/dart-vim-plugin.git"
-NeoBundle "godlygeek/tabular.git"
-NeoBundle "groenewege/vim-less.git"
-NeoBundle "hail2u/vim-css3-syntax.git"
-NeoBundle "jeffkreeftmeijer/vim-numbertoggle"
-NeoBundle "jnwhiteh/vim-golang.git"
-NeoBundle "kien/ctrlp.vim"
-NeoBundle "majutsushi/tagbar.git"
-NeoBundle "mileszs/ack.vim.git"
-NeoBundle "scrooloose/nerdtree.git"
-NeoBundle "scrooloose/syntastic.git"
-NeoBundle "tpope/vim-fugitive.git"
-NeoBundle "tpope/vim-markdown.git"
-NeoBundle "tpope/vim-repeat"
-NeoBundle "tpope/vim-sensible.git"
-NeoBundle "tpope/vim-surround.git"
-NeoBundle "tpope/vim-unimpaired.git"
-NeoBundle "vim-perl/vim-perl"
-NeoBundle "vim-scripts/kwbdi.vim.git"
-NeoBundle "vim-scripts/nginx.vim.git"
-
-if has( 'python' )
-    NeoBundle "actionshrimp/vim-xpath.git"
-
-    if ( v:version > 704 || ( v:version > 703 && has( 'patch584' ) ) )
-        NeoBundle "Valloric/YouCompleteMe"
-    endif
-endif
-if exists("$JS_CMD") || executable('node') || executable('nodejs') || executable('js')
-    NeoBundle "hallettj/jslint.vim.git"
-endif
-
-NeoBundle "matthewfranglen/vim-shell.git"
-NeoBundle "matthewfranglen/vim-mf-defaults.git"
-
-NeoBundleCheck
 
 """"""""""
 " COLORS "
