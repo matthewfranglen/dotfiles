@@ -38,7 +38,7 @@ precmd() {
 }
 
 # Prompt turns red if the previous command didn't exit with 0
-PROMPT="%(?.$fg[green].$fg[red])❯%{$reset_color%} "
+PROMPT="%{%(?.$fg[green].$fg[red])%}❯%{$reset_color%} "
 # Can be disabled:
 # PROMPT='%F{magenta}❯%f '
 
