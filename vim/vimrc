@@ -53,6 +53,7 @@ if ( v:version > 701 )
     NeoBundle "mileszs/ack.vim.git"
     NeoBundle "scrooloose/nerdtree.git"
     NeoBundle "scrooloose/syntastic.git"
+    NeoBundle "tpope/vim-commentary.git"
     NeoBundle "tpope/vim-fugitive.git"
     NeoBundle "tpope/vim-markdown.git"
     NeoBundle "tpope/vim-repeat"
