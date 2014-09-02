@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh -i
 
 # A very simple Bash script to download a YouTube video
 # and extract the music file from it.
