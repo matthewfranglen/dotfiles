@@ -76,6 +76,7 @@ if ( v:version > 701 )
     endif
 
     NeoBundle "matthewfranglen/vim-shell.git"
+    NeoBundle "matthewfranglen/vim-scheme.git"
     NeoBundle "matthewfranglen/vim-mf-defaults.git"
 
     NeoBundleCheck
