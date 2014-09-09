@@ -24,7 +24,7 @@ install_ansible () {
         cd ~/bin
         for c in source/ansible/bin/*
         do
-            ln -s $1
+            ln -s $c
         done
     )
 }
