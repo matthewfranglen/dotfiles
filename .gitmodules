@@ -1,0 +1,3 @@
+[submodule "roles/fonts/files/powerline-fonts"]
+	path = roles/fonts/files/powerline-fonts
+	url = git://github.com/Lokaltog/powerline-fonts.git
