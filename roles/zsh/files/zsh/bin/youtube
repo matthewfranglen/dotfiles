@@ -1,0 +1,11 @@
+#!/bin/zsh -i
+
+# A very simple Bash script to download a YouTube video
+# and extract the music file from it.
+
+for address in $@
+do
+    youtube-dl --extract-audio --output "%(title)s.%(ext)s" $address
+done
+
+# vim: set ai et sw=4 syntax=sh :

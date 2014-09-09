@@ -1,0 +1,167 @@
+#!/bin/bash
+
+# Bash used because zsh complains about the ${ :N:N} modifier
+# ${parameter:offset}
+# ${parameter:offset:length}
+#     Expands to up to length characters of parameter starting at the character specified by offset.
+
+# This returns the version of the pom file in the folder indicated
+# This accepts absolute and relative paths
+# This also supports no-argument calling
+# When called with no argument it will parse the pom file in the current directory,
+
+help () {
+	cat << EOF
+This gets the maven version for the current project.
+This is able to predict the next whole-number version for the project.
+This is able to predict the next snapshot version for the project.
+useage: $0 options
+
+OPTIONS:
+ -h This help message
+ -p [PROJECT] get the version number for the project specified
+ -f [FILE] get the version number for the pom.xml file specified
+ -n predict the next release version number
+ -s predict the next snapshot version number
+EOF
+}
+error () {
+	echo $1 1>&2
+	exit 1
+}
+error_incompatable_predictions () {
+	error "You cannot predict both the next release and snapshot versions"
+}
+error_multiple_poms () {
+	error "You cannot specify the pom to parse more than once"
+}
+
+P_SNAPSHOT=0
+P_RELEASE=0
+FILE=
+while getopts "hnsp:f:" option
+do
+	case ${option} in
+		h)
+			help
+			exit 1
+			;;
+		n)
+			if [ ${P_SNAPSHOT} -ne 0 ]
+			then
+				error_incompatable_predictions
+			fi
+
+			P_RELEASE=1
+			;;
+		s)
+			if [ ${P_RELEASE} -ne 0 ]
+			then
+				error_incompatable_predictions
+			fi
+
+			P_SNAPSHOT=1
+			;;
+		p)
+			if [ "${FILE}" != "" ]
+			then
+				error_multiple_poms
+			fi
+
+			if [ "${OPTARG:0:1}" = "/" ]
+			then
+				# Absolute path provided
+				FILE=${OPTARG}/pom.xml
+			else
+				FILE=$(pwd)/${OPTARG}/pom.xml
+			fi
+			;;
+		f)
+			if [ "${FILE}" != "" ]
+			then
+				error_multiple_poms
+			fi
+
+			FILE=${OPTARG}
+			;;
+		?)
+			# Exit if a required parameter is missing
+			# This is things like -p [NO PROJECT SPECIFIED]
+			# From http://aplawrence.com/Unix/getopts.html
+			# If "getopts" encounters an unwanted argument, and hasn't been silenced by a leading ":", the "$flag" in our script above will be set to "?":
+			echo
+			help
+			exit 1;
+			;;
+	esac
+done
+
+if [ "${FILE}" = "" ]
+then
+	FILE=$(pwd)/pom.xml
+fi
+
+if [ ! -e ${FILE} ]
+then
+	error "The pom.xml file specified '${FILE}' does not exist"
+fi
+
+# P_SNAPSHOT = Predict the next snapshot version
+# P_RELEASE = Predict the next release version
+
+# VERSION = whole current version
+# V_MAJOR = first number of current version
+# V_MINOR = second number
+# V_MICRO = last number
+# V_SUFFIX = fixed suffix for the version (includes leading -). Excludes 'SNAPSHOT'
+# V_SNAPSHOT = 'SNAPSHOT' if current version is a snapshot, blank otherwise
+
+VERSION=$(xsltproc $(readlink -f $(dirname $0))/version.xslt ${FILE})
+V_MAJOR=$(echo ${VERSION} | cut -d'.' -f 1)
+V_MINOR=$(echo ${VERSION} | cut -d'.' -f 2)
+V_MICRO=$(echo ${VERSION} | cut -d'.' -f 3 | cut -d'-' -f 1)
+V_SUFFIX=
+V_SNAPSHOT=
+
+SUFFIX_SECTIONS=$(echo ${VERSION} | sed -e 's/[^-]//g' | wc -c)
+if [ ${SUFFIX_SECTIONS} -gt 1 ]
+then
+    V_SUFFIX="-$(echo ${VERSION} | cut -d'-' -f 2- )"
+    LAST_SUFFIX=$(echo ${VERSION} | cut -d'-' -f ${SUFFIX_SECTIONS})
+    if [ ${LAST_SUFFIX} == "SNAPSHOT" ]
+    then
+        if [ ${SUFFIX_SECTIONS} -gt 2 ]
+        then
+            V_SUFFIX="-$(echo ${VERSION} | cut -d'-' -f 2-$((SUFFIX_SECTIONS - 1)) )"
+        else
+            V_SUFFIX=
+        fi
+        V_SNAPSHOT="SNAPSHOT"
+    fi
+fi
+
+if [ ${P_SNAPSHOT} -ne 0 ]
+then
+	if [ "${V_SNAPSHOT}" = "SNAPSHOT" ]
+	then
+		# If its already a snapshot version, it can remain so
+		echo ${V_MAJOR}.${V_MINOR}.${V_MICRO}${V_SUFFIX}-SNAPSHOT
+	else
+		# Otherwise increment the counter and snapshot it
+		echo ${V_MAJOR}.${V_MINOR}.$(( ${V_MICRO} + 1 ))${V_SUFFIX}-SNAPSHOT
+	fi
+elif [ ${P_RELEASE} -ne 0 ]
+then
+	if [ "${V_SNAPSHOT}" = "SNAPSHOT" ]
+    then
+		# If its already a snapshot then the next release is the not-snapshot of this version
+        echo ${V_MAJOR}.${V_MINOR}.${V_MICRO}${V_SUFFIX}
+    else
+		# Otherwise its one release to the next with no snapshot
+        echo ${V_MAJOR}.${V_MINOR}.$(( ${V_MICRO} + 1 ))${V_SUFFIX}
+    fi
+else 
+	echo ${VERSION}
+fi
+
+# vim: set ai et sw=4 syntax=sh :

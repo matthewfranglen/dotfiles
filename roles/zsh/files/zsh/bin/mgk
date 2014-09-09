@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Just a quick way to do the 'gitk' command that I ALWAYS use
+# In zsh you can use &! to background and disown
+
+gitk --all &
+disown
+
+# vim: set ai et sw=4 syntax=sh :

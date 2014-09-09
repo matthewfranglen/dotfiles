@@ -1,0 +1,158 @@
+#!/bin/zsh
+
+# This will show all of the shas that correspond to version number
+# changes in the pom file. This will not prevent the project from
+# being used while the process is active, as it will clone the project.
+
+# This is still pretty alpha, so a little bit of care is a good idea
+
+# This (obviously) depends on having the version script available
+
+# This only prints the sha and versions to standard out. All other messages
+# go to standard error. You can use this to filter the messages.
+
+# This can accept versions on the standard input. When those versions have
+# been encountered a predetermined number of times, this process will stop.
+
+VERSION="0.0.1"
+
+# Brief useage instructions. This prints to standard error to prevent
+# the standard output being tainted - only the sha and version combos
+# are printed to standard out.
+function help() {
+    cat >&2 << EOF
+This gets the sha hash and version number for every version number change,
+on the master branch, for a project. This can be used to automatically tag
+those versions. This does not alter the project that is being inspected
+during execution.
+
+useage: $0 options
+
+OPTIONS:
+ -h This help message
+ -p [PROJECT] Use the project specified. Defaults to the current directory.
+ -f [RELATIVE FILE] Use the pom.xml file specified. This must be a path relative to the project root.
+EOF
+}
+
+# Print out the error message provided and exit
+function error() {
+    echo ${1} >&2
+    exit 1
+}
+
+# This gets the name of a folder that does not yet exist in the temporary directory
+function temp_folder_name() {
+    local count=
+    local prefix="/tmp/show-versions"
+
+    while [ -e "${prefix}${count}" ]
+    do
+        count=$((${count} - 1))
+    done
+    echo "${prefix}${count}"
+}
+
+# This takes a hash and compares the version number it generates to that of the parent.
+# If it changes then the hash and the associated version number will be printed.
+# This requires that the current folder be the checked out project folder.
+function check_hash() {
+    local hash
+    local parent_hash
+    local pre_commit_version
+    local post_commit_version
+
+    hash=${1}
+    parent_hash=${2}
+    pre_commit_version=$(git checkout -f ${parent_hash} 2>/dev/null && [ -e ${POM_FILE} ] && version ${POM_FILE} )
+    post_commit_version=$(git checkout -f ${hash} 2>/dev/null && [ -e ${POM_FILE} ] && version ${POM_FILE} )
+
+    if [ "${pre_commit_version}" != "${post_commit_version}" ]
+    then
+        echo "${hash} ${post_commit_version}"
+    fi
+}
+
+
+# This traverses all of the hashes it can find off the branch specified, comparing each to its parent
+function show_versions() {
+    local branch
+    local count
+
+    branch=${1}
+    count=0
+
+    while [ 1 ]
+    do
+        current_hash=$(git rev-list --max-count=1 ${branch}~${count} 2>/dev/null)
+        if [ $? -ne 0 ]
+        then
+            error "Something strange happened. Check that branch ${branch} exists, and that ${branch}~${count} is a valid commit"
+        fi
+        count=$((${count} + 1))
+        parent_hash=$(git rev-list --max-count=1 ${branch}~${count} 2>/dev/null)
+        if [ $? -ne 0 ]
+        then
+            return # parent hash does not exist - this will happen eventually, so its expected
+        fi
+
+        check_hash ${current_hash} ${parent_hash}
+    done
+}
+
+PROJECT=$(pwd)
+POM_FILE=pom.xml
+ENCOUNTERED_LIMIT=0
+while getopts "hp:f:e:" option
+do
+    case ${option} in
+        h)
+            help
+            exit 1
+            ;;
+        p)
+            if [ "$(echo ${OPTARG} | cut -c1)" = "/" ]
+            then
+                # Absolute path provided
+                PROJECT=${OPTARG}
+            else
+                PROJECT=~/Programming/Java/${OPTARG}
+            fi
+            ;;
+        f)
+            if [ "$(echo ${OPTARG} | cut -c1)" = "/" ]
+            then
+                # Absolute path provided - cannot use this!
+                error "Cannot use absolute paths for the pom file, needs to be relative to the root of the project"
+            else
+                POM_FILE=${OPTARG}
+            fi
+            ;;
+        e)
+            ENCOUNTERED_LIMIT=${OPTARG}
+            ;;
+        ?)
+            # Exit if a required parameter is missing
+            # This is things like -p [NO PROJECT SPECIFIED]
+            # From http://aplawrence.com/Unix/getopts.html
+            # If "getopts" encounters an unwanted argument, and hasn't been silenced by a leading ":", the "$flag" in our script above will be set to "?":
+            echo >&2
+            help
+            exit 1;
+            ;;
+    esac
+done
+
+
+temp_folder=$(temp_folder_name)
+git clone ${PROJECT} ${temp_folder} >/dev/null
+if [ $? -ne 0 ]
+then
+    error "Cannot check out the git project ${PROJECT}"
+fi
+
+cd ${temp_folder}
+show_versions "master"
+cd
+rm -rf ${temp_folder}
+
