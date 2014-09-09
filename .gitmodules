@@ -1,3 +1,15 @@
 [submodule "roles/fonts/files/powerline-fonts"]
 	path = roles/fonts/files/powerline-fonts
 	url = git://github.com/Lokaltog/powerline-fonts.git
+[submodule "roles/irssi/files/irssi/scripts/wertarbyte"]
+	path = roles/irssi/files/irssi/scripts/wertarbyte
+	url = git://github.com/wertarbyte/irssi-scripts.git
+[submodule "roles/irssi/files/irssi/scripts/libnotify"]
+	path = roles/irssi/files/irssi/scripts/libnotify
+	url = https://code.google.com/p/irssi-libnotify/
+[submodule "roles/irssi/files/irssi/scripts/znxster"]
+	path = roles/irssi/files/irssi/scripts/znxster
+	url = git://github.com/znxster/irssi-scripts.git
+[submodule "roles/irssi/files/irssi/irssi-colors-solarized"]
+	path = roles/irssi/files/irssi/irssi-colors-solarized
+	url = git://github.com/huyz/irssi-colors-solarized.git

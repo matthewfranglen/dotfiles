@@ -1,0 +1,3 @@
+---
+- name: Install irssi settings and plugins
+  copy: src=irssi dest=~/.irssi
