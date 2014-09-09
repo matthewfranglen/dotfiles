@@ -7,4 +7,4 @@
   copy: src=gitconfig dest=~/.gitconfig
   sudo: no
 
-# vim: set ai et sw=4 syntax=yaml :
+# vim: set ai et sw=2 syntax=yaml :

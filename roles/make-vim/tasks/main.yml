@@ -35,3 +35,5 @@
 - name: Build vim
   script: build.sh creates=~/bin/vim
   sudo: no
+
+# vim: set ai et sw=2 syntax=yaml :

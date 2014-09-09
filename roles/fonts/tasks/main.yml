@@ -63,4 +63,4 @@
   notify: Update system fonts cache
   sudo: no
 
-# vim: set ai et sw=4 syntax=yaml :
+# vim: set ai et sw=2 syntax=yaml :

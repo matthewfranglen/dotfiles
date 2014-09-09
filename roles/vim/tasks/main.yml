@@ -38,3 +38,5 @@
 - name: Install ~/.vimrc
   copy: src=vimrc dest=~/.vimrc
   sudo: no
+
+# vim: set ai et sw=2 syntax=yaml :

@@ -6,3 +6,5 @@
 - name: Install tmux settings
   copy: src=tmux.conf dest=~/.tmux.conf
   sudo: no
+
+# vim: set ai et sw=2 syntax=yaml :

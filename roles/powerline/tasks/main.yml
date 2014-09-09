@@ -10,3 +10,5 @@
 - name: Install powerline
   copy: src=powerline dest=~/.powerline
   sudo: no
+
+# vim: set ai et sw=2 syntax=yaml :

@@ -32,3 +32,5 @@
 - name: Install zshrc
   copy: src=zshrc dest=~/.zshrc
   sudo: no
+
+# vim: set ai et sw=2 syntax=yaml :
