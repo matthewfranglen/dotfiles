@@ -13,3 +13,6 @@
 [submodule "roles/irssi/files/irssi/irssi-colors-solarized"]
 	path = roles/irssi/files/irssi/irssi-colors-solarized
 	url = git://github.com/huyz/irssi-colors-solarized.git
+[submodule "roles/powerline/files/powerline"]
+	path = roles/powerline/files/powerline
+	url = git://github.com/Lokaltog/powerline.git
