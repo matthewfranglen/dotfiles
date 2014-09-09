@@ -1,6 +1,0 @@
-#!/bin/sh
-# Creates the undo directory.
-# I was unable to prevent the creation of undo files, and I hate them with a passion.
-# Want to give vim-sensible a proper go though.
-
-[ ! -d ~/.local/share/vim/undo ] && mkdir -p ~/.local/share/vim/undo

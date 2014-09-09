@@ -1,0 +1,36 @@
+---
+- name: Install zsh
+  apt: name=zsh state=present
+  sudo: yes
+
+# (could well be in vim/dependencies, but is aliased, so might as well be here)
+# http://beyondgrep.com/
+- name: Install ack-grep
+  apt: name=ack-grep state=present
+  sudo: yes
+
+# Probably have this by now, since this is a git repo. It is still a
+# dependency.
+- name: Install git
+  apt: name=git state=present
+  sudo: yes
+
+# Need this for mgk.
+- name: Install gitk
+  apt: name=gitk state=present
+  sudo: yes
+
+# git workflow extension. antigen gets the autocomplete for this
+- name: Install git-flow
+  apt: name=git-flow state=present
+  sudo: yes
+
+- name: Install zsh config folder
+  copy: src=zsh dest=~/.zsh
+  sudo: no
+
+- name: Install zshrc
+  copy: src=zshrc dest=~/.zshrc
+  sudo: no
+
+# vim: set ai et sw=2 syntax=yaml :

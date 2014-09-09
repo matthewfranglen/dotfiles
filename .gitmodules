@@ -1,24 +1,18 @@
-[submodule "zsh/antigen"]
-	path = zsh/antigen
-	url = git://github.com/matthewfranglen/antigen.git
-[submodule "zsh/packages/fasd"]
-	path = zsh/packages/fasd
-	url = git://github.com/clvv/fasd.git
-[submodule "irssi/scripts/wertarbyte"]
-	path = irssi/scripts/wertarbyte
-	url = git://github.com/wertarbyte/irssi-scripts.git
-[submodule "irssi/scripts/libnotify"]
-	path = irssi/scripts/libnotify
-	url = https://code.google.com/p/irssi-libnotify/
-[submodule "irssi/scripts/znxster"]
-	path = irssi/scripts/znxster
-	url = git://github.com/znxster/irssi-scripts.git
-[submodule "fonts/packages/powerline-fonts"]
-	path = fonts/packages/powerline-fonts
+[submodule "roles/fonts/files/powerline-fonts"]
+	path = roles/fonts/files/powerline-fonts
 	url = git://github.com/Lokaltog/powerline-fonts.git
-[submodule "powerline/packages/powerline"]
-	path = powerline/packages/powerline
-	url = git://github.com/Lokaltog/powerline.git
-[submodule "irssi/irssi-colors-solarized"]
-	path = irssi/irssi-colors-solarized
+[submodule "roles/irssi/files/irssi/scripts/wertarbyte"]
+	path = roles/irssi/files/irssi/scripts/wertarbyte
+	url = git://github.com/wertarbyte/irssi-scripts.git
+[submodule "roles/irssi/files/irssi/scripts/libnotify"]
+	path = roles/irssi/files/irssi/scripts/libnotify
+	url = https://code.google.com/p/irssi-libnotify/
+[submodule "roles/irssi/files/irssi/scripts/znxster"]
+	path = roles/irssi/files/irssi/scripts/znxster
+	url = git://github.com/znxster/irssi-scripts.git
+[submodule "roles/irssi/files/irssi/irssi-colors-solarized"]
+	path = roles/irssi/files/irssi/irssi-colors-solarized
 	url = git://github.com/huyz/irssi-colors-solarized.git
+[submodule "roles/powerline/files/powerline"]
+	path = roles/powerline/files/powerline
+	url = git://github.com/Lokaltog/powerline.git

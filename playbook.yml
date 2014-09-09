@@ -1,0 +1,13 @@
+---
+- hosts: default
+
+  roles:
+  - fonts
+  - git
+  - irssi
+  - powerline
+  - tmux
+  - vim
+  - zsh
+
+# vim: set ai et sw=2 syntax=yaml :

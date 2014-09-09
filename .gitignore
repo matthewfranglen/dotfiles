@@ -1,7 +1,0 @@
-.*.swp
-host-specific-bin
-vim/.netrwhist
-irssi/config
-irssi/config.autosave
-vim/bundle
-vim/undo

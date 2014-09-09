@@ -1,0 +1,5 @@
+---
+- name: Install irssi settings and plugins
+  copy: src=irssi dest=~/.irssi
+
+# vim: set ai et sw=2 syntax=yaml :

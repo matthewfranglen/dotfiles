@@ -1,0 +1,175 @@
+# This adds additional functionality to the zsh above and beyond the default settings
+
+# $0 does not work if this is symlinked. Essentially the script is not invoked or sourced
+# see http://stackoverflow.com/questions/9901210/bash-source0-equivalent-in-zsh
+ZSHRC=${ZDOTDIR-~}/.zshrc
+ZSH_FOLDER=$(dirname $(readlink -f $ZSHRC))/.zsh
+
+# If the :A switch cannot be used then must use a less capable shell setup.
+if eval '[ "${${:-one}:A}" != "" ]' &>/dev/null
+then
+    is_lite () { false }
+else
+    is_lite () { true }
+fi
+
+# The following lines were added by compinstall
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _list _expand _complete _ignored _match
+zstyle ':completion:*' completions 1
+zstyle ':completion:*' expand prefix suffix
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' glob 1
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' ignore-parents parent pwd .. directory
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' list-suffixes true
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=** r:|=**'
+zstyle ':completion:*' max-errors 0
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' preserve-prefix '//[^/]##/'
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' substitute 1
+zstyle ':completion:*' use-compctl true
+zstyle ':completion:*' verbose true
+zstyle :compinstall filename "$HOME/.zshrc"
+
+fpath=(${ZSH_FOLDER}/autocomplete $fpath)
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+# zmv allows for mass renames. Use -n to test the rename. Example:
+# zmv '(*)-HDTV-WAKKA-WAKKA.(*)' '$1.$2'
+autoload -U zmv
+
+# This allows exclusions and the like in the pattern expansion
+setopt extended_glob
+
+# Report the status of background jobs immediately, rather than waiting until
+# just before printing a prompt.
+setopt notify
+
+###############################
+# make less more friendly for #
+# non-text input files, see   #
+# lesspipe(1)                 #
+###############################
+[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+
+###########
+# HISTORY #
+###########
+
+HISTFILE=~/.histfile
+HISTSIZE=1000000
+SAVEHIST=1000000
+
+# This option both imports new commands from the history file, and also causes
+# your typed commands to be appended to the history file (the latter is like
+# specifying INC_APPEND_HISTORY). The history lines are also output with
+# timestamps ala EXTENDED_HISTORY (which makes it easier to find the spot where
+# we left off reading the file after it gets re-written).
+setopt share_history
+
+####################
+# MODULES AND PATH #
+####################
+
+if ! is_lite
+then
+    # load antigen.
+    . ${ZSH_FOLDER}/antigen/antigen.zsh
+    antigen-bundle Tarrasch/zsh-functional
+    antigen-bundle bobthecow/git-flow-completion
+    antigen-bundle matthewfranglen/easy-ln
+    antigen-bundle matthewfranglen/git-update
+    antigen-bundle matthewfranglen/mplayer-wrapper
+    antigen-bundle matthewfranglen/speedread
+    antigen-bundle matthewfranglen/youtube-dl
+    antigen-bundle zsh-users/zsh-history-substring-search
+    antigen-bundle zsh-users/zsh-syntax-highlighting
+    antigen-apply
+fi
+
+# Load the fasd completion system.
+# See https://github.com/clvv/fasd
+PATH=$PATH:${ZSH_FOLDER}/packages/fasd
+eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
+
+# add bin folder to path
+PATH=~/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
+
+
+######################
+# PROMPT AND ALIASES #
+######################
+
+. ${ZSH_FOLDER}/config/aliases
+
+if is_lite
+then
+    . ${ZSH_FOLDER}/config/prompt.lite
+else
+    . ${ZSH_FOLDER}/config/prompt
+fi
+. ${ZSH_FOLDER}/config/keymapping
+
+
+################
+# EDITOR STUFF #
+################
+
+export VISUAL=vim
+export EDITOR=vim
+export SVN_EDITOR=vim
+export GIT_EDITOR=vim
+export LESS=ir
+export JAVA_HOME=/usr/lib/jvm/default-java
+
+#############
+# SSH AGENT #
+#############
+
+function load_ssh_agent () {
+    if [ -f ~/.agent.env ]
+    then
+        . ~/.agent.env > /dev/null
+        if ! kill -0 $SSH_AGENT_PID &> /dev/null
+        then
+            echo "Stale agent file found. Spawning new agent… "
+            eval `ssh-agent | tee ~/.agent.env`
+            ssh-add
+        fi
+    else
+        echo "Starting ssh-agent"
+        eval `ssh-agent | tee ~/.agent.env`
+        ssh-add
+    fi
+}
+# Don't dirty up the process tree on remote servers
+[ -z $SSH_CONNECTION ] && load_ssh_agent
+
+#########
+# SILLY #
+#########
+
+# http://stackoverflow.com/a/904023
+function most_useless_use_of_zsh {
+   local lines columns colour a b p q i pnew
+   ((columns=COLUMNS-1, lines=LINES-1, colour=0))
+   for ((b=-1.5; b<=1.5; b+=3.0/lines)) do
+       for ((a=-2.0; a<=1; a+=3.0/columns)) do
+           for ((p=0.0, q=0.0, i=0; p*p+q*q < 4 && i < 32; i++)) do
+               ((pnew=p*p-q*q+a, q=2*p*q+b, p=pnew))
+           done
+           ((colour=(i/4)%8))
+            echo -n "\\e[4${colour}m "
+        done
+        echo
+    done
+}
+
+# vim: set ai et sw=4 syntax=zsh :
