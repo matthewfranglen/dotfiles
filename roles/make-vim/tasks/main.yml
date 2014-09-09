@@ -1,0 +1,37 @@
+---
+- name: Install libperl-dev
+  apt: name=libperl-dev state=present
+  sudo: yes
+
+- name: Install python-dev
+  apt: name=libperl-dev state=present
+  sudo: yes
+
+- name: Install libncurses5-dev
+  apt: name=libperl-dev state=present
+  sudo: yes
+
+- name: Install libncursesw5-dev
+  apt: name=libperl-dev state=present
+  sudo: yes
+
+- name: Install make
+  apt: name=libperl-dev state=present
+  sudo: yes
+
+- name: Install gcc
+  apt: name=libperl-dev state=present
+  sudo: yes
+
+- name: Create bin folder
+  command: mkdir -p ~/bin/source/vim creates=~/bin/source/vim
+  sudo: no
+
+# This isn't a submodule because this should always build the latest version
+- name: Clone source code
+  git: repo=https://github.com/b4winckler/vim.git dest=~/bin/source/vim version=master
+  sudo: no
+
+- name: Build vim
+  script: build.sh creates=~/bin/vim
+  sudo: no
