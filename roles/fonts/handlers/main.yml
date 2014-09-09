@@ -1,0 +1,6 @@
+---
+- name: Update system fonts cache
+  command: fc-cache -vf ~/.fonts
+  sudo: yes
+
+# vim: set ai et sw=2 syntax=yaml :
