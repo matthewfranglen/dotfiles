@@ -1,0 +1,10 @@
+---
+- name: Install git
+  apt: name=git state=present
+  sudo: yes
+
+- name: Install global .gitconfig
+  copy: src=gitconfig dest=~/.gitconfig
+  sudo: no
+
+# vim: set ai et sw=4 syntax=yaml :
