@@ -16,3 +16,9 @@
 [submodule "roles/powerline/files/powerline"]
 	path = roles/powerline/files/powerline
 	url = git://github.com/Lokaltog/powerline.git
+[submodule "roles/zsh/files/zsh/repos/fasd"]
+	path = roles/zsh/files/zsh/repos/fasd
+	url = git://github.com/clvv/fasd.git
+[submodule "roles/zsh/files/zsh/antigen"]
+	path = roles/zsh/files/zsh/antigen
+	url = git://github.com/matthewfranglen/antigen.git
