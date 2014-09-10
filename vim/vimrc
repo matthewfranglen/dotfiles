@@ -44,7 +44,7 @@ if version > 701
         \"groenewege/vim-less.git",
         \"hail2u/vim-css3-syntax.git",
         \"jeffkreeftmeijer/vim-numbertoggle",
-        \"faith/vim-go",
+        \"fatih/vim-go.git",
         \"kien/ctrlp.vim",
         \"majutsushi/tagbar.git",
         \"mileszs/ack.vim.git",
