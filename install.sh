@@ -25,8 +25,8 @@ install_dependencies () {
 }
 
 install_git () {
-    # See http://superuser.com/a/580453
-    sudo apt-get install --assume-yes git-core git-doc
+    # Choosing not to support lucid (10.04) so no need to chase git-core
+    sudo apt-get install --assume-yes git git-doc
 }
 
 install_pip () {

@@ -1,6 +1,6 @@
 ---
 - name: Install git
-  apt: name=git-core state=present
+  apt: name=git state=present
   sudo: yes
 
 - name: Install git doc
