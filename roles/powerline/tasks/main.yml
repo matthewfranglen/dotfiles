@@ -4,11 +4,11 @@
   sudo: no
 
 - name: Install powerline config
-  synchronize: src=config dest=~/.config/powerline
+  copy: src=config dest=~/.config/powerline
   sudo: no
 
 - name: Install powerline
-  synchronize: src=powerline dest=~/.powerline
+  copy: src=powerline dest=~/.powerline
   sudo: no
 
 # vim: set ai et sw=2 syntax=yaml :

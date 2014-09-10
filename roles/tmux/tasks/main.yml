@@ -4,7 +4,7 @@
   sudo: yes
 
 - name: Install tmux settings
-  synchronize: src=tmux.conf dest=~/.tmux.conf
+  copy: src=tmux.conf dest=~/.tmux.conf
   sudo: no
 
 # vim: set ai et sw=2 syntax=yaml :

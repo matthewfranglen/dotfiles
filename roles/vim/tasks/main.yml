@@ -32,11 +32,11 @@
   sudo: no
 
 - name: Install ~/.vim
-  synchronize: src=vim dest=~/.vim
+  copy: src=vim dest=~/.vim
   sudo: no
 
 - name: Install ~/.vimrc
-  synchronize: src=vimrc dest=~/.vimrc
+  copy: src=vimrc dest=~/.vimrc
   sudo: no
 
 # vim: set ai et sw=2 syntax=yaml :

@@ -8,62 +8,62 @@
   sudo: no
 
 - name: Install AnonymousPro font
-  synchronize: src=powerline-fonts/AnonymousPro dest=~/.fonts/AnonymousPro
+  copy: src=powerline-fonts/AnonymousPro dest=~/.fonts/AnonymousPro
   notify: Update system fonts cache
   sudo: no
 
 - name: Install DejaVuSansMono font
-  synchronize: src=powerline-fonts/DejaVuSansMono dest=~/.fonts/DejaVuSansMono
+  copy: src=powerline-fonts/DejaVuSansMono dest=~/.fonts/DejaVuSansMono
   notify: Update system fonts cache
   sudo: no
 
 - name: Install DroidSansMono font
-  synchronize: src=powerline-fonts/DroidSansMono dest=~/.fonts/DroidSansMono
+  copy: src=powerline-fonts/DroidSansMono dest=~/.fonts/DroidSansMono
   notify: Update system fonts cache
   sudo: no
 
 - name: Install Inconsolata-g font
-  synchronize: src=powerline-fonts/Inconsolata dest=~/.fonts/Inconsolata
+  copy: src=powerline-fonts/Inconsolata dest=~/.fonts/Inconsolata
   notify: Update system fonts cache
   sudo: no
 
 - name: Install Inconsolata font
-  synchronize: src=powerline-fonts/Inconsolata dest=~/.fonts/Inconsolata
+  copy: src=powerline-fonts/Inconsolata dest=~/.fonts/Inconsolata
   notify: Update system fonts cache
   sudo: no
 
 - name: Install InconsolataDz font
-  synchronize: src=powerline-fonts/InconsolataDz dest=~/.fonts/InconsolataDz
+  copy: src=powerline-fonts/InconsolataDz dest=~/.fonts/InconsolataDz
   notify: Update system fonts cache
   sudo: no
 
 - name: Install InputMono font
-  synchronize: src=powerline-fonts/InputMono dest=~/.fonts/InputMono
+  copy: src=powerline-fonts/InputMono dest=~/.fonts/InputMono
   notify: Update system fonts cache
   sudo: no
 
 - name: Install LiberationMono font
-  synchronize: src=powerline-fonts/LiberationMono dest=~/.fonts/LiberationMono
+  copy: src=powerline-fonts/LiberationMono dest=~/.fonts/LiberationMono
   notify: Update system fonts cache
   sudo: no
 
 - name: Install Meslo font
-  synchronize: src=powerline-fonts/Meslo dest=~/.fonts/Meslo
+  copy: src=powerline-fonts/Meslo dest=~/.fonts/Meslo
   notify: Update system fonts cache
   sudo: no
 
 - name: Install SourceCodePro font
-  synchronize: src=powerline-fonts/SourceCodePro dest=~/.fonts/SourceCodePro
+  copy: src=powerline-fonts/SourceCodePro dest=~/.fonts/SourceCodePro
   notify: Update system fonts cache
   sudo: no
 
 - name: Install Terminus font
-  synchronize: src=powerline-fonts/Terminus dest=~/.fonts/Terminus
+  copy: src=powerline-fonts/Terminus dest=~/.fonts/Terminus
   notify: Update system fonts cache
   sudo: no
 
 - name: Install UbuntuMono font
-  synchronize: src=powerline-fonts/UbuntuMono dest=~/.fonts/UbuntuMono
+  copy: src=powerline-fonts/UbuntuMono dest=~/.fonts/UbuntuMono
   notify: Update system fonts cache
   sudo: no
 
