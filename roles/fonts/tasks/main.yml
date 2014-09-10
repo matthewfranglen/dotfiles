@@ -1,4 +1,8 @@
 ---
+- name: Install fc-cache command
+  apt: name=fontconfig state=present
+  sudo: yes
+
 - name: Create fonts directory
   command: mkdir ~/.fonts creates=~/.fonts
   sudo: no
