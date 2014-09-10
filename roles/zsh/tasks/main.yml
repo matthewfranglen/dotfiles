@@ -10,7 +10,7 @@
   sudo: yes
 
 - name: Install zsh config folder
-  copy: src=zsh dest=~/.zsh
+  copy: src=zsh/ dest=~/.zsh/
   sudo: no
 
 - name: Install zshrc

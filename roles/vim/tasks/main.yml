@@ -32,7 +32,7 @@
   sudo: no
 
 - name: Install ~/.vim
-  copy: src=vim dest=~/.vim
+  copy: src=vim/ dest=~/.vim/
   sudo: no
 
 - name: Install ~/.vimrc
