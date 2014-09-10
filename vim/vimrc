@@ -52,7 +52,6 @@ if version > 701
         \"scrooloose/syntastic.git",
         \"tpope/vim-commentary.git",
         \"tpope/vim-fugitive.git",
-        \"tpope/vim-markdown.git",
         \"tpope/vim-repeat",
         \"tpope/vim-sensible.git",
         \"tpope/vim-surround.git",
@@ -155,6 +154,11 @@ nnoremap <F7> :NERDTreeToggle<CR><C-W>l
 nnoremap <F8> :TagbarToggle<CR>
 
 let g:syntastic_python_checkers=['python', 'pyflakes', 'pep8', 'pylint']
+
+" Set markdown filetype and spelling
+" Required otherwise .md is modulo-2 filetype
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd BufRead,BufNewFile *.md setlocal spell
 
 """""""""""""""""""""""""""
 " CUSTOM RUNTIME SETTINGS "
