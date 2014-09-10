@@ -8,7 +8,7 @@
   sudo: yes
 
 - name: Install global .gitconfig
-  copy: src=gitconfig dest=~/.gitconfig
+  synchronize: src=gitconfig dest=~/.gitconfig
   sudo: no
 
 # Need this for mgk.

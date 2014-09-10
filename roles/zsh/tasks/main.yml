@@ -10,11 +10,11 @@
   sudo: yes
 
 - name: Install zsh config folder
-  copy: src=zsh dest=~/.zsh
+  synchronize: src=zsh dest=~/.zsh
   sudo: no
 
 - name: Install zshrc
-  copy: src=zshrc dest=~/.zshrc
+  synchronize: src=zshrc dest=~/.zshrc
   sudo: no
 
 # vim: set ai et sw=2 syntax=yaml :
