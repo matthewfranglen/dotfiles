@@ -8,7 +8,7 @@ install_dependencies () {
 
     if ! which git
     then
-        sudo apt-get install --assume-yes git
+        install_git
     fi
     if ! which pip
     then
@@ -22,6 +22,11 @@ install_dependencies () {
     then
         install_dotfiles
     fi
+}
+
+install_git () {
+    # See http://superuser.com/a/580453
+    sudo apt-get install --assume-yes git-core git-doc
 }
 
 install_pip () {
