@@ -47,7 +47,7 @@ if ( v:version > 701 )
     NeoBundle "groenewege/vim-less.git"
     NeoBundle "hail2u/vim-css3-syntax.git"
     NeoBundle "jeffkreeftmeijer/vim-numbertoggle"
-    NeoBundle "jnwhiteh/vim-golang.git"
+    NeoBundle "faith/vim-go"
     NeoBundle "kien/ctrlp.vim"
     NeoBundle "majutsushi/tagbar.git"
     NeoBundle "mileszs/ack.vim.git"
