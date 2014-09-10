@@ -7,7 +7,11 @@ install_dependencies () {
     then
         sudo apt-get install git
     fi
-    if [ ! -e ~/bin/ansible ]
+    if ! which pip
+    then
+        install_pip
+    fi
+    if ! which ansible
     then
         install_ansible
     fi
@@ -17,16 +21,12 @@ install_dependencies () {
     fi
 }
 
+install_pip () {
+    curl https://bootstrap.pypa.io/get-pip.py | sudo python
+}
+
 install_ansible () {
-    mkdir -p ~/bin/source/ansible
-    git clone https://github.com/ansible/ansible.git ~/bin/source/ansible
-    (
-        cd ~/bin
-        for c in source/ansible/bin/*
-        do
-            ln -s $c
-        done
-    )
+    sudo pip install ansible
 }
 
 install_dotfiles () {
