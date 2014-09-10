@@ -15,71 +15,92 @@ let g:NumberToggleTrigger="<leader>n"
 
 let g:syntastic_always_populate_loc_list = 1
 
-"""""""""""""
-" NEOBUNDLE "
-"""""""""""""
+""""""""""
+" VUNDLE "
+""""""""""
 
-" Neobundle requires 7.2.051 or later.
-" You can see the test in autoload/neobundle.vim and plugin/neobundle.vim
-" Even though it states a patch version, it does not test for that, so neither
-" will I.
-if ( v:version > 701 )
+" Heavily based on https://github.com/roobert/dotfiles/blob/master/.vimrc
+if version > 701
+
+    let fresh_vundle=1
+    syntax off
+
     if has('vim_starting')
-        " install neobundle stuff!
+        " install vundle stuff!
         " inspired by: http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
-        if !filereadable(expand('~/.vim/bundle/neobundle.vim/README.md'))
-            echo "Installing NeoBundle.."
+        if !filereadable(expand('~/.vim/bundle/Vundle.vim/README.md'))
+            echo "Installing Vundle.."
             echo ""
             silent !mkdir -p ~/.vim/bundle
-            silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+            silent !GIT_SSL_NO_VERIFY=1 git clone https://github.com/gmarik/Vundle.vim ~/.vim/bundle/Vundle.vim
         endif
-
-        set runtimepath+=~/.vim/bundle/neobundle.vim/
     endif
-    call neobundle#rc(expand('~/.vim/bundle/'))
 
-    NeoBundleFetch 'Shougo/neobundle.vim'
-
-    NeoBundle "altercation/vim-colors-solarized.git"
-    NeoBundle "bronson/vim-visual-star-search"
-    NeoBundle "dart-lang/dart-vim-plugin.git"
-    NeoBundle "godlygeek/tabular.git"
-    NeoBundle "groenewege/vim-less.git"
-    NeoBundle "hail2u/vim-css3-syntax.git"
-    NeoBundle "jeffkreeftmeijer/vim-numbertoggle"
-    NeoBundle "faith/vim-go"
-    NeoBundle "kien/ctrlp.vim"
-    NeoBundle "majutsushi/tagbar.git"
-    NeoBundle "mileszs/ack.vim.git"
-    NeoBundle "scrooloose/nerdtree.git"
-    NeoBundle "scrooloose/syntastic.git"
-    NeoBundle "tpope/vim-commentary.git"
-    NeoBundle "tpope/vim-fugitive.git"
-    NeoBundle "tpope/vim-markdown.git"
-    NeoBundle "tpope/vim-repeat"
-    NeoBundle "tpope/vim-sensible.git"
-    NeoBundle "tpope/vim-surround.git"
-    NeoBundle "tpope/vim-unimpaired.git"
-    NeoBundle "vim-perl/vim-perl"
-    NeoBundle "vim-scripts/kwbdi.vim.git"
-    NeoBundle "vim-scripts/nginx.vim.git"
+    let plugins = [
+        \"altercation/vim-colors-solarized.git",
+        \"bronson/vim-visual-star-search",
+        \"dart-lang/dart-vim-plugin.git",
+        \"godlygeek/tabular.git",
+        \"groenewege/vim-less.git",
+        \"hail2u/vim-css3-syntax.git",
+        \"jeffkreeftmeijer/vim-numbertoggle",
+        \"faith/vim-go",
+        \"kien/ctrlp.vim",
+        \"majutsushi/tagbar.git",
+        \"mileszs/ack.vim.git",
+        \"scrooloose/nerdtree.git",
+        \"scrooloose/syntastic.git",
+        \"tpope/vim-commentary.git",
+        \"tpope/vim-fugitive.git",
+        \"tpope/vim-markdown.git",
+        \"tpope/vim-repeat",
+        \"tpope/vim-sensible.git",
+        \"tpope/vim-surround.git",
+        \"tpope/vim-unimpaired.git",
+        \"vim-perl/vim-perl",
+        \"vim-scripts/kwbdi.vim.git",
+        \"vim-scripts/nginx.vim.git",
+        \"matthewfranglen/vim-shell.git",
+        \"matthewfranglen/vim-scheme.git",
+        \"matthewfranglen/vim-mf-defaults.git",
+    \]
 
     if has( 'python' )
-        NeoBundle "actionshrimp/vim-xpath.git"
+        call add(plugins, "actionshrimp/vim-xpath.git")
 
         if ( v:version > 704 || ( v:version > 703 && has( 'patch584' ) ) )
-            NeoBundle "Valloric/YouCompleteMe"
+            call add(plugins, "Valloric/YouCompleteMe")
         endif
     endif
     if exists("$JS_CMD") || executable('node') || executable('nodejs') || executable('js')
-        NeoBundle "hallettj/jslint.vim.git"
+        call add(plugins, "hallettj/jslint.vim.git")
     endif
 
-    NeoBundle "matthewfranglen/vim-shell.git"
-    NeoBundle "matthewfranglen/vim-scheme.git"
-    NeoBundle "matthewfranglen/vim-mf-defaults.git"
+    set runtimepath+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+    let vundle_new_plugins = 1
 
-    NeoBundleCheck
+    for plugin in plugins
+        " Strip the .git suffix from the plugin name
+        let plugin_name = substitute(split(plugin, '/')[1], "\.git$", "", "")
+        let plugin_dir = expand('~') . '/.vim/bundle/' . plugin_name
+
+        if !isdirectory(plugin_dir)
+            echo "Installing " . plugin_name
+            let vundle_new_plugins = 0
+        endif
+
+        Plugin plugin
+    endfor
+
+    call vundle#end()
+
+    if vundle_new_plugins == 0
+        silent VundleInstall
+        bdelete
+    endif
+
+    syntax on
 endif
 
 """"""""""
