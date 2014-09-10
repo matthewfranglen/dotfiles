@@ -4,11 +4,11 @@ DOTFILES_DIR=/tmp/dotfiles
 
 install_dependencies () {
     sudo apt-get update
-    sudo apt-get install python-dev
+    sudo apt-get install --assume-yes python-dev
 
     if ! which git
     then
-        sudo apt-get install git
+        sudo apt-get install --assume-yes git
     fi
     if ! which pip
     then
