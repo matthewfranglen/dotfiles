@@ -42,7 +42,6 @@ install_dotfiles () {
     git clone https://github.com/matthewfranglen/dotfiles ${DOTFILES_DIR}
     (
         cd ${DOTFILES_DIR}
-        git checkout feature/ansible-installer
         git submodule update --init --recursive
     )
 }
