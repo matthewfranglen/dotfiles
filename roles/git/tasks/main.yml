@@ -1,0 +1,24 @@
+---
+- name: Install git
+  apt: name=git state=present
+  sudo: yes
+
+- name: Install git doc
+  apt: name=git-doc state=present
+  sudo: yes
+
+- name: Install global .gitconfig
+  copy: src=gitconfig dest=~/.gitconfig
+  sudo: no
+
+# Need this for mgk.
+- name: Install gitk
+  apt: name=gitk state=present
+  sudo: yes
+
+# git workflow extension. antigen gets the autocomplete for this
+- name: Install git-flow
+  apt: name=git-flow state=present
+  sudo: yes
+
+# vim: set ai et sw=2 syntax=yaml :

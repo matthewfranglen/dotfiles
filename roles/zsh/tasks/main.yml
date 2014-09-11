@@ -1,0 +1,23 @@
+---
+- name: Install zsh
+  apt: name=zsh state=present
+  sudo: yes
+
+# (could well be in vim/dependencies, but is aliased, so might as well be here)
+# http://beyondgrep.com/
+- name: Install ack-grep
+  apt: name=ack-grep state=present
+  sudo: yes
+
+- name: Install zsh config folder
+  copy: src=zsh/ dest=~/.zsh/
+  sudo: no
+
+- name: Install zshrc
+  copy: src=zshrc dest=~/.zshrc
+  sudo: no
+
+- name: Fix fasd mode
+  file: path=~/.zsh/repos/fasd/fasd mode=0755
+
+# vim: set ai et sw=2 syntax=yaml :
