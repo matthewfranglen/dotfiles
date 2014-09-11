@@ -17,4 +17,7 @@
   copy: src=zshrc dest=~/.zshrc
   sudo: no
 
+- name: Fix fasd mode
+  file: path=~/.zsh/repos/fasd/fasd mode=0755
+
 # vim: set ai et sw=2 syntax=yaml :
