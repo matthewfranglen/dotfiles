@@ -96,8 +96,8 @@ fi
 
 # Load the fasd completion system.
 # See https://github.com/clvv/fasd
-PATH=$PATH:${ZSH_FOLDER}/packages/fasd
-eval "$(${ZSH_FOLDER}/packages/fasd/fasd --init auto)"
+PATH=$PATH:${ZSH_FOLDER}/repos/fasd
+eval "$(${ZSH_FOLDER}/repos/fasd/fasd --init auto)"
 
 # add bin folder to path
 PATH=~/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin

@@ -3,11 +3,18 @@
 DOTFILES_DIR=/tmp/dotfiles
 
 install_dependencies () {
+    sudo apt-get update
+    sudo apt-get install --assume-yes python-dev
+
     if ! which git
     then
-        sudo apt-get install git
+        install_git
     fi
-    if [ ! -e ~/bin/ansible ]
+    if ! which pip
+    then
+        install_pip
+    fi
+    if ! which ansible
     then
         install_ansible
     fi
@@ -17,16 +24,17 @@ install_dependencies () {
     fi
 }
 
+install_git () {
+    # Choosing not to support lucid (10.04) so no need to chase git-core
+    sudo apt-get install --assume-yes git git-doc
+}
+
+install_pip () {
+    curl https://bootstrap.pypa.io/get-pip.py | sudo python
+}
+
 install_ansible () {
-    mkdir -p ~/bin/source/ansible
-    git clone https://github.com/ansible/ansible.git ~/bin/source/ansible
-    (
-        cd ~/bin
-        for c in source/ansible/bin/*
-        do
-            ln -s $1
-        done
-    )
+    sudo pip install ansible
 }
 
 install_dotfiles () {
@@ -34,6 +42,7 @@ install_dotfiles () {
     git clone https://github.com/matthewfranglen/dotfiles ${DOTFILES_DIR}
     (
         cd ${DOTFILES_DIR}
+        git checkout feature/ansible-installer
         git submodule update --init --recursive
     )
 }
@@ -41,7 +50,7 @@ install_dotfiles () {
 run_ansible () {
     (
         cd ${DOTFILES_DIR}
-        ~/bin/ansible-playbook playbook.yml
+        ansible-playbook playbook.yml
     )
 }
 
