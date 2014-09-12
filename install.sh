@@ -54,8 +54,14 @@ run_ansible () {
     )
 }
 
-install_dependencies && run_ansible
+cleanup () {
+    echo "Remove ${DOTFILES_DIR} when you are finished"
+}
 
-echo "Remove ${DOTFILES_DIR} when you are finished"
+install_dependencies && run_ansible
+STATUS=$?
+
+cleanup
+exit $STATUS
 
 # vim: set ai et sw=4 syntax=sh :
