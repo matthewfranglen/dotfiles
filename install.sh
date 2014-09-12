@@ -6,15 +6,15 @@ install_dependencies () {
     sudo apt-get update
     sudo apt-get install --assume-yes python-dev
 
-    if ! which git
+    if ! which git >/dev/null
     then
         install_git
     fi
-    if ! which pip
+    if ! which pip >/dev/null
     then
         install_pip
     fi
-    if ! which ansible
+    if ! which ansible >/dev/null
     then
         install_ansible
     fi
