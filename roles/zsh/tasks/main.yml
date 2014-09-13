@@ -13,6 +13,10 @@
   copy: src=zsh/ dest=~/.zsh/
   sudo: no
 
+- name: Make scripts executable
+  file: path=~/.zsh/bin mode=0755 recurse=yes
+  sudo: no
+
 - name: Install zshrc
   copy: src=zshrc dest=~/.zshrc
   sudo: no
