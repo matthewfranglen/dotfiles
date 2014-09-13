@@ -14,4 +14,7 @@ alias say='notify-send'
 # grep!
 alias ack='ack-grep'
 
+# Just a quick way to do the 'gitk' command that I ALWAYS use
+alias mgk='gitk --all &!'
+
 # vim: set ai et sw=4 syntax=zsh :
