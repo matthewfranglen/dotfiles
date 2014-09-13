@@ -70,7 +70,7 @@ function haste_client {
     echo $url
 }
 
-HASTE_SERVER="http://pasti.co"
+HASTE_SERVER="http://hastebin.com"
 haste_client $*
 
 # vim: set ai et sw=4 syntax=zsh :
