@@ -3,7 +3,7 @@
 	"segments": {
 		"right": [
 			{
-				"function": "uptime",
+				"function": "network_load",
 				"priority": 50
 			},
 			{
