@@ -8,7 +8,7 @@
   sudo: no
 
 - name: Install powerline
-  copy: src=powerline/ dest=~/.powerline/
-  sudo: no
+  pip: name='git+git://github.com/Lokaltog/powerline'
+  sudo: yes
 
 # vim: set ai et sw=2 syntax=yaml :
