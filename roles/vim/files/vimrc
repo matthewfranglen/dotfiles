@@ -15,91 +15,65 @@ let g:NumberToggleTrigger="<leader>n"
 
 let g:syntastic_always_populate_loc_list = 1
 
-""""""""""
-" VUNDLE "
-""""""""""
+""""""""""""
+" VIM-PLUG "
+""""""""""""
 
 " Heavily based on https://github.com/roobert/dotfiles/blob/master/.vimrc
 if version > 701
 
-    let fresh_vundle=1
-    syntax off
-
     if has('vim_starting')
-        " install vundle stuff!
+        " install vim-plug stuff!
         " inspired by: http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
-        if !filereadable(expand('~/.vim/bundle/Vundle.vim/README.md'))
-            echo "Installing Vundle.."
+        if !filereadable(expand('~/.vim/autoload/plug.vim'))
+            echo "Installing Vim Plug.."
             echo ""
-            silent !mkdir -p ~/.vim/bundle
-            silent !GIT_SSL_NO_VERIFY=1 git clone https://github.com/gmarik/Vundle.vim ~/.vim/bundle/Vundle.vim
+            silent !mkdir -p ~/.vim/autoload
+            silent !curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         endif
     endif
 
-    let plugins = [
-        \"altercation/vim-colors-solarized.git",
-        \"bronson/vim-visual-star-search",
-        \"dart-lang/dart-vim-plugin.git",
-        \"godlygeek/tabular.git",
-        \"groenewege/vim-less.git",
-        \"hail2u/vim-css3-syntax.git",
-        \"jeffkreeftmeijer/vim-numbertoggle",
-        \"fatih/vim-go.git",
-        \"kien/ctrlp.vim",
-        \"majutsushi/tagbar.git",
-        \"mileszs/ack.vim.git",
-        \"scrooloose/nerdtree.git",
-        \"scrooloose/syntastic.git",
-        \"tpope/vim-commentary.git",
-        \"tpope/vim-fugitive.git",
-        \"tpope/vim-repeat",
-        \"tpope/vim-sensible.git",
-        \"tpope/vim-surround.git",
-        \"tpope/vim-unimpaired.git",
-        \"vim-perl/vim-perl",
-        \"vim-scripts/kwbdi.vim.git",
-        \"vim-scripts/nginx.vim.git",
-        \"matthewfranglen/vim-shell.git",
-        \"matthewfranglen/vim-scheme.git",
-        \"matthewfranglen/vim-mf-defaults.git",
-    \]
+    call plug#begin('~/.vim/plugged')
+
+
+    Plug 'https://github.com/altercation/vim-colors-solarized.git'
+    Plug 'https://github.com/bronson/vim-visual-star-search'
+    Plug 'https://github.com/dart-lang/dart-vim-plugin.git'
+    Plug 'https://github.com/godlygeek/tabular.git'
+    Plug 'https://github.com/groenewege/vim-less.git'
+    Plug 'https://github.com/hail2u/vim-css3-syntax.git'
+    Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
+    Plug 'https://github.com/fatih/vim-go.git'
+    Plug 'https://github.com/kien/ctrlp.vim'
+    Plug 'https://github.com/majutsushi/tagbar.git'
+    Plug 'https://github.com/mileszs/ack.vim.git'
+    Plug 'https://github.com/scrooloose/nerdtree.git'
+    Plug 'https://github.com/scrooloose/syntastic.git'
+    Plug 'https://github.com/tpope/vim-commentary.git'
+    Plug 'https://github.com/tpope/vim-fugitive.git'
+    Plug 'https://github.com/tpope/vim-repeat'
+    Plug 'https://github.com/tpope/vim-sensible.git'
+    Plug 'https://github.com/tpope/vim-surround.git'
+    Plug 'https://github.com/tpope/vim-unimpaired.git'
+    Plug 'https://github.com/vim-perl/vim-perl'
+    Plug 'https://github.com/vim-scripts/kwbdi.vim.git'
+    Plug 'https://github.com/vim-scripts/nginx.vim.git'
+    Plug 'https://github.com/matthewfranglen/vim-shell.git'
+    Plug 'https://github.com/matthewfranglen/vim-scheme.git'
+    Plug 'https://github.com/matthewfranglen/vim-mf-defaults.git'
 
     if has( 'python' )
-        call add(plugins, "actionshrimp/vim-xpath.git")
+        Plug 'https://github.com/actionshrimp/vim-xpath.git'
 
         if ( v:version > 704 || ( v:version > 703 && has( 'patch584' ) ) )
-            call add(plugins, "Valloric/YouCompleteMe")
+            Plug 'https://github.com/Valloric/YouCompleteMe'
         endif
     endif
     if exists("$JS_CMD") || executable('node') || executable('nodejs') || executable('js')
-        call add(plugins, "hallettj/jslint.vim.git")
+        Plug 'https://github.com/hallettj/jslint.vim.git'
     endif
 
-    set runtimepath+=~/.vim/bundle/Vundle.vim
-    call vundle#begin()
-    let vundle_new_plugins = 1
-
-    for plugin in plugins
-        " Strip the .git suffix from the plugin name
-        let plugin_name = substitute(split(plugin, '/')[1], "\.git$", "", "")
-        let plugin_dir = expand('~') . '/.vim/bundle/' . plugin_name
-
-        if !isdirectory(plugin_dir)
-            echo "Installing " . plugin_name
-            let vundle_new_plugins = 0
-        endif
-
-        Plugin plugin
-    endfor
-
-    call vundle#end()
-
-    if vundle_new_plugins == 0
-        silent VundleInstall
-        bdelete
-    endif
-
-    syntax on
+    call plug#end()
 endif
 
 """"""""""
