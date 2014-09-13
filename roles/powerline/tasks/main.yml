@@ -11,4 +11,8 @@
   copy: src=powerline/ dest=~/.powerline/
   sudo: no
 
+- name: Make scripts executable
+  file: path=~/.powerline/scripts mode=0755 recurse=yes
+  sudo: no
+
 # vim: set ai et sw=2 syntax=yaml :
