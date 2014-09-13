@@ -20,4 +20,7 @@ alias mgk='gitk --all &!'
 # Print the permissions on this folder and all parents. Occasionally useful.
 alias permission-tree='( loc=$(pwd); function show () { ls -ld $loc }; while [ "${loc}" != "/" ]; do show; loc=${loc:h}; done; show; ) | column -t'
 
+# This takes textual input from stdin and strips any color codes from it
+alias strip-color='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
+
 # vim: set ai et sw=4 syntax=zsh :

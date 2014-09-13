@@ -1,8 +1,0 @@
-#!/bin/zsh
-
-# This takes textual input from stdin and strips any color codes from it
-# Taken from http://www.commandlinefu.com/commands/view/3584/remove-color-codes-special-characters-with-sed
-
-sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"
-
-# vim: set ai et sw=4 syntax=zsh :
