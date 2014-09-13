@@ -23,4 +23,7 @@ alias permission-tree='( loc=$(pwd); function show () { ls -ld $loc }; while [ "
 # This takes textual input from stdin and strips any color codes from it
 alias strip-color='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
 
+# Download the music from multiple youtube videos and save each as the title of the video
+alias youtube='each "youtube-dl --extract-audio --output \\"%(title)s.%(ext)s\\" \$1"'
+
 # vim: set ai et sw=4 syntax=zsh :
