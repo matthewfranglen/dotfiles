@@ -1,0 +1,5 @@
+#!/bin/sh
+
+~/.powerline/scripts/powerline-render $@
+
+# vim: set ai et sw=4 syntax=sh :

@@ -8,7 +8,31 @@
   sudo: no
 
 - name: Install powerline
-  pip: name='git+git://github.com/Lokaltog/powerline#egg=powerline'
-  sudo: yes
+  copy: src=powerline/ dest=~/.powerline/
+  sudo: no
+
+- name: Make scripts executable
+  file: path=~/.powerline/scripts mode=0755 recurse=yes
+  sudo: no
+
+- name: Create ~/bin folder
+  file: path=~/bin state=directory mode=0755
+  sudo: no
+
+- name: Copy powerline-config script
+  copy: src=scripts/powerline-config dest=~/bin/powerline-config mode=0755
+  sudo: no
+
+- name: Copy powerline-daemon script
+  copy: src=scripts/powerline-daemon dest=~/bin/powerline-daemon mode=0755
+  sudo: no
+
+- name: Copy powerline-lint script
+  copy: src=scripts/powerline-lint dest=~/bin/powerline-lint mode=0755
+  sudo: no
+
+- name: Copy powerline-render script
+  copy: src=scripts/powerline-render dest=~/bin/powerline-render mode=0755
+  sudo: no
 
 # vim: set ai et sw=2 syntax=yaml :
