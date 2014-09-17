@@ -1,4 +1,5 @@
 ---
+# Intended to be used on the main workstation
 - hosts: default
 
   roles:
@@ -9,5 +10,8 @@
   - tmux
   - vim
   - zsh
+
+  vars:
+    can_sudo: True
 
 # vim: set ai et sw=2 syntax=yaml :

@@ -101,7 +101,7 @@ PATH=$PATH:${ZSH_FOLDER}/repos/fasd
 eval "$(${ZSH_FOLDER}/repos/fasd/fasd --init auto)"
 
 # add bin folder to path
-PATH=~/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
+PATH=~/bin:~/.local/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
 
 
 ######################

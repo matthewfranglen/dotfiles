@@ -1,0 +1,13 @@
+---
+# Intended to be used on remote servers
+- hosts: default
+
+  roles:
+  - git
+  - vim
+  - zsh
+
+  vars:
+    can_sudo: False
+
+# vim: set ai et sw=2 syntax=yaml :

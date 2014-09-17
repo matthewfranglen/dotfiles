@@ -2,6 +2,7 @@
 - name: Install tmux
   apt: name=tmux state=present
   sudo: yes
+  when: can_sudo
 
 - name: Install tmux settings
   copy: src=tmux.conf dest=~/.tmux.conf
