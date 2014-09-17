@@ -5,27 +5,27 @@
   when: can_sudo
 
 - name: Install python-dev
-  apt: name=libperl-dev state=present
+  apt: name=python-dev state=present
   sudo: yes
   when: can_sudo
 
 - name: Install libncurses5-dev
-  apt: name=libperl-dev state=present
+  apt: name=libncurses5-dev state=present
   sudo: yes
   when: can_sudo
 
 - name: Install libncursesw5-dev
-  apt: name=libperl-dev state=present
+  apt: name=libncursesw5-dev state=present
   sudo: yes
   when: can_sudo
 
 - name: Install make
-  apt: name=libperl-dev state=present
+  apt: name=make state=present
   sudo: yes
   when: can_sudo
 
 - name: Install gcc
-  apt: name=libperl-dev state=present
+  apt: name=gcc state=present
   sudo: yes
   when: can_sudo
 
