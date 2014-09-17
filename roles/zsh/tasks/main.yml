@@ -25,5 +25,6 @@
 
 - name: Fix fasd mode
   file: path=~/.zsh/repos/fasd/fasd mode=0755
+  sudo: no
 
 # vim: set ai et sw=2 syntax=yaml :
