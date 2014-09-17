@@ -15,12 +15,8 @@
   file: path=~/.powerline/scripts mode=0755 recurse=yes
   sudo: no
 
-- name: Create ~/bin folder
-  file: path=~/bin state=directory mode=0755
-  sudo: no
-
 - name: Build powerline
-  command: python setup.py install --user chdir=~/.powerline/ creates=~/bin/powerline-config
+  command: python setup.py install --user chdir=~/.powerline/ creates=~/.local/bin/powerline-config
   sudo: no
 
 # vim: set ai et sw=2 syntax=yaml :
