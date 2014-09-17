@@ -50,7 +50,7 @@ install_dotfiles () {
 run_ansible () {
     (
         cd ${DOTFILES_DIR}
-        ansible-playbook playbook.yml
+        ansible-playbook playbook-full.yml
     )
 }
 
