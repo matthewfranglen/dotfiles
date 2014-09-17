@@ -2,12 +2,14 @@
 - name: Install zsh
   apt: name=zsh state=present
   sudo: yes
+  when: can_sudo
 
 # (could well be in vim/dependencies, but is aliased, so might as well be here)
 # http://beyondgrep.com/
 - name: Install ack-grep
   apt: name=ack-grep state=present
   sudo: yes
+  when: can_sudo
 
 - name: Install zsh config folder
   copy: src=zsh/ dest=~/.zsh/
