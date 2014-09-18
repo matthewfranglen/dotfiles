@@ -35,7 +35,7 @@ if version > 701
 
     call plug#begin('~/.vim/plugged')
 
-
+    " Each of these is registered in the g:plugs map.
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
     Plug 'https://github.com/bronson/vim-visual-star-search'
     Plug 'https://github.com/dart-lang/dart-vim-plugin.git'
@@ -73,6 +73,23 @@ if version > 701
         Plug 'https://github.com/hallettj/jslint.vim.git'
     endif
 
+    " The g:plugs map maps the plugin name to the settings for it.
+    " The most relevant setting for this is the 'dir' setting which is the
+    " destination folder.
+    " Example (truncated) output of ':echo g:plugs':
+    " {'vim-surround': {'uri': 'https://github.com/tpope/vim-surround.git', 'dir': '/home/matthew/.vim/plugged/vim-surround/', 'frozen': 0, 'branch': 'master'},...
+
+    let install_required = 0
+    for spec in values(g:plugs)
+        if !isdirectory(spec.dir)
+            let install_required = 1
+        endif
+    endfor
+    if install_required
+        PlugInstall
+    endif
+
+    call plug#helptags()
     call plug#end()
 endif
 
