@@ -161,3 +161,23 @@ if filereadable("./vimrc")
 endif
 endfunction
 autocmd! VimEnter * :call LoadCustomSettings()
+
+""""""""""""""""""""""
+" ARBITRARY COMMANDS "
+""""""""""""""""""""""
+
+" This allows you to issue a command that uses the names of all of the buffer
+" files. For example:
+" :exe '! git add ' . join(BuffersList(), ' ')
+" Would add the file corresponding to every open buffer to git.
+" See http://stackoverflow.com/a/271709/170865
+function! BuffersList()
+    let all = range(0, bufnr('$'))
+    let result = []
+    for b in all
+        if buflisted(b)
+            call add(result, bufname(b))
+        endif
+    endfor
+    return result
+endfunction
