@@ -103,6 +103,11 @@ eval "$(${ZSH_FOLDER}/repos/fasd/fasd --init auto)"
 # add bin folder to path
 PATH=~/bin:~/.local/bin:$PATH:${ZSH_FOLDER}/bin:${ZSH_FOLDER}/host-specific-bin
 
+if [ -z $PYTHONPATH ]
+then
+    PYTHONPATH=$(default-python-path)
+fi
+
 
 ######################
 # PROMPT AND ALIASES #
