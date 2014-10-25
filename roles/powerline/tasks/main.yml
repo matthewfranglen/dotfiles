@@ -5,6 +5,7 @@
 
 - name: Remove old powerline config
   file: path=~/.config/powerline state=absent
+  sudo: no
 
 - name: Install powerline config
   copy: src=config/ dest=~/.config/powerline/
