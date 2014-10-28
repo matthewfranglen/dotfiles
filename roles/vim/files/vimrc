@@ -134,7 +134,7 @@ nnoremap <leader>gd :MyGitDiff<CR>
 """""""""""""""""""
 
 if has('python') || has('python3')
-    set rtp+=~/.powerline/powerline/bindings/vim
+    set rtp+=/usr/local/src/powerline/powerline/bindings/vim
 endif
 
 " http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
