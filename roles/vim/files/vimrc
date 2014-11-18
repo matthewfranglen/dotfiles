@@ -69,9 +69,6 @@ if version > 701
             Plug 'https://github.com/Valloric/YouCompleteMe'
         endif
     endif
-    if exists("$JS_CMD") || executable('node') || executable('nodejs') || executable('js')
-        Plug 'https://github.com/hallettj/jslint.vim.git'
-    endif
 
     " The g:plugs map maps the plugin name to the settings for it.
     " The most relevant setting for this is the 'dir' setting which is the
