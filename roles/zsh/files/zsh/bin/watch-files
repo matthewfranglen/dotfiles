@@ -1,0 +1,21 @@
+#!/bin/bash
+# This will watch some files, executing a command when any changes are made
+# This requires the package 'inotify-tools'
+
+EVENTS=modify,attrib,close_write,move,create,delete
+
+function watch_and_execute () {
+    local watched_file=$1
+    shift
+    local command_to_run=$@
+
+    while true
+    do
+        inotifywait --recursive --event ${EVENTS} ${watched_file} &&
+            eval ${command_to_run}
+    done
+}
+
+watch_and_execute $@
+
+# vim: set ai et sw=4 syntax=bash
