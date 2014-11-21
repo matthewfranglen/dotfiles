@@ -1,0 +1,5 @@
+---
+- name: start redshift
+  service: name=redshift state=started
+
+# vim: set ai et sw=4 syntax=yaml :
