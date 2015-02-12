@@ -107,7 +107,7 @@ set background=dark
 """"""""""""""
 
 " \f now formats perl scripts with perltidy
-autocmd! FileType perl :nnoremap <leader>f :1,$!perltidy<CR>
+autocmd FileType perl :nnoremap <leader>f :1,$!perltidy<CR>
 
 " \l now Data::Dumps the current WORD
 " nnoremap <C-L> diWi{ print Data::Dumper->new( [ <Esc>p$a ] )->Dump; <Esc>p$a }<Esc>
@@ -157,7 +157,7 @@ if filereadable("./vimrc")
     source ./vimrc
 endif
 endfunction
-autocmd! VimEnter * :call LoadCustomSettings()
+autocmd VimEnter * :call LoadCustomSettings()
 
 """"""""""""""""""""""
 " ARBITRARY COMMANDS "
