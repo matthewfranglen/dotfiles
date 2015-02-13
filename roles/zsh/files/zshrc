@@ -158,6 +158,27 @@ function load_ssh_agent () {
 # Don't dirty up the process tree on remote servers
 [ -z $SSH_CONNECTION ] && load_ssh_agent
 
+###############
+# DBUS DAEMON #
+###############
+
+function load_dbus_daemon () {
+    if [ -f ~/.dbus.env ]
+    then
+        . ~/.dbus.env > /dev/null
+        if ! kill -0 $DBUS_SESSION_BUS_PID &> /dev/null
+        then
+            echo "Stale daemon file found. Spawning new daemon… "
+            eval `dbus-launch | tee ~/.dbus.env`
+        fi
+    else
+        echo "Starting dbus daemon"
+        eval `dbus-launch | tee ~/.dbus.env`
+    fi
+}
+# Don't dirty up the process tree on remote servers
+[ -z $SSH_CONNECTION ] && load_dbus_daemon
+
 #########
 # SILLY #
 #########
