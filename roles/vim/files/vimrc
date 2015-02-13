@@ -68,11 +68,11 @@ function s:PluginLoaderMissing()
 endfunction
 
 function s:CanUsePython()
-    return has( 'python' ) || has( 'python3' )
+    return has('python') || has('python3')
 endfunction
 
 function s:VersionSufficientToUseYouCompleteMe()
-    return ( v:version > 704 || ( v:version > 703 && has( 'patch584' ) ) )
+    return ( v:version > 704 || ( v:version > 703 && has('patch584') ) )
 endfunction
 
 function s:PluginsMissing()
@@ -100,8 +100,8 @@ endfunction
 function s:InstallPluginLoader()
     echo "Installing Vim Plug.."
     echo ""
-    silent !mkdir -p ~/.vim/autoload
-    silent !curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    silent !mkdir --parents ~/.vim/autoload
+    silent !curl --fail --location --output ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endfunction
 
 function s:RegisterPlugins()
@@ -153,7 +153,7 @@ function s:ConfigureColors()
     " Needs CSApprox plugin
     set t_Co=256
 
-    let g:solarized_termcolors=256
+    let g:solarized_termcolors = 256
     colorscheme solarized
     set background=dark
 endfunction
@@ -168,7 +168,7 @@ function s:ConfigureNERDTree()
 endfunction
 
 function s:ConfigureSyntastic()
-    let g:syntastic_python_checkers=['python', 'pyflakes', 'pep8', 'pylint']
+    let g:syntastic_python_checkers = ['python', 'pyflakes', 'pep8', 'pylint']
 endfunction
 
 function s:ConfigureMarkdown()
