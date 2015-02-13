@@ -7,34 +7,104 @@ if ( exists('g:loaded_vimrc') && g:loaded_vimrc )
 endif
 let g:loaded_vimrc = 1
 
-""""""""""""""""""""""""""""
-" PRE PLUGIN CONFIGURATION "
-""""""""""""""""""""""""""""
 
-let g:NumberToggleTrigger="<leader>n"
+" This allows you to issue a command that uses the names of all of the buffer
+" files. For example:
+" :exe '! git add ' . join(BuffersList(), ' ')
+" Would add the file corresponding to every open buffer to git.
+" See http://stackoverflow.com/a/271709/170865
+function! BuffersList()
+    let all = range(0, bufnr('$'))
+    let result = []
 
-let g:syntastic_always_populate_loc_list = 1
-
-""""""""""""
-" VIM-PLUG "
-""""""""""""
-
-" Heavily based on https://github.com/roobert/dotfiles/blob/master/.vimrc
-if version > 701
-
-    if has('vim_starting')
-        " install vim-plug stuff!
-        " inspired by: http://www.erikzaadi.com/2012/03/19/auto-installing-vundle-from-your-vimrc/
-        if !filereadable(expand('~/.vim/autoload/plug.vim'))
-            echo "Installing Vim Plug.."
-            echo ""
-            silent !mkdir -p ~/.vim/autoload
-            silent !curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    for b in all
+        if buflisted(b)
+            call add(result, bufname(b))
         endif
+    endfor
+
+    return result
+endfunction
+
+
+function s:LoadPlugins()
+    if s:CannotLoadPlugins()
+        return 0
+    endif
+
+    call s:PrepareForPluginLoad()
+
+    if s:CanInstallPluginLoader() && s:PluginLoaderMissing()
+        call s:InstallPluginLoader()
     endif
 
     call plug#begin('~/.vim/plugged')
 
+    call s:RegisterPlugins()
+
+    if s:PluginsMissing()
+        PlugInstall
+    endif
+
+    call plug#helptags()
+    call plug#end()
+
+    call s:ConfigurePlugins()
+
+    return 1
+endfunction
+
+function s:CannotLoadPlugins()
+    return version <= 701
+endfunction
+
+function s:CanInstallPluginLoader()
+    " Can only install the plugin loader when vim is starting
+    return has('vim_starting')
+endfunction
+
+function s:PluginLoaderMissing()
+    return !filereadable(expand('~/.vim/autoload/plug.vim'))
+endfunction
+
+function s:CanUsePython()
+    return has( 'python' ) || has( 'python3' )
+endfunction
+
+function s:VersionSufficientToUseYouCompleteMe()
+    return ( v:version > 704 || ( v:version > 703 && has( 'patch584' ) ) )
+endfunction
+
+function s:PluginsMissing()
+    " The g:plugs map maps the plugin name to the settings for it.
+    " The most relevant setting for this is the 'dir' setting which is the
+    " destination folder.
+    " Example (truncated) output of ':echo g:plugs':
+    " {'vim-surround': {'uri': 'https://github.com/tpope/vim-surround.git', 'dir': '/home/matthew/.vim/plugged/vim-surround/', 'frozen': 0, 'branch': 'master'},...
+
+    for spec in values(g:plugs)
+        if !isdirectory(spec.dir)
+            return 1
+        endif
+    endfor
+
+    return 0
+endfunction
+
+function s:PrepareForPluginLoad()
+    let g:NumberToggleTrigger="<leader>n"
+
+    let g:syntastic_always_populate_loc_list = 1
+endfunction
+
+function s:InstallPluginLoader()
+    echo "Installing Vim Plug.."
+    echo ""
+    silent !mkdir -p ~/.vim/autoload
+    silent !curl -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endfunction
+
+function s:RegisterPlugins()
     " Each of these is registered in the g:plugs map.
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
     Plug 'https://github.com/bronson/vim-visual-star-search'
@@ -62,119 +132,82 @@ if version > 701
     Plug 'https://github.com/matthewfranglen/vim-scheme.git'
     Plug 'https://github.com/matthewfranglen/vim-mf-defaults.git'
 
-    if has( 'python' )
-        Plug 'https://github.com/actionshrimp/vim-xpath.git'
-
-        if ( v:version > 704 || ( v:version > 703 && has( 'patch584' ) ) )
-            Plug 'https://github.com/Valloric/YouCompleteMe'
-        endif
+    if s:CanUsePython() && s:VersionSufficientToUseYouCompleteMe()
+        Plug 'https://github.com/Valloric/YouCompleteMe'
     endif
+endfunction
 
-    " The g:plugs map maps the plugin name to the settings for it.
-    " The most relevant setting for this is the 'dir' setting which is the
-    " destination folder.
-    " Example (truncated) output of ':echo g:plugs':
-    " {'vim-surround': {'uri': 'https://github.com/tpope/vim-surround.git', 'dir': '/home/matthew/.vim/plugged/vim-surround/', 'frozen': 0, 'branch': 'master'},...
+function s:ConfigurePlugins()
+    call s:ConfigureColors()
+    call s:ConfigureMarkdown()
+    call s:ConfigureNERDTree()
+    call s:ConfigureSyntastic()
 
-    let install_required = 0
-    for spec in values(g:plugs)
-        if !isdirectory(spec.dir)
-            let install_required = 1
-        endif
-    endfor
-    if install_required
-        PlugInstall
+    if s:CanUsePython()
+        call s:ConfigurePowerline()
     endif
+endfunction
 
-    call plug#helptags()
-    call plug#end()
-endif
+function s:ConfigureColors()
+    " Convince Vim it can use 256 colors inside Gnome Terminal.
+    " Needs CSApprox plugin
+    set t_Co=256
 
-""""""""""
-" COLORS "
-""""""""""
+    let g:solarized_termcolors=256
+    colorscheme solarized
+    set background=dark
+endfunction
 
-" Convince Vim it can use 256 colors inside Gnome Terminal.
-" Needs CSApprox plugin
-set t_Co=256
+function s:ConfigurePowerline()
+    set rtp+=/usr/local/src/powerline/powerline/bindings/vim
+endfunction
 
-let g:solarized_termcolors=256
-colorscheme solarized
-set background=dark
+function s:ConfigureNERDTree()
+    " http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
+    let NERDTreeIgnore = ['\.pyc$']
+endfunction
 
-""""""""""""""
-" KEYMAPPING "
-""""""""""""""
+function s:ConfigureSyntastic()
+    let g:syntastic_python_checkers=['python', 'pyflakes', 'pep8', 'pylint']
+endfunction
 
-" \f now formats perl scripts with perltidy
-autocmd FileType perl :nnoremap <leader>f :1,$!perltidy<CR>
+function s:ConfigureMarkdown()
+    " Set markdown filetype and spelling
+    " Required otherwise .md is modulo-2 filetype
+    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+    autocmd BufRead,BufNewFile *.md setlocal spell
+endfunction
 
-" \l now Data::Dumps the current WORD
-" nnoremap <C-L> diWi{ print Data::Dumper->new( [ <Esc>p$a ] )->Dump; <Esc>p$a }<Esc>
-nnoremap <leader>l diWiprint Data::Dumper->new( [ <C-R>" ] )->Dump;<Esc>
+function s:LoadKeymaps()
+    autocmd FileType perl :call <SID>LoadPerlKeymaps()
 
-" Fugitive bindings
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gc :Gcommit<CR>
+    " Fugitive bindings
+    nnoremap <unique> <leader>gs :Gstatus<CR>
+    nnoremap <unique> <leader>gc :Gcommit<CR>
+    noremap <unique> <script> <leader>gd :call <SID>ShowGitDiff()<CR>
 
-" Just want the syntax highlighting to work!
-function! s:MyGitDiff()
+    " Toggle Tags with <F8>, Nerdtree with <F7>
+    nmap <F7> :NERDTreeToggle<CR><C-W>l
+    nmap <F8> :TagbarToggle<CR>
+endfunction
+
+function s:LoadPerlKeymaps()
+    nmap <leader>f :% ! perltidy<CR>
+    iabbrev _dump Data::Dumper->new( [ ] )->Dump;
+endfunction
+
+function s:ShowGitDiff()
     execute s:ExecuteInShell('git diff')
     set syntax=diff
 endfunction
-command! MyGitDiff call s:MyGitDiff()
 
-nnoremap <leader>gd :MyGitDiff<CR>
-
-"""""""""""""""""""
-" BUNDLE SETTINGS "
-"""""""""""""""""""
-
-if has('python') || has('python3')
-    set rtp+=/usr/local/src/powerline/powerline/bindings/vim
-endif
-
-" http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
-let NERDTreeIgnore = ['\.pyc$']
-
-" Toggle Tags with <F8>, Nerdtree with <F7>
-nnoremap <F7> :NERDTreeToggle<CR><C-W>l
-nnoremap <F8> :TagbarToggle<CR>
-
-let g:syntastic_python_checkers=['python', 'pyflakes', 'pep8', 'pylint']
-
-" Set markdown filetype and spelling
-" Required otherwise .md is modulo-2 filetype
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-autocmd BufRead,BufNewFile *.md setlocal spell
-
-"""""""""""""""""""""""""""
-" CUSTOM RUNTIME SETTINGS "
-"""""""""""""""""""""""""""
-
-function! LoadCustomSettings()
-if filereadable("./vimrc")
-    source ./vimrc
-endif
+function s:LoadCustomSettings()
+    if filereadable("./vimrc")
+        source ./vimrc
+    endif
 endfunction
-autocmd VimEnter * :call LoadCustomSettings()
 
-""""""""""""""""""""""
-" ARBITRARY COMMANDS "
-""""""""""""""""""""""
+call s:LoadPlugins()
+call s:LoadKeymaps()
 
-" This allows you to issue a command that uses the names of all of the buffer
-" files. For example:
-" :exe '! git add ' . join(BuffersList(), ' ')
-" Would add the file corresponding to every open buffer to git.
-" See http://stackoverflow.com/a/271709/170865
-function! BuffersList()
-    let all = range(0, bufnr('$'))
-    let result = []
-    for b in all
-        if buflisted(b)
-            call add(result, bufname(b))
-        endif
-    endfor
-    return result
-endfunction
+autocmd! VimEnter * :call <SID>LoadCustomSettings()
