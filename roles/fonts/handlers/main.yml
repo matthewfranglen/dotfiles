@@ -1,8 +1,0 @@
----
-# 'sudo: no' is because this has to run using the home folder of the user
-- name: Update system fonts cache
-  shell: sudo fc-cache -vf ~/.fonts
-  sudo: no
-  when: can_sudo
-
-# vim: set ai et sw=2 syntax=yaml :
