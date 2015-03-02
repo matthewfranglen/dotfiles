@@ -1,0 +1,45 @@
+# Initial config from: http://blog.hawkhost.com/2010/06/28/tmux-the-terminal-multiplexer/
+
+# First, lets make it like screen (eugh). Kinda dirty, but the ctrl-b binding is just dumb.
+# It is too much of a contortion for something that is used that often
+set -g prefix C-a
+bind-key a send-prefix
+
+# This first part makes the two commands for splitting the window:
+# ctrl-b | = split side by side
+# ctrl-b - = split up and down
+unbind %
+bind | split-window -h
+bind - split-window -v
+
+# C-a C-a for last window, from screen
+bind-key C-a last-window
+
+# use the vim motion keys to move between panes
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# copy buffer to clipboard with y, may put this on another key but this will do
+# for now.
+bind y run "tmux save-buffer - | xsel --clipboard --input"
+
+# use vim motion keys while in copy mode
+setw -g mode-keys vi
+
+# Start from 1, since I will be using the numbers at the top of the keyboard
+set -g base-index 1
+
+# Automatically set window title when using a command
+setw -g automatic-rename
+
+# Show window activity
+# Monitoring all activity is a bit much for things like irssi.
+# Just want to monitor for bell, which can be controlled.
+# setw -g monitor-activity on
+set -g visual-activity on
+
+# tmux powerline configuration
+run-shell "powerline-daemon -q"
+source-file /usr/local/src/powerline/powerline/bindings/tmux/powerline.conf

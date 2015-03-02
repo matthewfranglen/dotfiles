@@ -1,0 +1,24 @@
+[color]
+    ui = true
+[diff]
+    algorithm = patience
+[alias]
+    mgl = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+
+# This performs a shell command bound to a git alias.
+# See: http://blogs.atlassian.com/2014/10/advanced-git-aliases/
+    flow-push = "!f() {          \
+        git push origin master;  \
+        git push origin develop; \
+        git push --tags;         \
+    }; f"
+
+    flow-quick-release = "!f() {                                               \
+        local release=${1:?Must provide tag as only argument};                 \
+        git flow release start ${release} &&                                   \
+        git flow release finish --nobackmerge --message ${release} ${release}; \
+    }; f"
+[push]
+    default = tracking
+
+# vim: set ai et sw=4 syntax=gitconfig :
