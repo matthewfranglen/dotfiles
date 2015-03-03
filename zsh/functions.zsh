@@ -1,9 +1,5 @@
 eval "$(~/.fasd.zsh --init auto)"
 
-#############
-# SSH AGENT #
-#############
-
 function load_ssh_agent () {
     if [ -f ~/.agent.env ]
     then
@@ -20,12 +16,6 @@ function load_ssh_agent () {
         ssh-add
     fi
 }
-# Don't dirty up the process tree on remote servers
-[ -z $SSH_CONNECTION ] && load_ssh_agent
-
-###############
-# DBUS DAEMON #
-###############
 
 function load_dbus_daemon () {
     if [ -f ~/.dbus.env ]
@@ -41,12 +31,6 @@ function load_dbus_daemon () {
         eval `dbus-launch | tee ~/.dbus.env`
     fi
 }
-# Don't dirty up the process tree on remote servers
-[ -z $SSH_CONNECTION ] && load_dbus_daemon
-
-#########
-# SILLY #
-#########
 
 # http://stackoverflow.com/a/904023
 function most_useless_use_of_zsh {
@@ -63,5 +47,31 @@ function most_useless_use_of_zsh {
         echo
     done
 }
+
+function make_java_source_ctags_file () {
+    local jdk=${1:A}
+
+    if [ ! -e ${jdk}/src.zip ]
+    then
+        echo "You must provide the path to the JDK" >&2
+        false
+        return
+    fi
+
+    (
+        mkdir /tmp/java-source-code
+        cd /tmp/java-source-code
+        unzip ${jdk}/src.zip >/dev/null
+        ctags --recurse -f ~/.vimtags_jdk .
+    )
+    rm -r /tmp/java-source-code
+}
+
+# Don't dirty up the process tree on remote servers
+if [ -z $SSH_CONNECTION ]
+then
+    load_dbus_daemon
+    load_ssh_agent
+fi
 
 # vim: set ai et sw=4 syntax=zsh :

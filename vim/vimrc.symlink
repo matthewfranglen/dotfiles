@@ -141,6 +141,7 @@ endfunction
 
 function s:ConfigurePlugins()
     call s:ConfigureColors()
+    call s:ConfigureEasytags()
     call s:ConfigureMarkdown()
     call s:ConfigureNERDTree()
     call s:ConfigureSyntastic()
@@ -180,6 +181,11 @@ function s:ConfigureMarkdown()
     autocmd BufRead,BufNewFile *.md setlocal spell
 endfunction
 
+function s:ConfigureEasytags()
+    " Update local tags files in preference to the global one
+    let g:easytags_dynamic_files = 1
+endfunction
+
 function s:LoadKeymaps()
     autocmd FileType perl :call <SID>LoadPerlKeymaps()
 
@@ -209,7 +215,12 @@ function s:LoadCustomSettings()
     endif
 endfunction
 
+function s:LoadTags()
+    set tags=$HOME/.vimtags_jdk,./tags
+endfunction
+
 call s:LoadPlugins()
 call s:LoadKeymaps()
+call s:LoadTags()
 
 autocmd! VimEnter * :call <SID>LoadCustomSettings()
