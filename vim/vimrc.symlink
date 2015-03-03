@@ -132,9 +132,8 @@ function s:RegisterPlugins()
     Plug 'https://github.com/matthewfranglen/vim-scheme.git'
     Plug 'https://github.com/matthewfranglen/vim-mf-defaults.git'
 
-    if s:CanUsePython() && s:VersionSufficientToUseYouCompleteMe()
-        Plug 'https://github.com/Valloric/YouCompleteMe'
-    endif
+    Plug 'https://github.com/Valloric/YouCompleteMe'
+    Plug 'https://github.com/xolox/vim-easytags.git'
 endfunction
 
 function s:ConfigurePlugins()
