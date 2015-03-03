@@ -43,3 +43,6 @@ set -g visual-activity on
 # tmux powerline configuration
 run-shell "~/.local/bin/powerline-daemon -q || true"
 run-shell "~/.local/bin/powerline-config tmux setup"
+
+set -g status-interval 2
+set -g status-right '#(~/.local/bin/powerline tmux right)'
