@@ -107,13 +107,17 @@ endfunction
 function s:RegisterPlugins()
     " Each of these is registered in the g:plugs map.
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
-    Plug 'https://github.com/bronson/vim-visual-star-search'
+
     Plug 'https://github.com/dart-lang/dart-vim-plugin.git'
-    Plug 'https://github.com/godlygeek/tabular.git'
     Plug 'https://github.com/groenewege/vim-less.git'
     Plug 'https://github.com/hail2u/vim-css3-syntax.git'
-    Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
     Plug 'https://github.com/fatih/vim-go.git'
+    Plug 'https://github.com/vim-perl/vim-perl'
+    Plug 'https://github.com/vim-scripts/nginx.vim.git'
+
+    Plug 'https://github.com/bronson/vim-visual-star-search'
+    Plug 'https://github.com/godlygeek/tabular.git'
+    Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
     Plug 'https://github.com/kien/ctrlp.vim'
     Plug 'https://github.com/majutsushi/tagbar.git'
     Plug 'https://github.com/mileszs/ack.vim.git'
@@ -125,20 +129,19 @@ function s:RegisterPlugins()
     Plug 'https://github.com/tpope/vim-sensible.git'
     Plug 'https://github.com/tpope/vim-surround.git'
     Plug 'https://github.com/tpope/vim-unimpaired.git'
-    Plug 'https://github.com/vim-perl/vim-perl'
     Plug 'https://github.com/vim-scripts/kwbdi.vim.git'
-    Plug 'https://github.com/vim-scripts/nginx.vim.git'
     Plug 'https://github.com/matthewfranglen/vim-shell.git'
     Plug 'https://github.com/matthewfranglen/vim-scheme.git'
     Plug 'https://github.com/matthewfranglen/vim-mf-defaults.git'
 
-    if s:CanUsePython() && s:VersionSufficientToUseYouCompleteMe()
-        Plug 'https://github.com/Valloric/YouCompleteMe'
-    endif
+    Plug 'https://github.com/Valloric/YouCompleteMe'
+    Plug 'https://github.com/xolox/vim-misc.git'
+    Plug 'https://github.com/xolox/vim-easytags.git'
 endfunction
 
 function s:ConfigurePlugins()
     call s:ConfigureColors()
+    call s:ConfigureEasytags()
     call s:ConfigureMarkdown()
     call s:ConfigureNERDTree()
     call s:ConfigureSyntastic()
@@ -178,6 +181,11 @@ function s:ConfigureMarkdown()
     autocmd BufRead,BufNewFile *.md setlocal spell
 endfunction
 
+function s:ConfigureEasytags()
+    " Update local tags files in preference to the global one
+    let g:easytags_dynamic_files = 1
+endfunction
+
 function s:LoadKeymaps()
     autocmd FileType perl :call <SID>LoadPerlKeymaps()
 
@@ -207,7 +215,12 @@ function s:LoadCustomSettings()
     endif
 endfunction
 
+function s:LoadTags()
+    set tags=$HOME/.vimtags_jdk,./tags
+endfunction
+
 call s:LoadPlugins()
 call s:LoadKeymaps()
+call s:LoadTags()
 
 autocmd! VimEnter * :call <SID>LoadCustomSettings()
