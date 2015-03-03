@@ -184,6 +184,7 @@ endfunction
 function s:ConfigureEasytags()
     " Update local tags files in preference to the global one
     let g:easytags_dynamic_files = 1
+    let g:easytags_async = 1
 endfunction
 
 function s:LoadKeymaps()

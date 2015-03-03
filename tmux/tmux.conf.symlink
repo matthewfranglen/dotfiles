@@ -41,5 +41,8 @@ setw -g automatic-rename
 set -g visual-activity on
 
 # tmux powerline configuration
-run-shell "powerline-daemon -q"
-source-file /usr/local/src/powerline/powerline/bindings/tmux/powerline.conf
+run-shell "~/.local/bin/powerline-daemon -q || true"
+run-shell "~/.local/bin/powerline-config tmux setup"
+
+set -g status-interval 2
+set -g status-right '#(~/.local/bin/powerline tmux right)'
