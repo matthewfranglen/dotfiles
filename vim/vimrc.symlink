@@ -107,13 +107,17 @@ endfunction
 function s:RegisterPlugins()
     " Each of these is registered in the g:plugs map.
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
-    Plug 'https://github.com/bronson/vim-visual-star-search'
+
     Plug 'https://github.com/dart-lang/dart-vim-plugin.git'
-    Plug 'https://github.com/godlygeek/tabular.git'
     Plug 'https://github.com/groenewege/vim-less.git'
     Plug 'https://github.com/hail2u/vim-css3-syntax.git'
-    Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
     Plug 'https://github.com/fatih/vim-go.git'
+    Plug 'https://github.com/vim-perl/vim-perl'
+    Plug 'https://github.com/vim-scripts/nginx.vim.git'
+
+    Plug 'https://github.com/bronson/vim-visual-star-search'
+    Plug 'https://github.com/godlygeek/tabular.git'
+    Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
     Plug 'https://github.com/kien/ctrlp.vim'
     Plug 'https://github.com/majutsushi/tagbar.git'
     Plug 'https://github.com/mileszs/ack.vim.git'
@@ -125,14 +129,13 @@ function s:RegisterPlugins()
     Plug 'https://github.com/tpope/vim-sensible.git'
     Plug 'https://github.com/tpope/vim-surround.git'
     Plug 'https://github.com/tpope/vim-unimpaired.git'
-    Plug 'https://github.com/vim-perl/vim-perl'
     Plug 'https://github.com/vim-scripts/kwbdi.vim.git'
-    Plug 'https://github.com/vim-scripts/nginx.vim.git'
     Plug 'https://github.com/matthewfranglen/vim-shell.git'
     Plug 'https://github.com/matthewfranglen/vim-scheme.git'
     Plug 'https://github.com/matthewfranglen/vim-mf-defaults.git'
 
     Plug 'https://github.com/Valloric/YouCompleteMe'
+    Plug 'https://github.com/xolox/vim-misc.git'
     Plug 'https://github.com/xolox/vim-easytags.git'
 endfunction
 
