@@ -2,3 +2,4 @@ wget --output-document ~/.antigen.zsh https://raw.githubusercontent.com/zsh-user
 
 wget --output-document ~/.fasd.zsh https://raw.githubusercontent.com/clvv/fasd/master/fasd
 chmod 755 ~/.fasd.zsh
+ln -s ~/.fasd.zsh ~/.local/bin/fasd
