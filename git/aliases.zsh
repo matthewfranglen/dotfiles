@@ -1,0 +1,1 @@
+alias mgk='gitk --all &!'
