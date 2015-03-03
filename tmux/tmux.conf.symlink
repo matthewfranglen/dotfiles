@@ -41,5 +41,5 @@ setw -g automatic-rename
 set -g visual-activity on
 
 # tmux powerline configuration
-run-shell "~/.local/bin/powerline-daemon -q"
-source ~/.local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf
+run-shell "~/.local/bin/powerline-daemon -q || true"
+run-shell "~/.local/bin/powerline-config tmux setup"
