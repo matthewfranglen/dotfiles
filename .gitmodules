@@ -1,3 +1,4 @@
 [submodule "fonts/fonts.symlink"]
 	path = fonts/fonts.symlink
 	url = git://github.com/Lokaltog/powerline-fonts.git
+	ignore = dirty
