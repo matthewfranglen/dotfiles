@@ -29,7 +29,7 @@ zstyle ':vcs_info:git*' formats       ' %F{white} %b'
 zstyle ':vcs_info:git*' actionformats ' %F{white} %b|%a'
 
 # Show username if not default or if on another server
-[[ $USER != $DEFAULT_USERNAME || ! -z $SSH_CONNECTION ]] && local username='%n@%m '
+[ ! -z $SSH_CONNECTION ] && local username='%n@%m '
 
 git_status() {
     if [ ! -z $vcs_info_msg_0_ ]
@@ -103,11 +103,5 @@ precmd() {
 PROMPT='%{%(?.%F{green}.%F{red})%}➜%{%f%} '
 # Can be disabled:
 # PROMPT='%F{magenta}❯%f '
-
-# Change Terminal / Screen / TMux title for terminal when moving to another machine
-if [ ! -z $SSH_CONNECTION ]
-then
-    echo -ne "\033k${USER}@${HOST}\033\\"
-fi
 
 # vim: set ai et sw=4 syntax=zsh :
