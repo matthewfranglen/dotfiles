@@ -9,4 +9,5 @@ Installation
 
     git clone https://github.com/matthewfranglen/dotfiles.git ~/.dotfiles
     cd ~/.dotfiles
+    script/install
     script/bootstrap
