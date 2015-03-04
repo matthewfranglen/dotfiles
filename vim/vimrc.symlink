@@ -137,6 +137,7 @@ function s:RegisterPlugins()
     Plug 'https://github.com/Valloric/YouCompleteMe'
     Plug 'https://github.com/xolox/vim-misc.git'
     Plug 'https://github.com/xolox/vim-easytags.git'
+    Plug 'https://github.com/vim-scripts/javacomplete.git'
 endfunction
 
 function s:ConfigurePlugins()
@@ -145,6 +146,7 @@ function s:ConfigurePlugins()
     call s:ConfigureMarkdown()
     call s:ConfigureNERDTree()
     call s:ConfigureSyntastic()
+    call s:ConfigureJavaOmniComplete()
 
     if s:CanUsePython()
         call s:ConfigurePowerline()
@@ -179,6 +181,12 @@ function s:ConfigureMarkdown()
     " Required otherwise .md is modulo-2 filetype
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     autocmd BufRead,BufNewFile *.md setlocal spell
+endfunction
+
+function s:ConfigureJavaOmniComplete()
+    autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+    autocmd Filetype java setlocal completefunc=javacomplete#CompleteParamsInfo
+    autocmd Filetype java setlocal path=.,**,,
 endfunction
 
 function s:ConfigureEasytags()
