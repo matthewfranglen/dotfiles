@@ -135,9 +135,6 @@ function s:RegisterPlugins()
     Plug 'https://github.com/matthewfranglen/vim-mf-defaults.git'
 
     Plug 'https://github.com/Valloric/YouCompleteMe'
-    Plug 'https://github.com/xolox/vim-misc.git'
-    Plug 'https://github.com/xolox/vim-easytags.git'
-    Plug 'https://github.com/vim-scripts/javacomplete.git'
 endfunction
 
 function s:ConfigurePlugins()
@@ -184,9 +181,9 @@ function s:ConfigureMarkdown()
 endfunction
 
 function s:ConfigureJavaOmniComplete()
-    autocmd Filetype java setlocal omnifunc=javacomplete#Complete
-    autocmd Filetype java setlocal completefunc=javacomplete#CompleteParamsInfo
-    autocmd Filetype java setlocal path=.,**,,
+    autocmd Filetype java let g:EclimCompletionMethod = 'omnifunc'
+    autocmd Filetype java if &completefunc != '' | let &omnifunc=&completefunc | endif
+    autocmd Filetype java nnoremap <silent> <buffer> <CR> :JavaSearchContext<CR>
 endfunction
 
 function s:ConfigureEasytags()
