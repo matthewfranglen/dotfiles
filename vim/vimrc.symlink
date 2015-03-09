@@ -181,9 +181,9 @@ function s:ConfigureMarkdown()
 endfunction
 
 function s:ConfigureJavaOmniComplete()
-    autocmd Filetype java let g:EclimCompletionMethod = 'omnifunc'
-    autocmd Filetype java if &completefunc != '' | let &omnifunc=&completefunc | endif
-    autocmd Filetype java nnoremap <silent> <buffer> <CR> :JavaSearchContext<CR>
+    autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
+    autocmd FileType java if &completefunc != '' | let &omnifunc=&completefunc | endif
+    autocmd FileType java nnoremap <silent> <buffer> <CR> :JavaSearchContext<CR>
 endfunction
 
 function s:ConfigureEasytags()
