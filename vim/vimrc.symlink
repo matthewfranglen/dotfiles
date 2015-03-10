@@ -135,6 +135,7 @@ function s:RegisterPlugins()
     Plug 'https://github.com/matthewfranglen/vim-mf-defaults.git'
 
     Plug 'https://github.com/Valloric/YouCompleteMe'
+    Plug 'https://github.com/SirVer/ultisnips.git'
 endfunction
 
 function s:ConfigurePlugins()
