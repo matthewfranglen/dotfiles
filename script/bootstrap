@@ -31,6 +31,12 @@ fail () {
 link_file () {
   local src=$1 dst=$2
 
+  local dst_parent_folder=$(dirname $dst)
+  if [ ! -e ${dst_parent_folder} ]
+  then
+    mkdir -p ${dst_parent_folder}
+  fi
+
   local overwrite= backup= skip=
   local action=
 
