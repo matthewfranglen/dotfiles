@@ -5,13 +5,13 @@ install () {
 }
 
 install_antigen () {
-    local antigen_script_file=~/.antigen.zsh
+    local antigen_script_file=${HOME}/.antigen.zsh
 
     get_url_to_file "https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh" "${antigen_script_file}" || return 1
 }
 
 install_fasd () {
-    local fasd_script_file=~/.fasd.zsh
+    local fasd_script_file=${HOME}/.fasd.zsh
 
     get_url_to_file "https://raw.githubusercontent.com/clvv/fasd/master/fasd" "${fasd_script_file}" || return 1
     chmod 755 "${fasd_script_file}"
