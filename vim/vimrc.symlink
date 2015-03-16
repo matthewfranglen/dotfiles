@@ -12,6 +12,7 @@ function s:Main()
     call s:LoadPlugins()
     call s:LoadKeymaps()
     call s:LoadTags()
+    call s:LoadPath()
 
     autocmd! VimEnter * :call <SID>LoadCustomSettings()
 endfunction
@@ -232,6 +233,10 @@ endfunction
 
 function s:LoadTags()
     set tags=$HOME/.vimtags_jdk,./tags
+endfunction
+
+function s:LoadPath()
+    autocmd FileType java setlocal path=,,.,**/src/**/java
 endfunction
 
 call s:Main()
