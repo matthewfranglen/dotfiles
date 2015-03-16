@@ -8,6 +8,14 @@ endif
 let g:loaded_vimrc = 1
 
 
+function s:Main()
+    call s:LoadPlugins()
+    call s:LoadKeymaps()
+    call s:LoadTags()
+
+    autocmd! VimEnter * :call <SID>LoadCustomSettings()
+endfunction
+
 " This allows you to issue a command that uses the names of all of the buffer
 " files. For example:
 " :exe '! git add ' . join(BuffersList(), ' ')
@@ -226,8 +234,4 @@ function s:LoadTags()
     set tags=$HOME/.vimtags_jdk,./tags
 endfunction
 
-call s:LoadPlugins()
-call s:LoadKeymaps()
-call s:LoadTags()
-
-autocmd! VimEnter * :call <SID>LoadCustomSettings()
+call s:Main()
