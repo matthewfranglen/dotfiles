@@ -8,6 +8,13 @@ antigen-bundle matthewfranglen/memcached-cli
 antigen-bundle matthewfranglen/speedread
 antigen-bundle zsh-users/zsh-history-substring-search
 antigen-bundle zsh-users/zsh-syntax-highlighting
+
+for bundle in $antigen_bundles
+do
+    antigen-bundle ${bundle}
+done
+unset antigen_bundles
+
 antigen-apply
 
 # vim: set ai et sw=4 syntax=zsh :
