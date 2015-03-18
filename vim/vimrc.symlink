@@ -145,6 +145,7 @@ function s:RegisterPlugins()
 
     Plug 'https://github.com/Valloric/YouCompleteMe.git', { 'do': './install.sh' }
     Plug 'https://github.com/SirVer/ultisnips.git'
+    Plug 'https://github.com/honza/vim-snippets.git'
 endfunction
 
 function s:ConfigurePlugins()
@@ -154,6 +155,7 @@ function s:ConfigurePlugins()
     call s:ConfigureNERDTree()
     call s:ConfigureSyntastic()
     call s:ConfigureJavaOmniComplete()
+    call s:ConfigureUltiSnips()
 
     if s:CanUsePython()
         call s:ConfigurePowerline()
@@ -194,6 +196,12 @@ function s:ConfigureJavaOmniComplete()
     autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
     autocmd FileType java if &completefunc != '' | let &omnifunc=&completefunc | endif
     autocmd FileType java nnoremap <silent> <buffer> <CR> :JavaSearchContext<CR>
+endfunction
+
+function s:ConfigureUltiSnips()
+    let g:UltiSnipsExpandTrigger="<leader>s"
+    let g:UltiSnipsJumpForwardTrigger="<C-N>"
+    let g:UltiSnipsJumpBackwardTrigger="<C-P>"
 endfunction
 
 function s:ConfigureEasytags()
