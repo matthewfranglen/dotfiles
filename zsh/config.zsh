@@ -40,6 +40,9 @@ export EDITOR=vim
 export SVN_EDITOR=vim
 export GIT_EDITOR=vim
 export LESS=ir
-export JAVA_HOME=/usr/lib/jvm/default-java
+if [ -z ${JAVA_HOME} ]
+then
+    export JAVA_HOME=/usr/lib/jvm/default-java
+fi
 
 # vim: set ai et sw=4 syntax=zsh :
