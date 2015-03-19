@@ -139,6 +139,7 @@ function s:RegisterPlugins()
     Plug 'https://github.com/tpope/vim-surround.git'
     Plug 'https://github.com/tpope/vim-unimpaired.git'
     Plug 'https://github.com/vim-scripts/kwbdi.vim.git'
+    Plug 'https://github.com/matthewfranglen/vim-repl.git'
     Plug 'https://github.com/matthewfranglen/vim-shell.git'
     Plug 'https://github.com/matthewfranglen/vim-scheme.git'
     Plug 'https://github.com/matthewfranglen/vim-mf-defaults.git'
