@@ -2,18 +2,18 @@
     "segments": {
         "right": [
             {
-                "function": "network_load",
+                "function": "powerline.segments.common.net.network_load",
                 "priority": 50
             },
             {
-                "function": "system_load",
+                "function": "powerline.segments.common.sys.system_load",
                 "priority": 50
             },
             {
-                "function": "date"
+                "function": "powerline.segments.common.time.date"
             },
             {
-                "function": "date",
+                "function": "powerline.segments.common.time.date",
                 "name": "time",
                 "args": {
                     "format": "%H:%M",
@@ -21,8 +21,9 @@
                 }
             },
             {
-                "function": "hostname"
+                "function": "powerline.segments.common.net.hostname"
             }
         ]
     }
 }
+~
