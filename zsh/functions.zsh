@@ -67,6 +67,10 @@ function make_java_source_ctags_file () {
     rm -r /tmp/java-source-code
 }
 
+function set_terminal_title () {
+    echo -ne "\033k${1}\033\\"
+}
+
 # Don't dirty up the process tree on remote servers
 if [ -z $SSH_CONNECTION ]
 then
