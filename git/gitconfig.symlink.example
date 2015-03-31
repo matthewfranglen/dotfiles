@@ -5,6 +5,14 @@
 [alias]
     mgl = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 
+    fap = fetch --all --prune
+
+    pom = push origin master
+
+    pod = push origin develop
+
+    pt = push --tags
+
 # This performs a shell command bound to a git alias.
 # See: http://blogs.atlassian.com/2014/10/advanced-git-aliases/
     flow-push = "!f() {          \
@@ -13,10 +21,12 @@
         git push --tags;         \
     }; f"
 
-    flow-quick-release = "!f() {                                               \
-        local release=${1:?Must provide tag as only argument};                 \
-        git flow release start ${release} &&                                   \
-        git flow release finish --nobackmerge --message ${release} ${release}; \
+    flow-quick-release = "!f() {\
+        local release=${1:?Must provide tag as only argument};\
+        git checkout master  && git pull &&\
+        git checkout develop && git pull &&\
+        git flow release start ${release} &&\
+        git flow release finish --nobackmerge --message ${release} ${release};\
     }; f"
 [push]
     default = tracking
