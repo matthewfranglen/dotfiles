@@ -5,6 +5,8 @@
 [alias]
     mgl = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 
+    fap = fetch --all --prune
+
 # This performs a shell command bound to a git alias.
 # See: http://blogs.atlassian.com/2014/10/advanced-git-aliases/
     flow-push = "!f() {          \
