@@ -7,6 +7,12 @@
 
     fap = fetch --all --prune
 
+    pom = push origin master
+
+    pod = push origin develop
+
+    pt = push --tags
+
 # This performs a shell command bound to a git alias.
 # See: http://blogs.atlassian.com/2014/10/advanced-git-aliases/
     flow-push = "!f() {          \
