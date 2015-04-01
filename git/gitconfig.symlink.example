@@ -26,7 +26,8 @@
         git checkout master  && git pull &&\
         git checkout develop && git pull &&\
         git flow release start ${release} &&\
-        git flow release finish --nobackmerge --message ${release} ${release};\
+        git flow release finish --nobackmerge --message ${release} ${release} &&\
+        git checkout develop;\
     }; f"
 [push]
     default = tracking
