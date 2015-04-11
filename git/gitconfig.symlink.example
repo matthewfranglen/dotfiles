@@ -15,6 +15,13 @@
 
     suir = submodule update --init --recursive
 
+    ff = flow feature
+    ffs = flow feature start
+    fff = flow feature finish
+    fr = flow release
+    frs = flow release start
+    frf = flow release finish
+
 # This performs a shell command bound to a git alias.
 # See: http://blogs.atlassian.com/2014/10/advanced-git-aliases/
     flow-push = "!f() {          \
