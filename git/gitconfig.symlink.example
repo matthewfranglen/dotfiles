@@ -10,9 +10,7 @@
     fap = fetch --all --prune
 
     pom = push origin master
-
     pod = push origin develop
-
     pt = push --tags
 
     suir = submodule update --init --recursive
