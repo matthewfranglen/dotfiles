@@ -7,15 +7,26 @@ install () {
 install_antigen () {
     local antigen_script_file=${HOME}/.antigen.zsh
 
-    get_url_to_file "https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh" "${antigen_script_file}" || return 1
+    if [ ! -e "${antigen_script_file}" ]
+    then
+        get_url_to_file "https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh" "${antigen_script_file}" || return 1
+    fi
 }
 
 install_fasd () {
     local fasd_script_file=${HOME}/.fasd.zsh
+    local fasd_link_file=${HOME}/.local/bin/fasd
 
-    get_url_to_file "https://raw.githubusercontent.com/clvv/fasd/master/fasd" "${fasd_script_file}" || return 1
-    chmod 755 "${fasd_script_file}"
-    ln -s "${fasd_script_file}" ~/.local/bin/fasd
+    if [ ! -e "${fasd_script_file}" ]
+    then
+        get_url_to_file "https://raw.githubusercontent.com/clvv/fasd/master/fasd" "${fasd_script_file}" || return 1
+        chmod 755 "${fasd_script_file}"
+    fi
+
+    if [ ! -e "${fasd_link_file}" ]
+    then
+        ln -s "${fasd_script_file}" ~/.local/bin/fasd
+    fi
 }
 
 get_url_to_file () {
