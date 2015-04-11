@@ -45,4 +45,6 @@ then
     export JAVA_HOME=/usr/lib/jvm/default-java
 fi
 
+export LC_ALL="en_US.UTF-8"
+
 # vim: set ai et sw=4 syntax=zsh :
