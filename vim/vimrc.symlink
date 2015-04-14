@@ -158,6 +158,7 @@ function s:ConfigurePlugins()
     call s:ConfigureNERDTree()
     call s:ConfigureSyntastic()
     call s:ConfigureJavaOmniComplete()
+    call s:ConfigureEclim()
     call s:ConfigureUltiSnips()
 
     if s:CanUsePython()
@@ -199,6 +200,16 @@ function s:ConfigureJavaOmniComplete()
     autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
     autocmd FileType java if &completefunc != '' | let &omnifunc=&completefunc | endif
     autocmd FileType java nnoremap <silent> <buffer> <CR> :JavaSearchContext<CR>
+endfunction
+
+function s:ConfigureEclim()
+    autocmd FileType java call s:ConfigureEclimJavaBindings()
+endfunction
+
+function s:ConfigureEclimJavaBindings()
+    nnoremap <silent> <buffer> <leader>i :JavaImport<CR>
+    nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<CR>
+    nnoremap <silent> <buffer> <cr> :JavaSearchContext<CR>
 endfunction
 
 function s:ConfigureUltiSnips()
