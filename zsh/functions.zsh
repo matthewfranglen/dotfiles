@@ -71,6 +71,12 @@ function set_terminal_title () {
     echo -ne "\033k${1}\033\\"
 }
 
+function show_github_activity () {
+    antigen-bundle matthewfranglen/git-activity
+    antigen-bundle matthewfranglen/spark
+    git-activity --limit $COLUMNS matthewfranglen | spark
+}
+
 # Don't dirty up the process tree on remote servers
 if [ -z $SSH_CONNECTION ]
 then
