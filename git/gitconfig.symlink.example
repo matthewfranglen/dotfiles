@@ -1,5 +1,6 @@
 [core]
     editor = vim
+    excludesfile = /home/matthew/.gitignore
 [color]
     ui = true
 [diff]
