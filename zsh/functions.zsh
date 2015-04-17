@@ -73,7 +73,6 @@ function set_terminal_title () {
 
 function show_github_activity () {
     antigen-bundle matthewfranglen/git-activity
-    antigen-bundle matthewfranglen/spark
     git-activity --limit $COLUMNS matthewfranglen | spark
 }
 
