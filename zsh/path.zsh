@@ -1,1 +1,4 @@
-path+=(~/.gem/ruby/*/bin)
+if test -n "$( find ~/.gem/ruby -maxdepth 2 -name 'bin' )"
+then
+    path+=(~/.gem/ruby/*/bin)
+fi
