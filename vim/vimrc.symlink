@@ -118,9 +118,10 @@ function s:RegisterPlugins()
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
 
     Plug 'https://github.com/dart-lang/dart-vim-plugin.git'
+    Plug 'https://github.com/fatih/vim-go.git'
     Plug 'https://github.com/groenewege/vim-less.git'
     Plug 'https://github.com/hail2u/vim-css3-syntax.git'
-    Plug 'https://github.com/fatih/vim-go.git'
+    Plug 'https://github.com/jrozner/vim-antlr.git'
     Plug 'https://github.com/vim-perl/vim-perl'
     Plug 'https://github.com/vim-scripts/nginx.vim.git'
 
