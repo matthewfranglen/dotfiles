@@ -23,6 +23,12 @@
     frs = flow release start
     frf = flow release finish
 
+    s = status
+    c = commit
+    ca = commit --all
+    cam = commit --amend
+    caam = commit --all --amend
+
 # This performs a shell command bound to a git alias.
 # See: http://blogs.atlassian.com/2014/10/advanced-git-aliases/
     flow-push = "!f() {          \
