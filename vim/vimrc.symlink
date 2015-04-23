@@ -123,6 +123,7 @@ function s:RegisterPlugins()
     Plug 'https://github.com/hail2u/vim-css3-syntax.git'
     Plug 'https://github.com/jrozner/vim-antlr.git'
     Plug 'https://github.com/vim-perl/vim-perl'
+    Plug 'https://github.com/vim-scripts/bnf.vim.git'
     Plug 'https://github.com/vim-scripts/nginx.vim.git'
 
     Plug 'https://github.com/bronson/vim-visual-star-search'
