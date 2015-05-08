@@ -101,6 +101,10 @@ function s:PluginsMissing()
 endfunction
 
 function s:PrepareForPluginLoad()
+    " Fuck YouCompleteMe. Bastard!
+    let g:ycm_key_list_select_completion = []
+    let g:ycm_key_list_previous_completion = []
+
     let g:NumberToggleTrigger="<leader>n"
 
     let g:syntastic_always_populate_loc_list = 1
