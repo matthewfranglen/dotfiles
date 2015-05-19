@@ -1,4 +1,4 @@
-if $SSH_CONNECTION
+if [ ! -z $SSH_CONNECTION ]
 then
     echo "Not installing fonts... currently running on remote host"
     exit 0
