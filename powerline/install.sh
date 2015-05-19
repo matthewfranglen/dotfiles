@@ -10,7 +10,7 @@ install () {
 }
 
 is_running_locally () {
-    [ -z $SSH_CONNECTION ]
+    [ "$SSH_CONNECTION" = "" ]
 }
 
 install_powerline () {
