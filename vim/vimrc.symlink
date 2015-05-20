@@ -121,6 +121,11 @@ function s:RegisterPlugins()
     " Each of these is registered in the g:plugs map.
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
 
+    Plug 'https://github.com/tpope/vim-classpath.git'
+    Plug 'https://github.com/tpope/vim-dispatch.git'
+    Plug 'https://github.com/tpope/vim-fireplace.git'
+    Plug 'https://github.com/tpope/vim-leiningen.git'
+
     Plug 'https://github.com/dart-lang/dart-vim-plugin.git'
     Plug 'https://github.com/fatih/vim-go.git'
     Plug 'https://github.com/groenewege/vim-less.git'
