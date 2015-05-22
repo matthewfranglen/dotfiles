@@ -125,6 +125,7 @@ function s:RegisterPlugins()
     Plug 'https://github.com/tpope/vim-dispatch.git'
     Plug 'https://github.com/tpope/vim-fireplace.git'
     Plug 'https://github.com/tpope/vim-leiningen.git'
+    Plug 'https://github.com/kien/rainbow_parentheses.vim.git'
 
     Plug 'https://github.com/dart-lang/dart-vim-plugin.git'
     Plug 'https://github.com/fatih/vim-go.git'
