@@ -4,7 +4,7 @@ install () {
 }
 
 install_lein () {
-    local lein_command=~/.local/bin/lein
+    local lein_command="${HOME}/.local/bin/lein"
 
     if [ ! -e "${lein_command}" ]
     then
