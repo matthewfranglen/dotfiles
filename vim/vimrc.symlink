@@ -172,6 +172,7 @@ function s:ConfigurePlugins()
     call s:ConfigureJavaOmniComplete()
     call s:ConfigureEclim()
     call s:ConfigureUltiSnips()
+    call s:ConfigureRainbowParenthesis()
 
     if s:CanUsePython()
         call s:ConfigurePowerline()
@@ -234,6 +235,14 @@ function s:ConfigureEasytags()
     " Update local tags files in preference to the global one
     let g:easytags_dynamic_files = 1
     let g:easytags_async = 1
+endfunction
+
+function s:ConfigureRainbowParenthesis()
+    " Load rainbow parens for clojure files
+    autocmd FileType clojure RainbowParenthesesToggle
+    autocmd Syntax clojure RainbowParenthesesLoadRound
+    autocmd Syntax clojure RainbowParenthesesLoadSquare
+    autocmd Syntax clojure RainbowParenthesesLoadBraces
 endfunction
 
 function s:LoadKeymaps()
