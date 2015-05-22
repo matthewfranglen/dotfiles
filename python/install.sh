@@ -29,7 +29,7 @@ get_url_to_file () {
     then
         curl --output "${filename}" "${url}"
     else
-        echo "Unable to install powerline... wget and curl commands not found"
+        echo "Unable to install python... wget and curl commands not found"
         return 1
     fi
 }
