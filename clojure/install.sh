@@ -4,8 +4,13 @@ install () {
 }
 
 install_lein () {
-    local lein_command="${HOME}/.local/bin/lein"
+    local lein_folder="${HOME}/.local/bin"
+    local lein_command="${lein_folder}/lein"
 
+    if [ ! -e "${lein_folder}" ]
+    then
+        mkdir -p "${lein_folder}"
+    fi
     if [ ! -e "${lein_command}" ]
     then
         get_url_to_file "https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein" "${lein_command}" || return 1
