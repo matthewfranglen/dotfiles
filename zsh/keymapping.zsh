@@ -51,10 +51,25 @@ bindkey  -M vicmd v edit-command-line
 
 # Map control-p to the vim ctrlp command. Will open vim and run ctrlp.
 function vim-ctrlp () {
+    if [ $#BUFFER -ne 0 ]
+    then
+        zle push-line
+    fi
     BUFFER='vim +:CtrlP'
     zle accept-line
 }
 zle -N                vim-ctrlp
 bindkey -M viins '^P' vim-ctrlp
+
+function shell-fg () {
+    if [ $#BUFFER -ne 0 ]
+    then
+        zle push-line
+    fi
+    BUFFER="fg"
+    zle accept-line
+}
+zle -N       shell-fg
+bindkey '^Z' shell-fg
 
 # vim: set ai et sw=4 syntax=zsh :
