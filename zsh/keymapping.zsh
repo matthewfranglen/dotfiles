@@ -51,6 +51,10 @@ bindkey  -M vicmd v edit-command-line
 
 # Map control-p to the vim ctrlp command. Will open vim and run ctrlp.
 function vim-ctrlp () {
+    if [ $#BUFFER -ne 0 ]
+    then
+        zle push-line
+    fi
     BUFFER='vim +:CtrlP'
     zle accept-line
 }
