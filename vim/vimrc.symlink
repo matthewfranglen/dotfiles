@@ -248,6 +248,21 @@ endfunction
 function s:LoadKeymaps()
     autocmd FileType perl :call <SID>LoadPerlKeymaps()
 
+    " Map leader to space.
+    let g:mapleader = "\<Space>"
+
+    " This needs to be global as using let inside a function will implicitly
+    " change it to be local to the function.  Within a function these two
+    " statements are equivalent:
+    "
+    " let a = "b"
+    " let l:a = "b"
+    "
+    " Outside a function these two statements are equivalent:
+    "
+    " let a = "b"
+    " let g:a = "b"
+
     " Fugitive bindings
     nnoremap <unique> <leader>gs :Gstatus<CR>
     nnoremap <unique> <leader>gc :Gcommit<CR>
