@@ -274,6 +274,10 @@ function s:LoadKeymaps()
     " Toggle Tags with <F8>, Nerdtree with <F7>
     nmap <F7> :NERDTreeToggle<CR><C-W>l
     nmap <F8> :TagbarToggle<CR>
+
+    " Add static import with <leader>I
+    " based on adding a regular import with <leader>i
+    nnoremap <unique> <leader>I :AddStaticImport<CR>
 endfunction
 
 function s:LoadPerlKeymaps()
