@@ -158,6 +158,7 @@ function s:RegisterPlugins()
     Plug 'https://github.com/matthewfranglen/vim-repl.git'
     Plug 'https://github.com/matthewfranglen/vim-shell.git'
     Plug 'https://github.com/matthewfranglen/vim-scheme.git'
+    Plug 'https://github.com/matthewfranglen/vim-static-import.git'
     Plug 'https://github.com/matthewfranglen/vim-mf-defaults.git'
 
     Plug 'https://github.com/Valloric/YouCompleteMe.git', { 'do': './install.sh' }
