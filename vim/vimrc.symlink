@@ -192,30 +192,10 @@ function s:ConfigureColors()
     set background=dark
 endfunction
 
-function s:ConfigurePowerline()
-    set rtp+=~/.local/lib/python2.7/site-packages/powerline/bindings/vim
-endfunction
-
-function s:ConfigureNERDTree()
-    " http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
-    let g:NERDTreeIgnore = ['\.pyc$']
-endfunction
-
-function s:ConfigureSyntastic()
-    let g:syntastic_python_checkers = ['python', 'pyflakes', 'pep8', 'pylint']
-endfunction
-
-function s:ConfigureMarkdown()
-    " Set markdown filetype and spelling
-    " Required otherwise .md is modulo-2 filetype
-    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-    autocmd BufRead,BufNewFile *.md setlocal spell
-endfunction
-
-function s:ConfigureJavaOmniComplete()
-    autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
-    autocmd FileType java if &completefunc != '' | let &omnifunc=&completefunc | endif
-    autocmd FileType java nnoremap <silent> <buffer> <CR> :JavaSearchContext<CR>
+function s:ConfigureEasytags()
+    " Update local tags files in preference to the global one
+    let g:easytags_dynamic_files = 1
+    let g:easytags_async = 1
 endfunction
 
 function s:ConfigureEclim()
@@ -228,16 +208,22 @@ function s:ConfigureEclimJavaBindings()
     nnoremap <silent> <buffer> <cr> :JavaSearchContext<CR>
 endfunction
 
-function s:ConfigureUltiSnips()
-    let g:UltiSnipsExpandTrigger="<C-E>"
-    let g:UltiSnipsJumpForwardTrigger="<C-N>"
-    let g:UltiSnipsJumpBackwardTrigger="<C-P>"
+function s:ConfigureJavaOmniComplete()
+    autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
+    autocmd FileType java if &completefunc != '' | let &omnifunc=&completefunc | endif
+    autocmd FileType java nnoremap <silent> <buffer> <CR> :JavaSearchContext<CR>
 endfunction
 
-function s:ConfigureEasytags()
-    " Update local tags files in preference to the global one
-    let g:easytags_dynamic_files = 1
-    let g:easytags_async = 1
+function s:ConfigureMarkdown()
+    " Set markdown filetype and spelling
+    " Required otherwise .md is modulo-2 filetype
+    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+    autocmd BufRead,BufNewFile *.md setlocal spell
+endfunction
+
+function s:ConfigureNERDTree()
+    " http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
+    let g:NERDTreeIgnore = ['\.pyc$']
 endfunction
 
 function s:ConfigureRainbowParenthesis()
@@ -246,6 +232,20 @@ function s:ConfigureRainbowParenthesis()
     autocmd Syntax clojure RainbowParenthesesLoadRound
     autocmd Syntax clojure RainbowParenthesesLoadSquare
     autocmd Syntax clojure RainbowParenthesesLoadBraces
+endfunction
+
+function s:ConfigureSyntastic()
+    let g:syntastic_python_checkers = ['python', 'pyflakes', 'pep8', 'pylint']
+endfunction
+
+function s:ConfigureUltiSnips()
+    let g:UltiSnipsExpandTrigger="<C-E>"
+    let g:UltiSnipsJumpForwardTrigger="<C-N>"
+    let g:UltiSnipsJumpBackwardTrigger="<C-P>"
+endfunction
+
+function s:ConfigurePowerline()
+    set rtp+=~/.local/lib/python2.7/site-packages/powerline/bindings/vim
 endfunction
 
 function s:LoadKeymaps()
