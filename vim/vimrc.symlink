@@ -204,6 +204,7 @@ endfunction
 
 function s:ConfigureEclimJavaBindings()
     nnoremap <silent> <buffer> <leader>i :JavaImport<CR>
+    nnoremap <silent> <buffer> <leader>oi :JavaImportOrganize<CR>
     nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<CR>
     nnoremap <silent> <buffer> <cr> :JavaSearchContext<CR>
 endfunction
