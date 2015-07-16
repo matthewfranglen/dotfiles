@@ -167,7 +167,6 @@ function s:RegisterPlugins()
 endfunction
 
 function s:ConfigurePlugins()
-    call s:ConfigureAntlr()
     call s:ConfigureColors()
     call s:ConfigureEasytags()
     call s:ConfigureEclim()
@@ -181,10 +180,6 @@ function s:ConfigurePlugins()
     if s:CanUsePython()
         call s:ConfigurePowerline()
     endif
-endfunction
-
-function s:ConfigureAntlr()
-    autocmd BufRead,BufNewFile *.g4 setfiletype antlr4
 endfunction
 
 function s:ConfigureColors()
@@ -209,6 +204,7 @@ endfunction
 
 function s:ConfigureEclimJavaBindings()
     nnoremap <silent> <buffer> <leader>i :JavaImport<CR>
+    nnoremap <silent> <buffer> <leader>oi :JavaImportOrganize<CR>
     nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<CR>
     nnoremap <silent> <buffer> <cr> :JavaSearchContext<CR>
 endfunction
