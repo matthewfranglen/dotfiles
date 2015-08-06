@@ -186,10 +186,10 @@ function s:ConfigureColors()
     " Convince Vim it can use 256 colors inside Gnome Terminal.
     " Needs CSApprox plugin
     set t_Co=256
+    set background=dark
 
     let g:solarized_termcolors = 256
     colorscheme solarized
-    set background=dark
 endfunction
 
 function s:ConfigureEasytags()
