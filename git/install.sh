@@ -1,10 +1,11 @@
-
-install () {
-    prepare && install_git_up
-}
+. "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
 validate () {
     which gem >/dev/null
+}
+
+install () {
+    prepare && install_git_up
 }
 
 fail () {
@@ -12,9 +13,9 @@ fail () {
 }
 
 prepare () {
-    if test ! -e ~/.gem
+    if test ! -e "${HOME}/.gem"
     then
-        mkdir ~/.gem
+        mkdir "${HOME}/.gem"
     fi
 }
 
