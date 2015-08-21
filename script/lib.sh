@@ -1,5 +1,13 @@
+# It is not possible to determine the location of this file because this will
+# be run with `sh` and that does not provide any way to reliably determine
+# that. See http://unix.stackexchange.com/a/96238
+#
+# Thus this uses the convention that the sourcing script is in a subdirectory
+# of the dotfiles directory and that ${0} contains the relative path to that
+# script. The ROOT_FOLDER path will be wrong if this is not true.
 
 LOCAL_BIN_FOLDER="${HOME}/.local/bin"
+DOTFILES_FOLDER="`dirname \`dirname \\\`readlink -f $0\\\`\``"
 
 make_local_bin () {
     if [ ! -e "${LOCAL_BIN_FOLDER}" ]
