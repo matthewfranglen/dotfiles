@@ -27,7 +27,7 @@ get_url_to_file () {
         wget --output-document "${filename}" "${url}"
     elif which curl >/dev/null
     then
-        curl --output "${filename}" "${url}"
+        curl --location "${url}" > "${filename}"
     else
         echo "Unable to install python... wget and curl commands not found"
         return 1
