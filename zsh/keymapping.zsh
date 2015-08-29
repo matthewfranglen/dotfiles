@@ -72,4 +72,10 @@ function shell-fg () {
 zle -N       shell-fg
 bindkey '^Z' shell-fg
 
+# Prevent ESC eating the next character when in vim normal mode.
+# See: http://superuser.com/a/516524
+noop () { }
+zle -N noop
+bindkey -M vicmd '\e' noop
+
 # vim: set ai et sw=4 syntax=zsh :
