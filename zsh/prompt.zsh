@@ -79,6 +79,8 @@ cmd_exec_time() {
     [ $elapsed -gt $CMD_MAX_EXEC_TIME ] && pretty_print_time $elapsed
 }
 
+
+
 preexec() {
     cmd_timestamp=`date +%s`
 }
@@ -99,9 +101,20 @@ precmd() {
     unset cmd_timestamp
 }
 
-# Prompt turns red if the previous command didn't exit with 0
-PROMPT='%{%(?.%F{green}.%F{red})%}➜%{%f%} '
-# Can be disabled:
-# PROMPT='%F{magenta}❯%f '
+function zle-line-init zle-keymap-select {
+    # Prompt turns red if the previous command didn't exit with 0
+    INSERT_PROMPT='%{%(?.%F{green}.%F{red})%}➜%{%f%} '
+    NORMAL_PROMPT='%{%F{blue}%}➜%{%f%} '
+
+    case ${KEYMAP} in
+        (vicmd)      PROMPT="$NORMAL_PROMPT" ;;
+        (main|viins) PROMPT="$INSERT_PROMPT" ;;
+        (*)          PROMPT="$INSERT_PROMPT" ;;
+    esac
+    zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 # vim: set ai et sw=4 syntax=zsh :
