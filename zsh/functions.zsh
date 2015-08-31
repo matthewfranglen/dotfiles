@@ -76,6 +76,20 @@ function show_github_activity () {
     git-activity --limit $COLUMNS matthewfranglen | spark
 }
 
+# Combine fasd and control-p for quick file lookups.
+# This isn't bound to a key as it needs a directory, so the name is short.
+function vp () {
+    (
+        z "$*"
+        vim +:CtrlP
+    )
+}
+
+function vf () {
+    vim $(f "$*")
+}
+
+
 # Don't dirty up the process tree on remote servers
 if [ -z $SSH_CONNECTION ]
 then
