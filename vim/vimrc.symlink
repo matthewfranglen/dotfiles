@@ -142,6 +142,7 @@ function s:RegisterPlugins()
     Plug 'https://github.com/godlygeek/tabular.git'
     Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
     Plug 'https://github.com/junegunn/tmux-complete.vim.git'
+    Plug 'https://github.com/junegunn/fzf.git', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
     Plug 'https://github.com/kien/ctrlp.vim'
     Plug 'https://github.com/majutsushi/tagbar.git'
     Plug 'https://github.com/mileszs/ack.vim.git'
