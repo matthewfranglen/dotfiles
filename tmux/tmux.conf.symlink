@@ -9,8 +9,8 @@ bind-key a send-prefix
 # ctrl-b | = split side by side
 # ctrl-b - = split up and down
 unbind %
-bind | split-window -h
-bind - split-window -v
+bind | split-window -c "#{pane_current_path}" -h
+bind - split-window -c "#{pane_current_path}" -v
 
 # C-a C-a for last window, from screen
 bind-key C-a last-window
