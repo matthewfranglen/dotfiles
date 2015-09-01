@@ -3,6 +3,7 @@
 install () {
     install_antigen
     install_fasd
+    install_fzf
 }
 
 install_antigen () {
@@ -12,6 +13,11 @@ install_antigen () {
     then
         get_url_to_file "https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh" "${antigen_script_file}" || return 1
     fi
+}
+
+install_fzf () {
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
 }
 
 install_fasd () {
