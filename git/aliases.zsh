@@ -1,1 +1,3 @@
-alias mgk='gitk --all &!'
+function mgk () {
+    gitk --all "$@" &!
+}
