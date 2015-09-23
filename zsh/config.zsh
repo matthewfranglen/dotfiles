@@ -53,4 +53,8 @@ export LC_ALL="en_GB.utf8"
 # Disables global menu for everything.
 export UBUNTU_MENUPROXY=
 
+# Support multiple terms each of which must match exactly (i.e. not fuzzed).
+# Can fuzz a word by starting with '
+export FZF_DEFAULT_OPTS="--extended-exact"
+
 # vim: set ai et sw=4 syntax=zsh :
