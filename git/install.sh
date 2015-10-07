@@ -1,7 +1,15 @@
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
 validate () {
+    validate_gem_command && validate_ruby_dev
+}
+
+validate_gem_command () {
     which gem >/dev/null
+}
+
+validate_ruby_dev () {
+    ruby -e 'require "mkmf"'
 }
 
 install () {
@@ -9,7 +17,7 @@ install () {
 }
 
 fail () {
-    echo -- "Cannot install git-up as ruby is not available." >&2
+    echo -- "Cannot install git-up as ruby or ruby-dev is not available." >&2
 }
 
 prepare () {
