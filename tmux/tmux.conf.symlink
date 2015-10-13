@@ -48,8 +48,16 @@ set -g visual-activity on
 set -g utf8 on
 
 # tmux powerline configuration
-run-shell "~/.local/bin/powerline-daemon -q || true"
-run-shell "~/.local/bin/powerline-config tmux setup"
+# If you have problems with this then consult the /tmp/tmux.log file.
+#
+# If the problem is "protocol version mismatch" then the tmux server is running
+# a different version than the client. This can happen when you have compiled
+# your own version of tmux but the run-shell command uses the system tmux.
+#
+# The best way to fix this is to set the PATH appropriately.
+# Remember that this command should be sh compatible so do not rely on ~ expansion.
+run-shell 'export PATH=$HOME/.local/bin:$PATH ; $HOME/.local/bin/powerline-daemon -q || true'
+run-shell 'export PATH=$HOME/.local/bin:$PATH ; $HOME/.local/bin/powerline-config tmux setup >/tmp/tmux.log 2>&1 && rm /tmp/tmux.log'
 
 set -g status-interval 2
 set -g status-right '#(~/.local/bin/powerline-render tmux right)'
