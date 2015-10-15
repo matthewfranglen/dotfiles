@@ -129,6 +129,7 @@ function s:RegisterPlugins()
     Plug 'https://github.com/kien/rainbow_parentheses.vim.git'
 
     Plug 'https://github.com/dart-lang/dart-vim-plugin.git'
+    Plug 'https://github.com/ekalinin/Dockerfile.vim.git'
     Plug 'https://github.com/fatih/vim-go.git'
     Plug 'https://github.com/groenewege/vim-less.git'
     Plug 'https://github.com/hail2u/vim-css3-syntax.git'
