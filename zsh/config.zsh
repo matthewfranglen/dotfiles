@@ -57,4 +57,9 @@ export UBUNTU_MENUPROXY=
 # Can fuzz a word by starting with '
 export FZF_DEFAULT_OPTS="--extended-exact"
 
+# Permit X11 sharing with docker containers
+# Allows using docker containers for GUI applications
+# See https://blog.jessfraz.com/post/docker-containers-on-the-desktop/
+xhost +
+
 # vim: set ai et sw=4 syntax=zsh :
