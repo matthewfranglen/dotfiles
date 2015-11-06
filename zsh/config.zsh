@@ -65,4 +65,7 @@ then
     xhost +
 fi
 
+# Disable python virtualenv prompt modifications
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 # vim: set ai et sw=4 syntax=zsh :
