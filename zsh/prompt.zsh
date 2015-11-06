@@ -64,7 +64,7 @@ docker_machine_status() {
         return
     fi
 
-    echo -n ${DOCKER_MACHINE_NAME}
+    echo -n "⊚∂ ${DOCKER_MACHINE_NAME}"
 }
 
 virtualenv_status() {
@@ -73,7 +73,7 @@ virtualenv_status() {
         return
     fi
 
-    echo -n ${VIRTUAL_ENV:t}
+    echo -n "⊚ℙ ${VIRTUAL_ENV:t}"
 }
 
 pretty_print_time() {
