@@ -45,6 +45,15 @@ git_status() {
     fi
 }
 
+docker_machine_status() {
+    if [ ! -z ${DOCKER_MACHINE_NAME} ]
+    then
+        echo -n '%F{white}%K{black}'
+        echo -n "${DOCKER_MACHINE_NAME} "
+        echo '%F{black}%K{white} '
+    fi
+}
+
 pretty_print_time() {
     local seconds=$1
     local minutes=$(($seconds / 60))
@@ -95,7 +104,8 @@ precmd() {
     else
         _color=red
     fi
-    print -P "\n%F{black}%K{$_color}%~ %F{$_color}%K{black}`git_status` %F{236}$username%f %F{yellow}`cmd_exec_time`%f%F{black}%k"
+
+    print -P "\n`docker_machine_status`%F{black}%K{$_color}%~ %F{$_color}%K{black}`git_status` %F{236}$username%f %F{yellow}`cmd_exec_time`%f%F{black}%k"
 
     # Reset value since `preexec` isn't always triggered
     unset cmd_timestamp
