@@ -89,6 +89,13 @@ function vf () {
     vim $(f "$*")
 }
 
+# Join a list of arguments by the first argument
+function join () {
+    local $IFS=$1
+    shift
+    echo "$*"
+}
+
 
 # Don't dirty up the process tree on remote servers
 if [ -z $SSH_CONNECTION ]
