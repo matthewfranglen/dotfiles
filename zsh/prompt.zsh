@@ -46,7 +46,7 @@ git_status() {
 }
 
 terminal_status() {
-    local status_line=$(join ' ' $(docker_machine_status) $(virtualenv_status))
+    local status_line=$(join ' ' "$(docker_machine_status)" "$(virtualenv_status)")
 
     if [ -z "${status_line}" ]
     then
@@ -54,7 +54,7 @@ terminal_status() {
     fi
 
     echo -n '%F{white}%K{black}'
-    echo -n ${status_line}
+    echo -n "${status_line}"
     echo ' %F{black}%K{white} '
 }
 
@@ -64,7 +64,7 @@ docker_machine_status() {
         return
     fi
 
-    echo -n "⊚∂ ${DOCKER_MACHINE_NAME}"
+    echo -n "⊚∂[${DOCKER_MACHINE_NAME}]"
 }
 
 virtualenv_status() {
@@ -73,7 +73,7 @@ virtualenv_status() {
         return
     fi
 
-    echo -n "⊚ℙ ${VIRTUAL_ENV:t}"
+    echo -n "⊚ℙ[${VIRTUAL_ENV:t}]"
 }
 
 pretty_print_time() {
