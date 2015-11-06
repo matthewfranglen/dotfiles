@@ -45,6 +45,37 @@ git_status() {
     fi
 }
 
+terminal_status() {
+    local status_line=$(join ' ' "$(docker_machine_status)" "$(virtualenv_status)")
+
+    if [ -z "${status_line}" ]
+    then
+        return
+    fi
+
+    echo -n '%F{white}%K{black}'
+    echo -n "${status_line}"
+    echo ' %F{black}%K{white} '
+}
+
+docker_machine_status() {
+    if [ -z ${DOCKER_MACHINE_NAME} ]
+    then
+        return
+    fi
+
+    echo -n "⊚∂[${DOCKER_MACHINE_NAME}]"
+}
+
+virtualenv_status() {
+    if [ -z ${VIRTUAL_ENV} ]
+    then
+        return
+    fi
+
+    echo -n "⊚ℙ[${VIRTUAL_ENV:t}]"
+}
+
 pretty_print_time() {
     local seconds=$1
     local minutes=$(($seconds / 60))
@@ -95,7 +126,8 @@ precmd() {
     else
         _color=red
     fi
-    print -P "\n%F{black}%K{$_color}%~ %F{$_color}%K{black}`git_status` %F{236}$username%f %F{yellow}`cmd_exec_time`%f%F{black}%k"
+
+    print -P "\n`terminal_status`%F{black}%K{$_color}%~ %F{$_color}%K{black}`git_status` %F{236}$username%f %F{yellow}`cmd_exec_time`%f%F{black}%k"
 
     # Reset value since `preexec` isn't always triggered
     unset cmd_timestamp
