@@ -91,7 +91,7 @@ function vf () {
 
 # Join a list of arguments by the first argument
 function join () {
-    local $IFS=$1
+    local IFS=$1
     shift
     echo "$*"
 }
