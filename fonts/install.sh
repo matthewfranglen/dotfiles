@@ -17,4 +17,4 @@ install_fonts () {
     fc-cache -f "${DOTFILES_FOLDER}/.fonts"
 }
 
-validate && install_fonts
+( validate && install_fonts ) || true
