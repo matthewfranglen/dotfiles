@@ -22,8 +22,14 @@ install_pip () {
     if [ ! -e "${HOME}/.local/bin/pip" ]
     then
         get_url_to_file "https://bootstrap.pypa.io/get-pip.py" "${get_pip_file}" || return 1
+
         python "${get_pip_file}" --user
+        local status=$?
         rm "${get_pip_file}"
+
+        return $status
+    else
+        true
     fi
 }
 
