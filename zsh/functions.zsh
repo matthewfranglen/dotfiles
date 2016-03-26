@@ -96,6 +96,37 @@ function join () {
     echo $*
 }
 
+# This will watch some files, executing a command when any changes are made
+# This requires the package 'inotify-tools'
+
+local EVENTS=modify,attrib,close_write,move,create,delete
+
+function wait_until_change () {
+    local watched_file=$1
+
+    if [ ! -e "${watched_file}" ]
+    then
+        echo "Path does not exist: ${watched_file}" >&2
+        return 1
+    fi
+
+    if [ -d "${watched_file}" ]
+    then
+        inotifywait --recursive --event ${EVENTS} ${watched_file}
+    else
+        inotifywait --event ${EVENTS} ${watched_file}
+    fi
+}
+
+function watch_and_execute () {
+    local watched_file=$1
+    shift
+
+    while wait_until_change "${watched_file}"
+    do
+        eval "${@}"
+    done
+}
 
 # Don't dirty up the process tree on remote servers
 if [ -z $SSH_CONNECTION ]
