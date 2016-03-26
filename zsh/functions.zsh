@@ -99,10 +99,10 @@ function join () {
 # This will watch some files, executing a command when any changes are made
 # This requires the package 'inotify-tools'
 
-local EVENTS=modify,attrib,close_write,move,create,delete
+local EVENTS="modify,attrib,close_write,move,create,delete"
 
 function wait_until_change () {
-    local watched_file=$1
+    local watched_file="$1"
 
     if [ ! -e "${watched_file}" ]
     then
@@ -112,14 +112,14 @@ function wait_until_change () {
 
     if [ -d "${watched_file}" ]
     then
-        inotifywait --recursive --event ${EVENTS} ${watched_file}
+        inotifywait --recursive --event "${EVENTS}" "${watched_file}"
     else
-        inotifywait --event ${EVENTS} ${watched_file}
+        inotifywait --event "${EVENTS}" "${watched_file}"
     fi
 }
 
 function watch_and_execute () {
-    local watched_file=$1
+    local watched_file="$1"
     shift
 
     while wait_until_change "${watched_file}"
