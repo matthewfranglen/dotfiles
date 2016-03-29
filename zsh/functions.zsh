@@ -117,18 +117,7 @@ local EVENTS="modify,attrib,close_write,move,create,delete"
 function wait_until_change () {
     local watched_file="$1"
 
-    if [ ! -e "${watched_file}" ]
-    then
-        echo "Path does not exist: ${watched_file}" >&2
-        return 1
-    fi
-
-    if [ -d "${watched_file}" ]
-    then
-        inotifywait --recursive --event "${EVENTS}" "${watched_file}"
-    else
-        inotifywait --event "${EVENTS}" "${watched_file}"
-    fi
+    inotifywait --recursive --event "${EVENTS}" "${watched_file}"
 }
 
 function watch_and_execute () {
