@@ -1,10 +1,23 @@
 eval "$(~/.fasd.zsh --init auto)"
 
+# Takes a PID and executable name. Checks that the pid is running and is the executable.
+function is_running_as () {
+    local process_pid=$1
+    local process_name=$2
+
+    if ! ps -p "${process_pid}" &> /dev/null
+    then
+        return 1
+    fi
+
+    [ "$(ps -p ${process_pid} -o comm=)" = "${process_name}" ]
+}
+
 function load_ssh_agent () {
     if [ -f ~/.agent.env ]
     then
         . ~/.agent.env > /dev/null
-        if ! ps -p $SSH_AGENT_PID &> /dev/null
+        if ! is_running_as $SSH_AGENT_PID ssh-agent
         then
             echo "Stale agent file found. Spawning new agent… "
             eval `ssh-agent | tee ~/.agent.env`
@@ -21,7 +34,7 @@ function load_dbus_daemon () {
     if [ -f ~/.dbus.env ]
     then
         . ~/.dbus.env > /dev/null
-        if ! ps -p $DBUS_SESSION_BUS_PID &> /dev/null
+        if ! is_running_as $DBUS_SESSION_BUS_PID dbus-daemon
         then
             echo "Stale daemon file found. Spawning new daemon… "
             eval `dbus-launch | tee ~/.dbus.env`
