@@ -117,7 +117,7 @@ local EVENTS="modify,attrib,close_write,move,create,delete"
 function wait_until_change () {
     local watched_file="$1"
 
-    inotifywait --recursive --event "${EVENTS}" "${watched_file}"
+    inotifywait --recursive --event "${EVENTS}" ${~watched_file}
 }
 
 function watch_and_execute () {
