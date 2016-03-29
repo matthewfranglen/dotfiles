@@ -4,7 +4,7 @@ function load_ssh_agent () {
     if [ -f ~/.agent.env ]
     then
         . ~/.agent.env > /dev/null
-        if ! kill -0 $SSH_AGENT_PID &> /dev/null
+        if ! ps -p $SSH_AGENT_PID &> /dev/null
         then
             echo "Stale agent file found. Spawning new agent… "
             eval `ssh-agent | tee ~/.agent.env`
@@ -21,7 +21,7 @@ function load_dbus_daemon () {
     if [ -f ~/.dbus.env ]
     then
         . ~/.dbus.env > /dev/null
-        if ! kill -0 $DBUS_SESSION_BUS_PID &> /dev/null
+        if ! ps -p $DBUS_SESSION_BUS_PID &> /dev/null
         then
             echo "Stale daemon file found. Spawning new daemon… "
             eval `dbus-launch | tee ~/.dbus.env`
