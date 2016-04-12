@@ -142,6 +142,7 @@ function zip_recursive_search () {
 
     if zipinfo -1 "${zipfile}" | egrep "${pattern}" &>/dev/null
     then
+        echo "${zipfile}"
         return 0
     fi
 
@@ -152,8 +153,11 @@ function zip_recursive_search () {
             continue
         fi
 
-        if zip_recursive_search =(unzip -p "${zipfile}" "${inner}") "${pattern}"
+        local result=$(zip_recursive_search =(unzip -p "${zipfile}" "${inner}") "${pattern}")
+
+        if [ $? -eq 0 ]
         then
+            echo "${zipfile} -> ${result}"
             return 0
         fi
     done
