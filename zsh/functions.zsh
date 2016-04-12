@@ -130,6 +130,37 @@ function watch_and_execute () {
     done
 }
 
+function is_zip_file () {
+    local file="${1}"
+
+    [ "$(file --brief --mime-type ${file})" = "application/zip" ]
+}
+
+function zip_recursive_search () {
+    local zipfile="${1}"
+    local pattern="${2}"
+
+    if zipinfo -1 "${zipfile}" | egrep "${pattern}" &>/dev/null
+    then
+        return 0
+    fi
+
+    for inner in $(zipinfo -1 "${zipfile}")
+    do
+        if ! is_zip_file =(unzip -p "${zipfile}" "${inner}")
+        then
+            continue
+        fi
+
+        if zip_recursive_search =(unzip -p "${zipfile}" "${inner}") "${pattern}"
+        then
+            return 0
+        fi
+    done
+
+    return 1
+}
+
 # Don't dirty up the process tree on remote servers
 if [ -z $SSH_CONNECTION ]
 then
