@@ -139,10 +139,13 @@ function is_zip_file () {
 function zip_recursive_search () {
     local zipfile="${1}"
     local pattern="${2}"
+    local result=""
 
-    if zipinfo -1 "${zipfile}" | egrep "${pattern}" &>/dev/null
+    result=$(zipinfo -1 "${zipfile}" | egrep "${pattern}" 2>/dev/null | head -n1)
+
+    if [ -n "${result}" ]
     then
-        echo "${zipfile}"
+        echo "${result}"
         return 0
     fi
 
@@ -157,7 +160,7 @@ function zip_recursive_search () {
 
         if [ -n "${result}" ]
         then
-            echo "${zipfile} -> ${result}"
+            echo "${inner} -> ${result}"
             return 0
         fi
     done
