@@ -155,7 +155,7 @@ function zip_recursive_search () {
 
         local result=$(zip_recursive_search =(unzip -p "${zipfile}" "${inner}") "${pattern}")
 
-        if [ $? -eq 0 ]
+        if [ -n "${result}" ]
         then
             echo "${zipfile} -> ${result}"
             return 0
