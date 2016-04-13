@@ -14,6 +14,7 @@
     pod = push origin develop
     pt = push --tags
 
+    root = rev-parse --show-toplevel
     suir = submodule update --init --recursive
 
     ff = flow feature
