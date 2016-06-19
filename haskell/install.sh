@@ -1,7 +1,8 @@
 set -eu
 
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
-GHCI_FILE="${DOTFILES_FOLDER}/haskell/ghci.symlink"
+HASKELL_FOLDER="${DOTFILES_FOLDER}/haskell"
+GHCI_FILE="${HASKELL_FOLDER}/ghci.symlink"
 
 install () {
     change_ghci_rc_permissions
@@ -15,6 +16,7 @@ change_ghci_rc_permissions () {
     fi
 
     chmod 600 "${GHCI_FILE}"
+    chmod go-w "${HASKELL_FOLDER}"
 }
 
 install
