@@ -5,7 +5,7 @@ install () {
 }
 
 install_virtualenvwrapper () {
-    "${HOME}/.local/bin/pip" install --user virtualenvwrapper
+    "${PIP_COMMAND}" install --user virtualenvwrapper
 }
 
 install

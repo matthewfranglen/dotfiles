@@ -15,7 +15,7 @@ is_running_locally () {
 }
 
 install_powerline () {
-    "${HOME}/.local/bin/pip" install --user powerline-status
+    "${PIP_COMMAND}" install --user powerline-status
 }
 
 install

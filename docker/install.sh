@@ -13,7 +13,7 @@ fail () {
 }
 
 install_docker_compose () {
-    "${HOME}/.local/bin/pip" install --user docker-compose
+    "${PIP_COMMAND}" install --user docker-compose
 }
 
 if validate
