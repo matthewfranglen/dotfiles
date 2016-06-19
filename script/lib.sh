@@ -9,6 +9,10 @@
 LOCAL_BIN_FOLDER="${HOME}/.local/bin"
 DOTFILES_FOLDER="`dirname \`dirname \\\`readlink -f $0\\\`\``"
 
+is_on_local_machine () {
+    [ -z ${SSH_CONNECTION+x} ]
+}
+
 make_local_bin () {
     if [ ! -e "${LOCAL_BIN_FOLDER}" ]
     then

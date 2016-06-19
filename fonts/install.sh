@@ -1,7 +1,11 @@
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
+install () {
+    ( validate && install_fonts ) || true
+}
+
 validate () {
-    if [ "$SSH_CONNECTION" != "" ]
+    if ! is_on_local_machine
     then
         echo -- "Not installing fonts... currently running on remote host" >&2
         return 1
@@ -17,4 +21,4 @@ install_fonts () {
     fc-cache -f "${DOTFILES_FOLDER}/.fonts"
 }
 
-( validate && install_fonts ) || true
+install
