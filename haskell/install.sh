@@ -1,3 +1,5 @@
+set -eu
+
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 GHCI_FILE="${DOTFILES_FOLDER}/haskell/ghci.symlink"
 
