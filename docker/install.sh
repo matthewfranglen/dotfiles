@@ -1,3 +1,5 @@
+set -eu
+
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
 validate () {
@@ -13,7 +15,7 @@ fail () {
 }
 
 install_docker_compose () {
-    "${HOME}/.local/bin/pip" install --user docker-compose
+    "${PIP_COMMAND}" install --user docker-compose
 }
 
 if validate

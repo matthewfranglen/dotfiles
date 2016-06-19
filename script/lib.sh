@@ -9,6 +9,10 @@
 LOCAL_BIN_FOLDER="${HOME}/.local/bin"
 DOTFILES_FOLDER="`dirname \`dirname \\\`readlink -f $0\\\`\``"
 
+is_on_local_machine () {
+    [ -z ${SSH_CONNECTION+x} ]
+}
+
 make_local_bin () {
     if [ ! -e "${LOCAL_BIN_FOLDER}" ]
     then
@@ -19,18 +23,26 @@ make_local_bin () {
 install_pip () {
     local get_pip_file="/tmp/get-pip.py"
 
-    if [ ! -e "${HOME}/.local/bin/pip" ]
+    PIP_COMMAND="`which pip`"
+    if [ $? -eq 0 ]
     then
-        get_url_to_file "https://bootstrap.pypa.io/get-pip.py" "${get_pip_file}" || return 1
-
-        python "${get_pip_file}" --user
-        local status=$?
-        rm "${get_pip_file}"
-
-        return $status
-    else
-        true
+        return
     fi
+
+    get_url_to_file "https://bootstrap.pypa.io/get-pip.py" "${get_pip_file}" || return 1
+
+    python "${get_pip_file}" --user
+    local status=$?
+    rm "${get_pip_file}"
+
+    if [ ${status} -eq 0 ]
+    then
+        PIP_COMMAND="`which pip`"
+    else
+        PIP_COMMAND="/bin/false"
+    fi
+
+    return $status
 }
 
 get_url_to_file () {

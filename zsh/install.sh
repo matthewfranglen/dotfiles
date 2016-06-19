@@ -1,3 +1,5 @@
+set -eu
+
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
 install () {
@@ -16,6 +18,11 @@ install_antigen () {
 }
 
 install_fzf () {
+    if [ -e ~/.fzf ]
+    then
+        return
+    fi
+
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install
 }

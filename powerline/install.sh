@@ -1,7 +1,9 @@
+set -eu
+
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
 install () {
-    if is_running_locally
+    if is_on_local_machine
     then
         install_pip && install_powerline
     else
@@ -10,12 +12,8 @@ install () {
     fi
 }
 
-is_running_locally () {
-    [ "${SSH_CONNECTION}" = "" ]
-}
-
 install_powerline () {
-    "${HOME}/.local/bin/pip" install --user powerline-status
+    "${PIP_COMMAND}" install --user powerline-status
 }
 
 install
