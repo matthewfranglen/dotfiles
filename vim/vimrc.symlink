@@ -198,6 +198,7 @@ endfunction
 
 function s:ConfigureEclim()
     autocmd FileType java call s:ConfigureEclimJavaBindings()
+    let g:EclimJavascriptLintEnabled = 0
 endfunction
 
 function s:ConfigureEclimJavaBindings()
