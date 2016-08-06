@@ -31,6 +31,8 @@ install_fasd () {
     local fasd_script_file="${HOME}/.fasd.zsh"
     local fasd_link_file="${HOME}/.local/bin/fasd"
 
+    make_local_bin
+
     if [ ! -e "${fasd_script_file}" ]
     then
         get_url_to_file "https://raw.githubusercontent.com/clvv/fasd/master/fasd" "${fasd_script_file}" || return 1
