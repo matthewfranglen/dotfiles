@@ -37,7 +37,12 @@ install_pip () {
 
     if [ ${status} -eq 0 ]
     then
-        PIP_COMMAND="`which pip`"
+        if which pip >/dev/null
+        then
+            PIP_COMMAND="`which pip`"
+        else
+            PIP_COMMAND="${LOCAL_BIN_FOLDER}/pip"
+        fi
     else
         PIP_COMMAND="/bin/false"
     fi
