@@ -7,6 +7,7 @@ antigen-bundle matthewfranglen/git-update
 antigen-bundle matthewfranglen/memcached-cli
 antigen-bundle matthewfranglen/spark
 antigen-bundle matthewfranglen/speedread
+antigen-bundle matthewfranglen/watch-me
 antigen-bundle matthewfranglen/window-to-gif
 antigen-bundle supercrabtree/k
 antigen-bundle zsh-users/zsh-history-substring-search
