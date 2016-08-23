@@ -47,6 +47,10 @@
         git flow release finish --nobackmerge --message ${release} ${release} &&\
         git checkout develop;\
     }; f"
+
+    fixie = "!f() {\
+        git commit --fixup $(git log --pretty=%h --grep=$1);\
+    }; f"
 [push]
     default = tracking
 
