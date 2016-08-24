@@ -49,7 +49,7 @@
     }; f"
 
     fixie = "!f() {\
-        git commit --fixup $(git log --pretty=%h --grep=$1);\
+        git commit --fixup $(git log --pretty=%h --grep=\"$*\");\
     }; f"
 [push]
     default = tracking
