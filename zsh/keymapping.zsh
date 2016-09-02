@@ -37,8 +37,8 @@ bindkey -M vicmd 'j' history-substring-search-down
 bindkey -M viins '^r' history-incremental-search-backward
 bindkey -M vicmd '^r' history-incremental-search-backward
 
-bindkey -M viins '^t' push-line
-bindkey -M vicmd '^t' push-line
+bindkey -M viins '^s' push-line
+bindkey -M vicmd '^s' push-line
 
 # This allows alt-. to insert the last word of the last command (i.e. !$)
 bindkey "^[." insert-last-word
