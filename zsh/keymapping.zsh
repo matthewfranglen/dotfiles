@@ -72,6 +72,13 @@ function shell-fg () {
 zle -N       shell-fg
 bindkey '^Z' shell-fg
 
+function shell-exit () {
+    BUFFER="exit"
+    zle accept-line
+}
+zle -N       shell-exit
+bindkey '^D' shell-exit
+
 # Prevent ESC eating the next character when in vim normal mode.
 # See: http://superuser.com/a/516524
 noop () { }
