@@ -34,11 +34,9 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
 # This allows control-r to be used to perform a reverse search
-bindkey -M viins '^r' history-incremental-search-backward
-bindkey -M vicmd '^r' history-incremental-search-backward
+bindkey '^R' history-incremental-search-backward
 
-bindkey -M viins '^t' push-line
-bindkey -M vicmd '^t' push-line
+bindkey '^S' push-line
 
 # This allows alt-. to insert the last word of the last command (i.e. !$)
 bindkey "^[." insert-last-word
@@ -71,6 +69,13 @@ function shell-fg () {
 }
 zle -N       shell-fg
 bindkey '^Z' shell-fg
+
+function shell-exit () {
+    BUFFER="exit"
+    zle accept-line
+}
+zle -N       shell-exit
+bindkey '^D' shell-exit
 
 # Prevent ESC eating the next character when in vim normal mode.
 # See: http://superuser.com/a/516524
