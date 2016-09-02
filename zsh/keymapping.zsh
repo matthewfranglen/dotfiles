@@ -34,11 +34,9 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
 # This allows control-r to be used to perform a reverse search
-bindkey -M viins '^r' history-incremental-search-backward
-bindkey -M vicmd '^r' history-incremental-search-backward
+bindkey '^R' history-incremental-search-backward
 
-bindkey -M viins '^s' push-line
-bindkey -M vicmd '^s' push-line
+bindkey '^S' push-line
 
 # This allows alt-. to insert the last word of the last command (i.e. !$)
 bindkey "^[." insert-last-word
