@@ -4,11 +4,13 @@
 
 
 # Change this to your own username
-DEFAULT_USERNAME=$(ls -l $0 | awk '{ print $3 }')
+readonly DEFAULT_USERNAME=$(ls -l $0 | awk '{ print $3 }')
 
 # Threshold (sec) for showing cmd exec time
-CMD_MAX_EXEC_TIME=5
+readonly CMD_MAX_EXEC_TIME=5
 
+# Show username if not default or if on another server
+[ ! -z $SSH_CONNECTION ] && local username='%n@%m '
 
 # For my own and others sanity
 # git:
@@ -28,9 +30,6 @@ zstyle ':vcs_info:*' enable git # You can add hg too if needed: `git hg`
 zstyle ':vcs_info:git*' formats       ' %F{white} %b'
 zstyle ':vcs_info:git*' actionformats ' %F{white} %b|%a'
 
-# Show username if not default or if on another server
-[ ! -z $SSH_CONNECTION ] && local username='%n@%m '
-
 preexec() {
     cmd_timestamp=`date +%s`
 }
@@ -46,7 +45,7 @@ precmd() {
         _color=red
     fi
 
-    print -P "\n`terminal_status`%F{black}%K{$_color}%~ %F{$_color}%K{black}`git_status` %F{236}$username%f %F{yellow}`cmd_exec_time`%f%F{black}%k"
+    print -P "\n`environment_status``path_status``git_status``user_status``command_execution_status`"
 
     # Reset value since `preexec` isn't always triggered
     unset cmd_timestamp
@@ -69,6 +68,24 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 
 
+environment_status() {
+    local status_line
+    status_line=$(join ' ' "$(docker_machine_status)" "$(virtualenv_status)")
+
+    if [ -z "${status_line}" ]
+    then
+        return
+    fi
+
+    echo -n '%F{white}%K{black}'
+    echo -n "${status_line}"
+    echo ' %F{black}%K{white} '
+}
+
+path_status() {
+    print -P "%F{black}%K{$_color}%~ %F{$_color}%K{black}"
+}
+
 git_status() {
     if [ ! -z $vcs_info_msg_0_ ]
     then
@@ -83,18 +100,12 @@ git_status() {
     fi
 }
 
-terminal_status() {
-    local status_line
-    status_line=$(join ' ' "$(docker_machine_status)" "$(virtualenv_status)")
+user_status() {
+    print -P " %F{236}$username%f %F{yellow}"
+}
 
-    if [ -z "${status_line}" ]
-    then
-        return
-    fi
-
-    echo -n '%F{white}%K{black}'
-    echo -n "${status_line}"
-    echo ' %F{black}%K{white} '
+command_execution_status() {
+    print -P "`cmd_exec_time`%f%F{black}%k"
 }
 
 docker_machine_status() {
@@ -113,6 +124,14 @@ virtualenv_status() {
     fi
 
     echo -n "⊚ℙ ${VIRTUAL_ENV:t}"
+}
+
+# Displays the exec time of the last command if set threshold was exceeded
+cmd_exec_time() {
+    local stop=`date +%s`
+    local start=${cmd_timestamp:-$stop}
+    let local elapsed=$stop-$start
+    [ $elapsed -gt $CMD_MAX_EXEC_TIME ] && pretty_print_time $elapsed
 }
 
 pretty_print_time() {
@@ -139,14 +158,6 @@ pretty_print_time() {
 
     # Join the array with spaces - could be much fancier
     echo ${(j: :)result}
-}
-
-# Displays the exec time of the last command if set threshold was exceeded
-cmd_exec_time() {
-    local stop=`date +%s`
-    local start=${cmd_timestamp:-$stop}
-    let local elapsed=$stop-$start
-    [ $elapsed -gt $CMD_MAX_EXEC_TIME ] && pretty_print_time $elapsed
 }
 
 # vim: set ai et sw=4 syntax=zsh :
