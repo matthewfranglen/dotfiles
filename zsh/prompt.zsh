@@ -139,11 +139,14 @@ readonly USER_FOREGROUND_COLOR='236'
 readonly USER_BACKGROUND_COLOR='black'
 
 user_status() {
-    print -P "%K{${USER_BACKGROUND_COLOR}} %F{${USER_FOREGROUND_COLOR}}$username %F{yellow}"
+    print -P "%K{${USER_BACKGROUND_COLOR}} %F{${USER_FOREGROUND_COLOR}}$username %F{${USER_BACKGROUND_COLOR}}"
 }
 
+readonly COMMAND_TIME_FOREGROUND_COLOR='yellow'
+readonly COMMAND_TIME_BACKGROUND_COLOR='black'
+
 command_execution_status() {
-    print -P "`cmd_exec_time`%f%F{black}%k"
+    print -P "%K{${COMMAND_TIME_BACKGROUND_COLOR}}%F{${COMMAND_TIME_FOREGROUND_COLOR}}`cmd_exec_time`%F{${COMMAND_TIME_BACKGROUND_COLOR}}%k"
 }
 
 docker_machine_status() {
