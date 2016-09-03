@@ -53,5 +53,7 @@
     }; f"
 [push]
     default = tracking
+[core]
+    pager = less -F -X
 
 # vim: set ai et sw=4 syntax=gitconfig :
