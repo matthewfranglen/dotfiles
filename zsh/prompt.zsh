@@ -24,6 +24,24 @@ readonly CMD_MAX_EXEC_TIME=5
 # %n => username
 # %m => shortname host
 # %(?..) => prompt conditional - %(condition.true.false)
+#
+# colors (man zshmisc):
+# %F (%f)
+#        Start  (stop)  using  a  different foreground colour, if supported by
+#        the terminal.  The colour may be specified two ways: either as a
+#        numeric argument, as normal, or by a sequence in braces following the
+#        %F, for example %F{red}.  In the latter case the values allowed are as
+#        described for the fg zle_highlight attribute; see Character
+#        Highlighting in zshzle(1).  This means that numeric colours are
+#        allowed  in  the  second format also.
+#
+# %K (%k)
+#        Start (stop) using a different bacKground colour.  The syntax is
+#        identical to that for %F and %f.
+#
+# %{...%}
+#        Include a string as a literal escape sequence.  The string within the
+#        braces should not change the cursor position.  Brace pairs can nest.
 
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git # You can add hg too if needed: `git hg`
