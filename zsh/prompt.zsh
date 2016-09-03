@@ -114,25 +114,32 @@ path_status() {
         PATH_BACKGROUND_COLOR=$PATH_SSH_BACKGROUND_COLOR
     fi
 
-    print -P "%K{${PATH_BACKGROUND_COLOR}}%F{${PATH_FOREGROUND_COLOR}} %~ %F{${PATH_BACKGROUND_COLOR}}%K{black}"
+    print -P "%K{${PATH_BACKGROUND_COLOR}} %F{${PATH_FOREGROUND_COLOR}}%~ %F{${PATH_BACKGROUND_COLOR}}"
 }
+
+readonly GIT_FOREGROUND_COLOR='white'
+readonly GIT_MODIFIED_FOREGROUND_COLOR='yellow'
+readonly GIT_BACKGROUND_COLOR='green'
 
 git_status() {
     if [ ! -z $vcs_info_msg_0_ ]
     then
-        echo -n '%F{black}%K{green}'
+        echo -n "%K{${GIT_BACKGROUND_COLOR}}%F{${GIT_FOREGROUND_COLOR}}"
 
         echo -n $vcs_info_msg_0_
         # Fastest possible way to check if repo is dirty
         # See: https://gist.github.com/sindresorhus/3898739
-        git diff --quiet --ignore-submodules HEAD 2>/dev/null; [ $? -eq 1 ] && echo -n '%B%F{yellow} M %b' || echo -n ' '
+        git diff --quiet --ignore-submodules HEAD 2>/dev/null; [ $? -eq 1 ] && echo -n "%B%F{${GIT_MODIFIED_FOREGROUND_COLOR}} M %b" || echo -n ' '
 
-        echo '%F{green}%K{black}'
+        echo "%F{${GIT_BACKGROUND_COLOR}}"
     fi
 }
 
+readonly USER_FOREGROUND_COLOR='236'
+readonly USER_BACKGROUND_COLOR='black'
+
 user_status() {
-    print -P " %F{236}$username%f %F{yellow}"
+    print -P "%K{${USER_BACKGROUND_COLOR}} %F{${USER_FOREGROUND_COLOR}}$username %F{yellow}"
 }
 
 command_execution_status() {
