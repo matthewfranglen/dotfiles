@@ -86,6 +86,9 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 
 
+readonly ENVIRONMENT_FOREGROUND_COLOR='white'
+readonly ENVIRONMENT_BACKGROUND_COLOR='black'
+
 environment_status() {
     local status_line
     status_line=$(join ' ' "$(docker_machine_status)" "$(virtualenv_status)")
@@ -95,13 +98,23 @@ environment_status() {
         return
     fi
 
-    echo -n '%F{white}%K{black}'
-    echo -n "${status_line}"
-    echo ' %F{black}%K{white} '
+    echo -n "%F{${ENVIRONMENT_FOREGROUND_COLOR}}%K{${ENVIRONMENT_BACKGROUND_COLOR}}${status_line} %F{${ENVIRONMENT_BACKGROUND_COLOR}}"
 }
 
+readonly PATH_FOREGROUND_COLOR='black'
+readonly PATH_SSH_BACKGROUND_COLOR='red'
+readonly PATH_NO_SSH_BACKGROUND_COLOR='white'
+
 path_status() {
-    print -P "%F{black}%K{$_color}%~ %F{$_color}%K{black}"
+    local PATH_BACKGROUND_COLOR
+    if [ -z $SSH_CONNECTION ]
+    then
+        PATH_BACKGROUND_COLOR=$PATH_NO_SSH_BACKGROUND_COLOR
+    else
+        PATH_BACKGROUND_COLOR=$PATH_SSH_BACKGROUND_COLOR
+    fi
+
+    print -P "%K{${PATH_BACKGROUND_COLOR}}%F{${PATH_FOREGROUND_COLOR}} %~ %F{${PATH_BACKGROUND_COLOR}}%K{black}"
 }
 
 git_status() {
