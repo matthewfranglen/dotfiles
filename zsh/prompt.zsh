@@ -31,6 +31,44 @@ zstyle ':vcs_info:git*' actionformats ' %F{white} %b|%a'
 # Show username if not default or if on another server
 [ ! -z $SSH_CONNECTION ] && local username='%n@%m '
 
+preexec() {
+    cmd_timestamp=`date +%s`
+}
+
+precmd() {
+    vcs_info
+    # Add `%*` to display the time
+    local _color
+    if [ -z $SSH_CONNECTION ]
+    then
+        _color=white
+    else
+        _color=red
+    fi
+
+    print -P "\n`terminal_status`%F{black}%K{$_color}%~ %F{$_color}%K{black}`git_status` %F{236}$username%f %F{yellow}`cmd_exec_time`%f%F{black}%k"
+
+    # Reset value since `preexec` isn't always triggered
+    unset cmd_timestamp
+}
+
+function zle-line-init zle-keymap-select {
+    # Prompt turns red if the previous command didn't exit with 0
+    INSERT_PROMPT='%{%(?.%F{green}.%F{red})%}➜%{%f%} '
+    NORMAL_PROMPT='%{%F{blue}%}➜%{%f%} '
+
+    case ${KEYMAP} in
+        (vicmd)      PROMPT="$NORMAL_PROMPT" ;;
+        (main|viins) PROMPT="$INSERT_PROMPT" ;;
+        (*)          PROMPT="$INSERT_PROMPT" ;;
+    esac
+    zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+
 git_status() {
     if [ ! -z $vcs_info_msg_0_ ]
     then
@@ -110,44 +148,5 @@ cmd_exec_time() {
     let local elapsed=$stop-$start
     [ $elapsed -gt $CMD_MAX_EXEC_TIME ] && pretty_print_time $elapsed
 }
-
-
-
-preexec() {
-    cmd_timestamp=`date +%s`
-}
-
-precmd() {
-    vcs_info
-    # Add `%*` to display the time
-    local _color
-    if [ -z $SSH_CONNECTION ]
-    then
-        _color=white
-    else
-        _color=red
-    fi
-
-    print -P "\n`terminal_status`%F{black}%K{$_color}%~ %F{$_color}%K{black}`git_status` %F{236}$username%f %F{yellow}`cmd_exec_time`%f%F{black}%k"
-
-    # Reset value since `preexec` isn't always triggered
-    unset cmd_timestamp
-}
-
-function zle-line-init zle-keymap-select {
-    # Prompt turns red if the previous command didn't exit with 0
-    INSERT_PROMPT='%{%(?.%F{green}.%F{red})%}➜%{%f%} '
-    NORMAL_PROMPT='%{%F{blue}%}➜%{%f%} '
-
-    case ${KEYMAP} in
-        (vicmd)      PROMPT="$NORMAL_PROMPT" ;;
-        (main|viins) PROMPT="$INSERT_PROMPT" ;;
-        (*)          PROMPT="$INSERT_PROMPT" ;;
-    esac
-    zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
 
 # vim: set ai et sw=4 syntax=zsh :
