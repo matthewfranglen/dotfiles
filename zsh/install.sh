@@ -6,6 +6,7 @@ install () {
     install_antigen
     install_fasd
     install_fzf
+    install_noti
 }
 
 install_antigen () {
@@ -45,6 +46,24 @@ install_fasd () {
     then
         ln -s "${fasd_script_file}" "${HOME}/.local/bin/fasd"
     fi
+}
+
+install_noti () {
+    local bin_folder="${HOME}/.local/bin"
+    local noti_binary="${bin_folder}/noti"
+    local noti_download="/tmp/noti.tar.gz"
+
+    if [ -e "${noti_binary}" ]
+    then
+        return
+    fi
+
+    get_url_to_file "https://github.com/variadico/noti/releases/download/v2.3.0/noti2.3.0.linux-amd64.tar.gz" "${noti_download}" || return 1
+    (
+        cd "${bin_folder}"
+        tar -xzf "${noti_download}"
+        rm "${noti_download}"
+    )
 }
 
 install
