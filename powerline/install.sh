@@ -13,6 +13,11 @@ install () {
 }
 
 install_powerline () {
+    if [ -e "${HOME}/.local/bin/powerline" ]
+    then
+        return
+    fi
+
     "${PIP_COMMAND}" install --user powerline-status
 }
 
