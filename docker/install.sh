@@ -15,6 +15,11 @@ fail () {
 }
 
 install_docker_compose () {
+    if [ -e "${HOME}/.local/bin/docker-compose" ]
+    then
+        return
+    fi
+
     "${PIP_COMMAND}" install --user docker-compose
 }
 
