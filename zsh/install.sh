@@ -11,10 +11,12 @@ install () {
 install_antigen () {
     local antigen_script_file="${HOME}/.antigen.zsh"
 
-    if [ ! -e "${antigen_script_file}" ]
+    if [ -e "${antigen_script_file}" ]
     then
-        get_url_to_file "https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh" "${antigen_script_file}" || return 1
+        return
     fi
+
+    get_url_to_file "https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh" "${antigen_script_file}" || return 1
 }
 
 install_fzf () {
