@@ -42,7 +42,7 @@ export EDITOR=vim
 export SVN_EDITOR=vim
 export GIT_EDITOR=vim
 export LESS=ir
-if [ -z ${JAVA_HOME} ]
+if [ -z ${JAVA_HOME} ] && [ -e /usr/lib/jvm/default-java ]
 then
     export JAVA_HOME=/usr/lib/jvm/default-java
 fi
