@@ -17,7 +17,7 @@ install_antigen () {
         return
     fi
 
-    get_url_to_file "https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh" "${antigen_script_file}" || return 1
+    get_url_to_file "https://cdn.rawgit.com/zsh-users/antigen/v1.1.1/bin/antigen.zsh" "${antigen_script_file}" || return 1
 }
 
 install_fzf () {
