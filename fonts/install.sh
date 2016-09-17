@@ -5,13 +5,13 @@ set -eu
 install () {
     if ! is_on_local_machine
     then
-        echo -- "Not installing fonts... currently running on remote host" >&3
+        echo "Not installing fonts... currently running on remote host" >&3
         return ${STATUS_SKIPPED}
     fi
 
     if ! is_font_cache_command_available
     then
-        echo -- "Unable to install fonts... fc-cache command not found" >&2
+        echo "Unable to install fonts... fc-cache command not found" >&2
         return ${STATUS_ERROR}
     fi
 

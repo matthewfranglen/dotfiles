@@ -5,7 +5,7 @@ set -eu
 install () {
     if ! validate
     then
-        echo -- "Unable to install git-up... ruby or ruby-dev is not available." >&2
+        echo "Unable to install git-up... ruby or ruby-dev is not available." >&2
         return ${STATUS_ERROR}
     fi
 

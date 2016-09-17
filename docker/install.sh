@@ -5,7 +5,7 @@ set -eu
 install () {
     if ! is_docker_present
     then
-        echo -- "Will not install docker-compose as docker is not available." >&3
+        echo "Will not install docker-compose as docker is not available." >&3
         return ${STATUS_SKIPPED}
     fi
 
