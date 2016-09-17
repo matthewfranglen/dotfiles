@@ -8,14 +8,20 @@ set -e
 cd "${DOTFILES_FOLDER}"
 
 declare -a SUCCESSFUL_INSTALLATIONS
+declare -a SKIPPED_INSTALLATIONS
 declare -a FAILED_INSTALLATIONS
 
 main () {
-    run_installers >"${STDOUT_LOGFILE}" 2>"${STDERR_LOGFILE}"
+    run_installers >"${STDOUT_LOGFILE}" 2>"${STDERR_LOGFILE}" 3>"${SKIP_LOGFILE}"
 
     report_successful_installations
+
+    report_skipped_output
+    report_skipped_installations
+
     report_stderr_output
     report_failed_installations
+
     suggest_issue_submission
 
     [ ${#FAILED_INSTALLATIONS} -eq 0 ]
@@ -24,12 +30,15 @@ main () {
 run_installers () {
     for installer in $(find . -name install.sh)
     do
-        if sh -c "${installer}"
-        then
-            SUCCESSFUL_INSTALLATIONS+=("${installer}")
-        else
-            FAILED_INSTALLATIONS+=("${installer}")
-        fi
+        set +e
+        sh -c "${installer}"
+        local installer_status=$?
+
+        case "${installer_status}" in
+            0) SUCCESSFUL_INSTALLATIONS+=("${installer}") ;;
+            1) SKIPPED_INSTALLATIONS+=("${installer}") ;;
+            *) FAILED_INSTALLATIONS+=("${installer}") ;;
+        esac
     done
 }
 
@@ -42,6 +51,33 @@ report_successful_installations () {
     for install in "${SUCCESSFUL_INSTALLATIONS[@]}"
     do
         success "Installed ${install}"
+    done
+}
+
+report_skipped_output () {
+    if [ ! -s "${SKIP_LOGFILE}" ]
+    then
+        return
+    fi
+
+    echo ''
+
+    skip 'Installation(s) were skipped for the following reasons:'
+    echo ''
+    cat "${SKIP_LOGFILE}"
+}
+
+report_skipped_installations () {
+    if [ ${#SKIPPED_INSTALLATIONS} -eq 0 ]
+    then
+        return
+    fi
+
+    echo ''
+
+    for install in "${SKIPPED_INSTALLATIONS[@]}"
+    do
+        skip "Skipped ${install}"
     done
 }
 

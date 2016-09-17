@@ -3,10 +3,10 @@ set -eu
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
 install () {
-    install_antigen
-    install_fasd
-    install_fzf
-    install_noti
+    install_antigen || return ${STATUS_ERROR}
+    install_fasd    || return ${STATUS_ERROR}
+    install_fzf     || return ${STATUS_ERROR}
+    install_noti    || return ${STATUS_ERROR}
 }
 
 install_antigen () {
@@ -32,7 +32,7 @@ install_fzf () {
 
 install_fasd () {
     local fasd_script_file="${HOME}/.fasd.zsh"
-    local fasd_link_file="${HOME}/.local/bin/fasd"
+    local fasd_link_file="${LOCAL_BIN_FOLDER}/fasd"
 
     make_local_bin
 
@@ -49,8 +49,7 @@ install_fasd () {
 }
 
 install_noti () {
-    local bin_folder="${HOME}/.local/bin"
-    local noti_binary="${bin_folder}/noti"
+    local noti_binary="${LOCAL_BIN_FOLDER}/noti"
     local noti_download="/tmp/noti.tar.gz"
 
     if [ -e "${noti_binary}" ]
@@ -60,7 +59,7 @@ install_noti () {
 
     get_url_to_file "https://github.com/variadico/noti/releases/download/v2.3.0/noti2.3.0.linux-amd64.tar.gz" "${noti_download}" || return 1
     (
-        cd "${bin_folder}"
+        cd "${LOCAL_BIN_FOLDER}"
         tar -xzf "${noti_download}"
         rm "${noti_download}"
     )

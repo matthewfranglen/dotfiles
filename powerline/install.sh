@@ -3,21 +3,24 @@ set -eu
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
 install () {
-    if is_on_local_machine
+    if ! is_on_local_machine
     then
-        install_pip && install_powerline
-    else
-        echo "Not installing powerline... currently running on remote host"
-        true
+        echo "Not installing powerline... currently running on remote host" >&3
+        return ${STATUS_SKIPPED}
     fi
+
+    if [ -e "${LOCAL_BIN_FOLDER}/powerline" ]
+    then
+        return ${STATUS_OK}
+    fi
+
+    install_pip       || return ${STATUS_ERROR}
+    install_powerline || return ${STATUS_ERROR}
+
+    return ${STATUS_OK}
 }
 
 install_powerline () {
-    if [ -e "${HOME}/.local/bin/powerline" ]
-    then
-        return
-    fi
-
     "${PIP_COMMAND}" install --user powerline-status
 }
 
