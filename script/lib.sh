@@ -79,7 +79,7 @@ get_url_to_file () {
     then
         curl --location "${url}" > "${filename}"
     else
-        echo "Unable to download ${file} from ${url}... wget and curl commands not found"
+        printf "Unable to download ${file} from ${url}... wget and curl commands not found"
         return 1
     fi
 }
