@@ -11,7 +11,7 @@ declare -a SUCCESSFUL_INSTALLATIONS
 declare -a FAILED_INSTALLATIONS
 
 main () {
-    if run_installers
+    if run_installers >"${STDOUT_LOGFILE}" 2>"${STDERR_LOGFILE}"
     then
         report_successful_installations
     else
