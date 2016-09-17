@@ -8,11 +8,12 @@
 
 LOCAL_BIN_FOLDER="${HOME}/.local/bin"
 DOTFILES_FOLDER="`dirname \`dirname \\\`readlink -f $0\\\`\``"
-STDOUT_LOGFILE="${DOTFILES_FOLDER}/logs/install.log"
-STDERR_LOGFILE="${DOTFILES_FOLDER}/logs/error.log"
+LOGS_FOLDER="${DOTFILES_FOLDER}/logs"
+STDOUT_LOGFILE="${LOGS_FOLDER}/install.log"
+STDERR_LOGFILE="${LOGS_FOLDER}/error.log"
 
 info () {
-  printf "  [ \033[00;34m..\033[0m ] $1"
+  printf "  [ \033[00;34m..\033[0m ] $1\n"
 }
 
 user () {
