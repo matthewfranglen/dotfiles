@@ -4,7 +4,84 @@
 
 set -e
 
-cd "$(dirname $0)"/..
+. "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
+cd "${DOTFILES_FOLDER}"
 
-# find the installers and run them iteratively
-find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+declare -a SUCCESSFUL_INSTALLATIONS
+declare -a FAILED_INSTALLATIONS
+
+main () {
+    run_installers >"${STDOUT_LOGFILE}" 2>"${STDERR_LOGFILE}"
+
+    report_successful_installations
+    report_stderr_output
+    report_failed_installations
+    suggest_issue_submission
+
+    [ ${#FAILED_INSTALLATIONS} -eq 0 ]
+}
+
+run_installers () {
+    for installer in $(find . -name install.sh)
+    do
+        if sh -c "${installer}"
+        then
+            SUCCESSFUL_INSTALLATIONS+=("${installer}")
+        else
+            FAILED_INSTALLATIONS+=("${installer}")
+        fi
+    done
+}
+
+report_successful_installations () {
+    if [ ${#SUCCESSFUL_INSTALLATIONS} -eq 0 ]
+    then
+        return
+    fi
+
+    for install in "${SUCCESSFUL_INSTALLATIONS[@]}"
+    do
+        success "Installed ${install}"
+    done
+}
+
+report_stderr_output () {
+    if [ ! -s "${STDERR_LOGFILE}" ]
+    then
+        return
+    fi
+
+    echo ''
+
+    fail 'Standard error output:'
+    echo ''
+    cat "${STDERR_LOGFILE}"
+}
+
+report_failed_installations () {
+    if [ ${#FAILED_INSTALLATIONS} -eq 0 ]
+    then
+        return
+    fi
+
+    echo ''
+
+    for install in "${FAILED_INSTALLATIONS[@]}"
+    do
+        fail "Failed to install ${install}"
+    done
+}
+
+suggest_issue_submission () {
+    if [ ${#FAILED_INSTALLATIONS} -eq 0 ] && [ ! -s "${STDERR_LOGFILE}" ]
+    then
+        return
+    fi
+
+    echo ''
+    info 'You can file an issue about this failure at https://github.com/matthewfranglen/dotfiles/issues'
+    info "Please attach the log files in ${LOGS_FOLDER}"
+}
+
+main
+

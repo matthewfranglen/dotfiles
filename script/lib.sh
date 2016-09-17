@@ -4,10 +4,29 @@
 #
 # Thus this uses the convention that the sourcing script is in a subdirectory
 # of the dotfiles directory and that ${0} contains the relative path to that
-# script. The ROOT_FOLDER path will be wrong if this is not true.
+# script. The DOTFILES_FOLDER path will be wrong if this is not true.
 
 LOCAL_BIN_FOLDER="${HOME}/.local/bin"
 DOTFILES_FOLDER="`dirname \`dirname \\\`readlink -f $0\\\`\``"
+LOGS_FOLDER="${DOTFILES_FOLDER}/logs"
+STDOUT_LOGFILE="${LOGS_FOLDER}/install.log"
+STDERR_LOGFILE="${LOGS_FOLDER}/error.log"
+
+info () {
+  printf "  [ \033[00;34m..\033[0m ] $1\n"
+}
+
+user () {
+  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+}
+
+success () {
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+fail () {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+}
 
 is_on_local_machine () {
     [ -z ${SSH_CONNECTION+x} ]
@@ -61,7 +80,7 @@ get_url_to_file () {
     then
         curl --location "${url}" > "${filename}"
     else
-        echo "Unable to download ${file} from ${url}... wget and curl commands not found"
+        printf "Unable to download ${file} from ${url}... wget and curl commands not found"
         return 1
     fi
 }
