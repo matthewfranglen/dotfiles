@@ -4,7 +4,50 @@
 
 set -e
 
-cd "$(dirname $0)"/..
+. "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
+cd "${DOTFILES_FOLDER}"
 
-# find the installers and run them iteratively
-find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+declare -a SUCCESSFUL_INSTALLATIONS
+declare -a FAILED_INSTALLATIONS
+
+main () {
+    if run_installers
+    then
+        report_successful_installations
+    else
+        report_successful_installations
+        report_failed_installations
+        return 1
+    fi
+}
+
+run_installers () {
+    for installer in $(find . -name install.sh)
+    do
+        if sh -c "${installer}"
+        then
+            SUCCESSFUL_INSTALLATIONS+=("${installer}")
+        else
+            FAILED_INSTALLATIONS+=("${installer}")
+        fi
+    done
+
+    [ ${#FAILED_INSTALLATIONS} -eq 0 ]
+}
+
+report_successful_installations () {
+    for install in "${SUCCESSFUL_INSTALLATIONS[@]}"
+    do
+        success "Installed ${install}"
+    done
+}
+
+report_failed_installations () {
+    for install in "${FAILED_INSTALLATIONS[@]}"
+    do
+        fail "Failed to install ${install}"
+    done
+}
+
+main
+
