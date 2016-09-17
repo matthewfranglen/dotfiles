@@ -2,30 +2,35 @@ set -eu
 
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
-validate () {
+install () {
+    if ! is_docker_present
+    then
+        echo -- "Will not install docker-compose as docker is not available." >&3
+        return ${STATUS_SKIPPED}
+    fi
+
+    if is_docker_compose_present
+    then
+        return ${STATUS_OK}
+    fi
+
+    make_local_bin         || return ${STATUS_ERROR}
+    install_pip            || return ${STATUS_ERROR}
+    install_docker_compose || return ${STATUS_ERROR}
+
+    return ${STATUS_OK}
+}
+
+is_docker_present () {
     which docker >/dev/null
 }
 
-install () {
-    make_local_bin && install_pip && install_docker_compose
-}
-
-fail () {
-    echo -- "Will not install docker-compose as docker is not available." >&2
+is_docker_compose_present () {
+    [ -e "${LOCAL_BIN_FOLDER}/docker-compose" ]
 }
 
 install_docker_compose () {
-    if [ -e "${HOME}/.local/bin/docker-compose" ]
-    then
-        return
-    fi
-
     "${PIP_COMMAND}" install --user docker-compose
 }
 
-if validate
-then
-    install
-else
-    fail
-fi
+install
