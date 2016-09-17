@@ -4,7 +4,7 @@
 #
 # Thus this uses the convention that the sourcing script is in a subdirectory
 # of the dotfiles directory and that ${0} contains the relative path to that
-# script. The ROOT_FOLDER path will be wrong if this is not true.
+# script. The DOTFILES_FOLDER path will be wrong if this is not true.
 
 LOCAL_BIN_FOLDER="${HOME}/.local/bin"
 DOTFILES_FOLDER="`dirname \`dirname \\\`readlink -f $0\\\`\``"
