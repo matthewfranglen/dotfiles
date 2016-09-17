@@ -16,6 +16,7 @@ main () {
     report_successful_installations
     report_stderr_output
     report_failed_installations
+    suggest_issue_submission
 
     [ ${#FAILED_INSTALLATIONS} -eq 0 ]
 }
@@ -69,6 +70,17 @@ report_failed_installations () {
     do
         fail "Failed to install ${install}"
     done
+}
+
+suggest_issue_submission () {
+    if [ ${#FAILED_INSTALLATIONS} -eq 0 ] && [ ! -s "${STDERR_LOGFILE}" ]
+    then
+        return
+    fi
+
+    echo ''
+    info 'You can file an issue about this failure at https://github.com/matthewfranglen/dotfiles/issues'
+    info "Please attach the log files in ${LOGS_FOLDER}"
 }
 
 main
