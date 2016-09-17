@@ -2,31 +2,11 @@
 #
 # bootstrap installs things.
 
-cd "$(dirname "$0")/.."
-DOTFILES_ROOT=$(pwd)
+. "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
 set -e
 
 echo ''
-
-info () {
-  printf "  [ \033[00;34m..\033[0m ] $1"
-}
-
-user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
-}
-
-success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
-  exit
-}
-
 
 link_file () {
   local src=$1 dst=$2
@@ -115,9 +95,9 @@ install_dotfiles () {
   local overwrite_all=false backup_all=false skip_all=false
   local tmp_dst
 
-  for src in $(find "$DOTFILES_ROOT/" -maxdepth 3 -name '*.symlink')
+  for src in $(find "$DOTFILES_FOLDER/" -maxdepth 3 -name '*.symlink')
   do
-    tmp_dst="$HOME/.${src#$DOTFILES_ROOT/*/}"
+    tmp_dst="$HOME/.${src#$DOTFILES_FOLDER/*/}"
     dst="${tmp_dst%.*}"
     link_file "$src" "$dst"
   done
