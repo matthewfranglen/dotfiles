@@ -11,14 +11,13 @@ declare -a SUCCESSFUL_INSTALLATIONS
 declare -a FAILED_INSTALLATIONS
 
 main () {
-    if run_installers >"${STDOUT_LOGFILE}" 2>"${STDERR_LOGFILE}"
-    then
-        report_successful_installations
-    else
-        report_successful_installations
-        report_failed_installations
-        return 1
-    fi
+    run_installers >"${STDOUT_LOGFILE}" 2>"${STDERR_LOGFILE}"
+
+    report_successful_installations
+    report_stderr_output
+    report_failed_installations
+
+    [ ${#FAILED_INSTALLATIONS} -eq 0 ]
 }
 
 run_installers () {
@@ -31,18 +30,41 @@ run_installers () {
             FAILED_INSTALLATIONS+=("${installer}")
         fi
     done
-
-    [ ${#FAILED_INSTALLATIONS} -eq 0 ]
 }
 
 report_successful_installations () {
+    if [ ${#SUCCESSFUL_INSTALLATIONS} -eq 0 ]
+    then
+        return
+    fi
+
     for install in "${SUCCESSFUL_INSTALLATIONS[@]}"
     do
         success "Installed ${install}"
     done
 }
 
+report_stderr_output () {
+    if [ ! -s "${STDERR_LOGFILE}" ]
+    then
+        return
+    fi
+
+    echo ''
+
+    fail 'Standard error output:'
+    echo ''
+    cat "${STDERR_LOGFILE}"
+}
+
 report_failed_installations () {
+    if [ ${#FAILED_INSTALLATIONS} -eq 0 ]
+    then
+        return
+    fi
+
+    echo ''
+
     for install in "${FAILED_INSTALLATIONS[@]}"
     do
         fail "Failed to install ${install}"
