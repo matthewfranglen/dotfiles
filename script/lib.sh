@@ -6,11 +6,17 @@
 # of the dotfiles directory and that ${0} contains the relative path to that
 # script. The DOTFILES_FOLDER path will be wrong if this is not true.
 
+STATUS_OK=0
+STATUS_SKIPPED=1
+STATUS_ERROR=2
+
 LOCAL_BIN_FOLDER="${HOME}/.local/bin"
 DOTFILES_FOLDER="`dirname \`dirname \\\`readlink -f $0\\\`\``"
 LOGS_FOLDER="${DOTFILES_FOLDER}/logs"
+
 STDOUT_LOGFILE="${LOGS_FOLDER}/install.log"
 STDERR_LOGFILE="${LOGS_FOLDER}/error.log"
+SKIP_LOGFILE="${LOGS_FOLDER}/skip.log"
 
 info () {
   printf "  [ \033[00;34m..\033[0m ] $1\n"
@@ -22,6 +28,10 @@ user () {
 
 success () {
   printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+skip () {
+  printf "\r\033[2K  [\033[0;34mSKIP\033[0m] $1\n"
 }
 
 fail () {
