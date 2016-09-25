@@ -27,7 +27,7 @@ install_fzf () {
     fi
 
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install --no-completion
+    ~/.fzf/install --no-completion --key-bindings
 }
 
 install_fasd () {
