@@ -1,4 +1,0 @@
-[submodule "fonts/fonts"]
-	path = fonts/fonts
-	url = git://github.com/Lokaltog/powerline-fonts.git
-	ignore = dirty

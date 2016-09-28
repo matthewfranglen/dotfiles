@@ -24,8 +24,14 @@ is_font_cache_command_available () {
     which fc-cache >/dev/null
 }
 
+readonly FONT_URL="https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Black/complete/Sauce%20Code%20Pro%20Black%20Nerd%20Font%20Complete%20Mono.ttf"
+readonly FONTS_FOLDER="${HOME}/.local/share/fonts"
+readonly FONT_FILE="${FONTS_FOLDER}/Source Code Pro Black Nerd Font Complete Mono.ttf"
+
 install_fonts () {
-    fc-cache -f "${DOTFILES_FOLDER}/.fonts"
+    [ ! -e "${FONTS_FOLDER}" ] && mkdir "${FONTS_FOLDER}"
+    get_url_to_file "${FONT_URL}" "${FONT_FILE}"
+    fc-cache -f "${FONTS_FOLDER}"
 }
 
 install

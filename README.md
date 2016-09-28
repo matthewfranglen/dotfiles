@@ -9,6 +9,5 @@ Installation
 
     git clone https://github.com/matthewfranglen/dotfiles.git ~/.dotfiles
     cd ~/.dotfiles
-    git submodule update --init --recursive
     script/bootstrap
     script/install
