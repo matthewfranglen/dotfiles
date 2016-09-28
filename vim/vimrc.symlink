@@ -121,6 +121,7 @@ function s:RegisterPlugins()
     " Each of these is registered in the g:plugs map.
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
     Plug 'https://github.com/flazz/vim-colorschemes.git'
+    Plug 'https://github.com/ryanoasis/vim-devicons.git'
 
     Plug 'https://github.com/tpope/vim-dispatch.git'
 
