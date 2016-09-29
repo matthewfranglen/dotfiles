@@ -172,6 +172,7 @@ function s:ConfigurePlugins()
     call s:ConfigureEasytags()
     call s:ConfigureEclim()
     call s:ConfigureJavaOmniComplete()
+    call s:ConfigureLengthMatters()
     call s:ConfigureMarkdown()
     call s:ConfigureNERDTree()
     call s:ConfigureRainbowParenthesis()
@@ -215,6 +216,12 @@ function s:ConfigureJavaOmniComplete()
     autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
     autocmd FileType java if &completefunc != '' | let &omnifunc=&completefunc | endif
     autocmd FileType java nnoremap <silent> <buffer> <CR> :JavaSearchContext<CR>
+endfunction
+
+function s:ConfigureLengthMatters()
+    let g:lengthmatters_on_by_default = 0
+    let g:lengthmatters_exclude_readonly = 1
+    autocmd FileType java LengthmattersToggle
 endfunction
 
 function s:ConfigureMarkdown()
