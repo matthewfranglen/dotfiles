@@ -6,16 +6,12 @@
 [diff]
     algorithm = patience
 [alias]
-    mgl = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
-
     fap = fetch --all --prune
 
-    pom = push origin master
-    pod = push origin develop
-    pt = push --tags
+# This checks that the local remote ref is up to date before forcing the update
+    please = push --force-with-lease
 
     root = rev-parse --show-toplevel
-    suir = submodule update --init --recursive
 
     ff = flow feature
     ffs = flow feature start
@@ -25,11 +21,12 @@
     frs = flow release start
     frf = flow release finish
 
-    s = status
-    c = commit
     ca = commit --all
-    cam = commit --amend
-    caam = commit --all --amend
+    cam = commit --amend --no-edit
+    caam = commit --all --amend --no-edit
+
+# The first commit cannot be rebased so it's nice to have it empty
+    new = "!git init && git commit -m 'Initial commit' --allow-empty"
 
 # This performs a shell command bound to a git alias.
 # See: http://blogs.atlassian.com/2014/10/advanced-git-aliases/
