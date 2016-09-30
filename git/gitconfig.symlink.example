@@ -11,6 +11,9 @@
 # This checks that the local remote ref is up to date before forcing the update
     please = push --force-with-lease
 
+# The replacement for `git-up`
+    up = pull --rebase --autostash
+
     root = rev-parse --show-toplevel
 
     ff = flow feature
