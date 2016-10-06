@@ -221,7 +221,15 @@ endfunction
 function s:ConfigureLengthMatters()
     let g:lengthmatters_on_by_default = 0
     let g:lengthmatters_exclude_readonly = 1
-    autocmd FileType java LengthmattersToggle
+    autocmd FileType * call s:LoadLengthMattersForFile()
+endfunction
+
+function s:LoadLengthMattersForFile()
+    if &ft == "java"
+        LengthmattersEnable
+    else
+        LengthmattersDisable
+    endif
 endfunction
 
 function s:ConfigureMarkdown()
