@@ -122,7 +122,6 @@ function s:RegisterPlugins()
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
     Plug 'https://github.com/flazz/vim-colorschemes.git'
     Plug 'https://github.com/ryanoasis/vim-devicons.git'
-    Plug 'https://github.com/matthewfranglen/vim-lengthmatters.git'
 
     Plug 'https://github.com/tpope/vim-dispatch.git'
 
@@ -172,7 +171,6 @@ function s:ConfigurePlugins()
     call s:ConfigureEasytags()
     call s:ConfigureEclim()
     call s:ConfigureJavaOmniComplete()
-    call s:ConfigureLengthMatters()
     call s:ConfigureMarkdown()
     call s:ConfigureNERDTree()
     call s:ConfigureRainbowParenthesis()
@@ -216,20 +214,6 @@ function s:ConfigureJavaOmniComplete()
     autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
     autocmd FileType java if &completefunc != '' | let &omnifunc=&completefunc | endif
     autocmd FileType java nnoremap <silent> <buffer> <CR> :JavaSearchContext<CR>
-endfunction
-
-function s:ConfigureLengthMatters()
-    let g:lengthmatters_on_by_default = 0
-    let g:lengthmatters_exclude_readonly = 1
-    autocmd FileType * call s:LoadLengthMattersForFile()
-endfunction
-
-function s:LoadLengthMattersForFile()
-    if &ft == "java"
-        LengthmattersEnable
-    else
-        LengthmattersDisable
-    endif
 endfunction
 
 function s:ConfigureMarkdown()
