@@ -79,18 +79,22 @@ install_pip () {
     return $status
 }
 
+is_python_command_available () {
+    which python >/dev/null
+}
+
 get_url_to_file () {
     local url="$1"
     local filename="$2"
 
     if which wget >/dev/null
     then
-        wget --output-document "${filename}" "${url}"
+        wget --quiet --output-document "${filename}" "${url}"
     elif which curl >/dev/null
     then
-        curl --location "${url}" > "${filename}"
+        curl --silent --location "${url}" > "${filename}"
     else
-        printf "Unable to download ${file} from ${url}... wget and curl commands not found"
+        printf "Unable to download ${filename} from ${url}... wget and curl commands not found\n" >&2
         return 1
     fi
 }

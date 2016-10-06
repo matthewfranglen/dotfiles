@@ -3,10 +3,20 @@ set -eu
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
 install () {
+    if ! is_git_command_available
+    then
+        echo "Unable to install zsh... git command not found" >&2
+        return ${STATUS_ERROR}
+    fi
+
     install_antigen || return ${STATUS_ERROR}
     install_fasd    || return ${STATUS_ERROR}
     install_fzf     || return ${STATUS_ERROR}
     install_noti    || return ${STATUS_ERROR}
+}
+
+is_git_command_available () {
+    which git >/dev/null
 }
 
 install_antigen () {
@@ -26,8 +36,8 @@ install_fzf () {
         return
     fi
 
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install --no-completion --key-bindings
+    git clone --quiet --depth 1 "https://github.com/junegunn/fzf.git" "${HOME}/.fzf"
+    "${HOME}/.fzf/install" --no-completion --key-bindings --update-rc
 }
 
 install_fasd () {

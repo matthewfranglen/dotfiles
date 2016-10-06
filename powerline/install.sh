@@ -8,6 +8,11 @@ install () {
         echo "Not installing powerline... currently running on remote host" >&3
         return ${STATUS_SKIPPED}
     fi
+    if ! is_python_command_available
+    then
+        echo "Unable to install powerline... python not found" >&2
+        return ${STATUS_ERROR}
+    fi
 
     if [ -e "${LOCAL_BIN_FOLDER}/powerline" ]
     then
