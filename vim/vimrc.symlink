@@ -122,7 +122,7 @@ function s:RegisterPlugins()
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
     Plug 'https://github.com/flazz/vim-colorschemes.git'
     Plug 'https://github.com/ryanoasis/vim-devicons.git'
-    Plug 'https://github.com/whatyouhide/vim-lengthmatters.git'
+    Plug 'https://github.com/matthewfranglen/vim-lengthmatters.git'
 
     Plug 'https://github.com/tpope/vim-dispatch.git'
 
