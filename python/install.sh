@@ -7,6 +7,11 @@ install () {
     then
         return ${STATUS_OK}
     fi
+    if ! is_python_command_available
+    then
+        echo "Unable to install virtualenv... python not found" >&2
+        return ${STATUS_ERROR}
+    fi
 
     install_pip               || return ${STATUS_ERROR}
     install_virtualenvwrapper || return ${STATUS_ERROR}

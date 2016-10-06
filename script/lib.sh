@@ -79,6 +79,10 @@ install_pip () {
     return $status
 }
 
+is_python_command_available () {
+    which python >/dev/null
+}
+
 get_url_to_file () {
     local url="$1"
     local filename="$2"
