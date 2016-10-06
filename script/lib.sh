@@ -85,7 +85,7 @@ get_url_to_file () {
 
     if which wget >/dev/null
     then
-        wget --output-document "${filename}" "${url}"
+        wget --quiet --output-document "${filename}" "${url}"
     elif which curl >/dev/null
     then
         curl --silent --location "${url}" > "${filename}"
