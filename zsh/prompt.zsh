@@ -157,6 +157,11 @@ readonly USER_FOREGROUND_COLOR='236'
 readonly USER_BACKGROUND_COLOR='black'
 
 user_status() {
+    if [ -z "${username}" ]
+    then
+        return
+    fi
+
     print -P "%K{${USER_BACKGROUND_COLOR}} %F{${USER_FOREGROUND_COLOR}}$username %F{${USER_BACKGROUND_COLOR}}"
 }
 
