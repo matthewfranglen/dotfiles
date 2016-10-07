@@ -63,7 +63,7 @@ precmd() {
         _color=red
     fi
 
-    print -P "\n`environment_status``path_status``git_status``user_status``command_execution_status`"
+    print -P "\n`environment_status``path_status``git_status``git_stashes``user_status``command_execution_status`\n"
 
     # Reset value since `preexec` isn't always triggered
     unset cmd_timestamp
@@ -137,6 +137,20 @@ git_status() {
 
         echo "%F{${GIT_BACKGROUND_COLOR}}"
     fi
+}
+
+readonly GIT_STASH_FOREGROUND_COLOR='yellow'
+readonly GIT_STASH_BACKGROUND_COLOR='black'
+
+git_stashes () {
+    local stashes=$(git stashes)
+
+    if [ -z "${stashes}" ]
+    then
+        return
+    fi
+
+    print -P "%K{${GIT_STASH_BACKGROUND_COLOR}}%F{${GIT_STASH_FOREGROUND_COLOR}} ${stashes} %F{${GIT_STASH_BACKGROUND_COLOR}}"
 }
 
 readonly USER_FOREGROUND_COLOR='236'
