@@ -5,6 +5,7 @@ antigen-bundle Tarrasch/zsh-functional
 antigen-bundle bobthecow/git-flow-completion
 antigen-bundle matthewfranglen/easy-ln
 antigen-bundle matthewfranglen/git-update
+antigen-bundle matthewfranglen/git-stashes
 antigen-bundle matthewfranglen/memcached-cli
 antigen-bundle matthewfranglen/spark
 antigen-bundle matthewfranglen/speedread
