@@ -58,7 +58,7 @@ export UBUNTU_MENUPROXY=
 export FZF_DEFAULT_OPTS="--extended-exact"
 
 # Set the autocomplete color for zsh-autocomplete
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=5"
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=5"
 
 # Permit X11 sharing with docker containers
 # Allows using docker containers for GUI applications
