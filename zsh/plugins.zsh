@@ -24,4 +24,8 @@ unset antigen_bundles
 
 antigen-apply
 
+# Set the autocomplete color for zsh-autocomplete.
+# Has to be done after loading.
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=5"
+
 # vim: set ai et sw=4 syntax=zsh :
