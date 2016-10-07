@@ -63,7 +63,7 @@ precmd() {
         _color=red
     fi
 
-    print -P "\n`environment_status``path_status``git_status``git_stashes``user_status``command_execution_status`\n"
+    print -P "\n`environment_status``path_status``git_status``git_stashes``user_status``command_execution_status`%k"
 
     # Reset value since `preexec` isn't always triggered
     unset cmd_timestamp
@@ -169,7 +169,13 @@ readonly COMMAND_TIME_FOREGROUND_COLOR='yellow'
 readonly COMMAND_TIME_BACKGROUND_COLOR='black'
 
 command_execution_status() {
-    print -P "%K{${COMMAND_TIME_BACKGROUND_COLOR}}%F{${COMMAND_TIME_FOREGROUND_COLOR}}`cmd_exec_time`%F{${COMMAND_TIME_BACKGROUND_COLOR}}%k"
+    local execution_time=$(cmd_exec_time)
+
+    if [ -z "${execution_time}" ]
+    then
+        return
+    fi
+    print -P "%K{${COMMAND_TIME_BACKGROUND_COLOR}}%F{${COMMAND_TIME_FOREGROUND_COLOR}}`cmd_exec_time`%F{${COMMAND_TIME_BACKGROUND_COLOR}}"
 }
 
 docker_machine_status() {
