@@ -11,6 +11,7 @@ antigen-bundle matthewfranglen/speedread
 antigen-bundle matthewfranglen/watch-me
 antigen-bundle matthewfranglen/window-to-gif
 antigen-bundle supercrabtree/k
+antigen-bundle zsh-users/zsh-autosuggestions
 antigen-bundle zsh-users/zsh-history-substring-search
 antigen-bundle zsh-users/zsh-syntax-highlighting
 
