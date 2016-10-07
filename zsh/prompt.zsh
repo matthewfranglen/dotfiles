@@ -184,7 +184,7 @@ docker_machine_status() {
         return
     fi
 
-    echo -n "⊚∂ ${DOCKER_MACHINE_NAME}"
+    echo -n "\Uf1d8 ${DOCKER_MACHINE_NAME}"
 }
 
 virtualenv_status() {
@@ -193,7 +193,7 @@ virtualenv_status() {
         return
     fi
 
-    echo -n "⊚ℙ ${VIRTUAL_ENV:t}"
+    echo -n "\Uf097 ${VIRTUAL_ENV:t}"
 }
 
 # Displays the exec time of the last command if set threshold was exceeded
