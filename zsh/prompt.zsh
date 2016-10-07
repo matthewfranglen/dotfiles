@@ -63,7 +63,7 @@ precmd() {
         _color=red
     fi
 
-    print -P "\n`environment_status``path_status``git_status``user_status``command_execution_status`"
+    print -P "\n`environment_status``path_status``git_status``git_stashes``user_status``command_execution_status`%k"
 
     # Reset value since `preexec` isn't always triggered
     unset cmd_timestamp
@@ -139,10 +139,29 @@ git_status() {
     fi
 }
 
+readonly GIT_STASH_FOREGROUND_COLOR='yellow'
+readonly GIT_STASH_BACKGROUND_COLOR='black'
+
+git_stashes () {
+    local stashes=$(git stashes)
+
+    if [ -z "${stashes}" ]
+    then
+        return
+    fi
+
+    print -P "%K{${GIT_STASH_BACKGROUND_COLOR}}%F{${GIT_STASH_FOREGROUND_COLOR}} ${stashes} %F{${GIT_STASH_BACKGROUND_COLOR}}"
+}
+
 readonly USER_FOREGROUND_COLOR='236'
 readonly USER_BACKGROUND_COLOR='black'
 
 user_status() {
+    if [ -z "${username}" ]
+    then
+        return
+    fi
+
     print -P "%K{${USER_BACKGROUND_COLOR}} %F{${USER_FOREGROUND_COLOR}}$username %F{${USER_BACKGROUND_COLOR}}"
 }
 
@@ -150,7 +169,13 @@ readonly COMMAND_TIME_FOREGROUND_COLOR='yellow'
 readonly COMMAND_TIME_BACKGROUND_COLOR='black'
 
 command_execution_status() {
-    print -P "%K{${COMMAND_TIME_BACKGROUND_COLOR}}%F{${COMMAND_TIME_FOREGROUND_COLOR}}`cmd_exec_time`%F{${COMMAND_TIME_BACKGROUND_COLOR}}%k"
+    local execution_time=$(cmd_exec_time)
+
+    if [ -z "${execution_time}" ]
+    then
+        return
+    fi
+    print -P "%K{${COMMAND_TIME_BACKGROUND_COLOR}}%F{${COMMAND_TIME_FOREGROUND_COLOR}}${execution_time}%F{${COMMAND_TIME_BACKGROUND_COLOR}}"
 }
 
 docker_machine_status() {
@@ -159,7 +184,7 @@ docker_machine_status() {
         return
     fi
 
-    echo -n "⊚∂ ${DOCKER_MACHINE_NAME}"
+    echo -n "\Uf1d8 ${DOCKER_MACHINE_NAME}"
 }
 
 virtualenv_status() {
@@ -168,7 +193,7 @@ virtualenv_status() {
         return
     fi
 
-    echo -n "⊚ℙ ${VIRTUAL_ENV:t}"
+    echo -n "\Uf097 ${VIRTUAL_ENV:t}"
 }
 
 # Displays the exec time of the last command if set threshold was exceeded
