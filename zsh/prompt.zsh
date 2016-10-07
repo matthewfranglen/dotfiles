@@ -175,7 +175,7 @@ command_execution_status() {
     then
         return
     fi
-    print -P "%K{${COMMAND_TIME_BACKGROUND_COLOR}}%F{${COMMAND_TIME_FOREGROUND_COLOR}}${execution_time}%F{${COMMAND_TIME_BACKGROUND_COLOR}}"
+    print -P "%K{${COMMAND_TIME_BACKGROUND_COLOR}} %F{${COMMAND_TIME_FOREGROUND_COLOR}}${execution_time}%F{${COMMAND_TIME_BACKGROUND_COLOR}}"
 }
 
 docker_machine_status() {
