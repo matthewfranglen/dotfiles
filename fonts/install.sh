@@ -24,9 +24,10 @@ is_font_cache_command_available () {
     which fc-cache >/dev/null
 }
 
+readonly SAUCE_CODE_MEDIUM="https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Medium/complete/Sauce%20Code%20Pro%20Medium%20Nerd%20Font%20Complete%20Mono.ttf"
 readonly SAUCE_CODE_REGULAR="https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono.ttf"
 readonly SAUCE_CODE_BLACK="https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Black/complete/Sauce%20Code%20Pro%20Black%20Nerd%20Font%20Complete%20Mono.ttf"
-readonly FONT_URL="${SAUCE_CODE_REGULAR}"
+readonly FONT_URL="${SAUCE_CODE_MEDIUM}"
 readonly FONTS_FOLDER="${HOME}/.local/share/fonts"
 readonly FONT_FILE="${FONTS_FOLDER}/Source Code Pro Black Nerd Font Complete Mono.ttf"
 
