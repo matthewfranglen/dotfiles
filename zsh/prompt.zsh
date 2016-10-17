@@ -143,7 +143,7 @@ readonly GIT_STASH_FOREGROUND_COLOR='yellow'
 readonly GIT_STASH_BACKGROUND_COLOR='black'
 
 git_stashes () {
-    local stashes=$(git stashes)
+    local stashes="$(git stashes 2>/dev/null)"
 
     if [ -z "${stashes}" ]
     then
