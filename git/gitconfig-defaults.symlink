@@ -1,10 +1,13 @@
 [core]
     editor = vim
     excludesfile = ~/.gitignore
+    pager = less -F -X
 [color]
     ui = true
 [diff]
     algorithm = patience
+[merge]
+    tool = vimdiff
 [alias]
     fap = fetch --all --prune
 
@@ -53,7 +56,5 @@
     }; f"
 [push]
     default = tracking
-[core]
-    pager = less -F -X
 
 # vim: set ai et sw=4 syntax=gitconfig :
