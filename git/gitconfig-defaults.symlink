@@ -1,6 +1,7 @@
 [core]
     editor = vim
     excludesfile = ~/.gitignore
+    pager = less -F -X
 [color]
     ui = true
 [diff]
@@ -53,7 +54,5 @@
     }; f"
 [push]
     default = tracking
-[core]
-    pager = less -F -X
 
 # vim: set ai et sw=4 syntax=gitconfig :
