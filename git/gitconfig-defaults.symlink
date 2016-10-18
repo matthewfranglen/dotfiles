@@ -6,6 +6,8 @@
     ui = true
 [diff]
     algorithm = patience
+[merge]
+    tool = vimdiff
 [alias]
     fap = fetch --all --prune
 
