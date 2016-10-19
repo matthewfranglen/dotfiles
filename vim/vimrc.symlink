@@ -168,6 +168,7 @@ endfunction
 
 function s:ConfigurePlugins()
     call s:ConfigureColors()
+    call s:ConfigureCtrlP()
     call s:ConfigureEasytags()
     call s:ConfigureEclim()
     call s:ConfigureJavaOmniComplete()
@@ -190,6 +191,10 @@ function s:ConfigureColors()
 
     let g:solarized_termcolors = 256
     colorscheme solarized
+endfunction
+
+function s:ConfigureCtrlP()
+    set wildignore+=*.class
 endfunction
 
 function s:ConfigureEasytags()
