@@ -169,7 +169,7 @@ readonly COMMAND_TIME_FOREGROUND_COLOR='yellow'
 readonly COMMAND_TIME_BACKGROUND_COLOR='black'
 
 command_execution_status() {
-    local execution_time=$(cmd_exec_time)
+    local execution_time="$(cmd_exec_time)"
 
     if [ -z "${execution_time}" ]
     then
