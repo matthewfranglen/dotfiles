@@ -206,13 +206,24 @@ endfunction
 function s:ConfigureEclim()
     autocmd FileType java call s:ConfigureEclimJavaBindings()
     let g:EclimJavascriptLintEnabled = 0
+    let g:EclimJavaSearchSingleResult = 'tabnew'
 endfunction
 
 function s:ConfigureEclimJavaBindings()
-    nnoremap <silent> <buffer> <leader>i :JavaImport<CR>
-    nnoremap <silent> <buffer> <leader>oi :JavaImportOrganize<CR>
-    nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<CR>
+    nnoremap <silent> <buffer> <leader>jc :Checkstyle<CR>
+    nnoremap <silent> <buffer> <leader>jC :JavaCorrect<CR>
+    nnoremap <silent> <buffer> <leader>jd :JavaDocSearch -x declarations<CR>
+    nnoremap <silent> <buffer> <leader>ji :JavaImportOrganize<CR>
+    nnoremap <silent> <buffer> <leader>jm :JavaImpl<CR>
+    nnoremap <silent> <buffer> <leader>jt :JUnit %<CR>
+    nnoremap <silent> <buffer> <leader>jTM :JUnitImpl<CR>
+    nnoremap <silent> <buffer> <leader>jTT :JUnitFindTest<CR>
+
     nnoremap <silent> <buffer> <cr> :JavaSearchContext<CR>
+
+    " Add static import with <leader>I
+    " based on adding a regular import with <leader>i
+    nnoremap <unique> <leader>jI :AddStaticImport<CR>
 endfunction
 
 function s:ConfigureJavaOmniComplete()
@@ -282,10 +293,6 @@ function s:LoadKeymaps()
     " Toggle Tags with <F8>, Nerdtree with <F7>
     nmap <F7> :NERDTreeToggle<CR><C-W>l
     nmap <F8> :TagbarToggle<CR>
-
-    " Add static import with <leader>I
-    " based on adding a regular import with <leader>i
-    nnoremap <unique> <leader>I :AddStaticImport<CR>
 endfunction
 
 function s:LoadPerlKeymaps()
