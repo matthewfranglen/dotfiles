@@ -221,9 +221,9 @@ function s:ConfigureEclimJavaBindings()
 
     nnoremap <silent> <buffer> <cr> :JavaSearchContext<CR>
 
-    " Add static import with <leader>jI
+    " Add static import with <leader>jsi
     " based on adding a regular import with <leader>ji
-    nnoremap <unique> <buffer> <leader>jI :AddStaticImport<CR>
+    nnoremap <unique> <buffer> <leader>jsi :AddStaticImport<CR>
 endfunction
 
 function s:ConfigureJavaOmniComplete()
