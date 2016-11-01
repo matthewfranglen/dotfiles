@@ -1,0 +1,6 @@
+! This is based on https://github.com/roobert/dotfiles/blob/master/.xmodmaprc
+
+! map capslock to escape and unmap escape
+clear Lock
+keycode 0x42 = Escape
+keycode 9 =

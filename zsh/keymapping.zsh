@@ -5,17 +5,6 @@ bindkey -v
 # http://geekanova.blogspot.co.uk/2012/11/ctrl-s-freezes-terminal.html
 stty -ixon -ixoff
 
-# Map caps lock to escape. This can fail if your keyboard is plugged in after
-# this runs, hence the function definition. As this updates X11 it should only
-# be done locally.
-function load_keyboard_map () {
-    # Don't want to run this on remote hosts!
-    # This updates X! Doing this via a keyboard map option now, don't want to
-    # have to unset other things or worry about partial failures.
-    [ -z "$SSH_CONNECTION" ] && setxkbmap -option caps:escape
-}
-load_keyboard_map
-
 # Fix delete, home and end which would otherwise just caps a random bunch of
 # characters. Thanks to Michael Francis for this fix!
 # (Amazingly these bindings vary, so this may not work for you. inputrc is
