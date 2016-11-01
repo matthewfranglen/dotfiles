@@ -146,6 +146,7 @@ function s:RegisterPlugins()
     Plug 'https://github.com/mileszs/ack.vim.git'
     Plug 'https://github.com/mtscout6/syntastic-local-eslint.vim'
     Plug 'https://github.com/scrooloose/nerdtree.git'
+    Plug 'https://github.com/Nopik/vim-nerdtree-direnter.git'
     Plug 'https://github.com/scrooloose/syntastic.git'
     Plug 'https://github.com/tpope/vim-commentary.git'
     Plug 'https://github.com/tpope/vim-fugitive.git'
