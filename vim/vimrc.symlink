@@ -242,6 +242,9 @@ endfunction
 function s:ConfigureNERDTree()
     " http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
     let g:NERDTreeIgnore = ['\.pyc$']
+
+    " http://stackoverflow.com/questions/8680752/how-to-open-a-file-in-new-tab-by-default-in-nerdtree
+    let NERDTreeMapOpenInTab='<ENTER>'
 endfunction
 
 function s:ConfigureRainbowParenthesis()
