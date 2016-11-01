@@ -244,7 +244,7 @@ function s:ConfigureNERDTree()
     let g:NERDTreeIgnore = ['\.pyc$']
 
     " http://stackoverflow.com/questions/8680752/how-to-open-a-file-in-new-tab-by-default-in-nerdtree
-    let NERDTreeMapOpenInTab='<ENTER>'
+    let g:NERDTreeMapOpenInTab='<ENTER>'
 endfunction
 
 function s:ConfigureRainbowParenthesis()
