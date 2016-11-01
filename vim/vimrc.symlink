@@ -105,6 +105,9 @@ function s:PrepareForPluginLoad()
     let g:ycm_key_list_select_completion = []
     let g:ycm_key_list_previous_completion = []
 
+    let g:ycm_add_preview_to_completeopt = 0
+    set completeopt=menuone
+
     let g:NumberToggleTrigger="<leader>n"
 
     let g:syntastic_always_populate_loc_list = 1
