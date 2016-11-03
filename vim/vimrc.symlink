@@ -199,6 +199,10 @@ endfunction
 
 function s:ConfigureCtrlP()
     set wildignore+=*.class
+    let g:ctrlp_by_filename = 1
+    let g:ctrlp_custom_ignore = {
+      \ 'dir':  '/target$',
+      \ }
 endfunction
 
 function s:ConfigureEasytags()
