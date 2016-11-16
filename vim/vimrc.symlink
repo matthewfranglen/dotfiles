@@ -128,16 +128,10 @@ function s:RegisterPlugins()
 
     Plug 'https://github.com/tpope/vim-dispatch.git'
 
-    Plug 'https://github.com/dart-lang/dart-vim-plugin.git'
-    Plug 'https://github.com/ekalinin/Dockerfile.vim.git'
-    Plug 'https://github.com/fatih/vim-go.git'
-    Plug 'https://github.com/groenewege/vim-less.git'
-    Plug 'https://github.com/hail2u/vim-css3-syntax.git'
+    Plug 'https://github.com/sheerun/vim-polyglot.git'
     Plug 'https://github.com/jrozner/vim-antlr.git'
     Plug 'https://github.com/lervag/vimtex.git'
-    Plug 'https://github.com/vim-perl/vim-perl'
     Plug 'https://github.com/vim-scripts/bnf.vim.git'
-    Plug 'https://github.com/vim-scripts/nginx.vim.git'
 
     Plug 'https://github.com/bronson/vim-visual-star-search'
     Plug 'https://github.com/godlygeek/tabular.git'
