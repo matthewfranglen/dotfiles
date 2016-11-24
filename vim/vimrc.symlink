@@ -296,7 +296,7 @@ function s:LoadKeymaps()
     noremap <unique> <script> <leader>gd :call <SID>ShowGitDiff()<CR>
 
     " Toggle Tags with <F8>, Nerdtree with <F7>
-    nmap <F7> :NERDTreeToggle<CR><C-W>l
+    nmap <F7> :NERDTreeToggle<CR>:only<CR>
     nmap <F8> :TagbarToggle<CR>
 endfunction
 
