@@ -229,5 +229,17 @@ precmd() {
   print -P '%{%f%b%k%}$(build_prompt)'
 }
 
-PROMPT='%{%(?.%F{green}.%F{red})%}➜%{%f%} '
+INSERT_PROMPT='%{%(?.%F{green}.%F{red})%}➜%{%f%} '
+NORMAL_PROMPT='%{%F{blue}%}➜%{%f%} '
+PROMPT=${INSERT_PROMPT}
 
+function zle-keymap-select {
+    case ${KEYMAP} in
+        (vicmd)      PROMPT="$NORMAL_PROMPT" ;;
+        (main|viins) PROMPT="$INSERT_PROMPT" ;;
+        (*)          PROMPT="$INSERT_PROMPT" ;;
+    esac
+    zle reset-prompt
+}
+
+zle -N zle-keymap-select
