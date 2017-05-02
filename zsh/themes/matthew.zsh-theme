@@ -92,12 +92,13 @@ prompt_git() {
     local LC_ALL="" LC_CTYPE="en_US.UTF-8"
     PL_BRANCH_CHAR=$'\ue0a0'         # 
   }
-  local ref dirty mode repo_path
+  local ref dirty mode repo_path stashes
   repo_path=$(git rev-parse --git-dir 2>/dev/null)
 
   if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
     dirty=$(parse_git_dirty)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
+    stashes=$(git stashes 2>/dev/null)
     if [[ -n $dirty ]]; then
       prompt_segment yellow black
     else
@@ -124,6 +125,10 @@ prompt_git() {
     zstyle ':vcs_info:*' actionformats ' %u%c'
     vcs_info
     echo -n "${ref/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
+
+    if [[ -n $stashes ]]; then
+      prompt_segment yellow black ${stashes}
+    fi
   fi
 }
 
