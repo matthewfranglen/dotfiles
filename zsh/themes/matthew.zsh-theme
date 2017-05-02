@@ -198,6 +198,13 @@ prompt_virtualenv() {
   fi
 }
 
+# Docker Machine: current loaded docker machine
+prompt_docker_machine() {
+  if [[ -n $DOCKER_MACHINE_NAME ]]; then
+    prompt_segment blue white "\Uf1d8 $DOCKER_MACHINE_NAME"
+  fi
+}
+
 # Status:
 # - was there an error
 # - am I root
@@ -217,6 +224,7 @@ build_prompt() {
   RETVAL=$?
   prompt_status
   prompt_virtualenv
+  prompt_docker_machine
   prompt_context
   prompt_dir
   prompt_git
