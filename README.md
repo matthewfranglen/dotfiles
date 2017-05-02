@@ -11,3 +11,15 @@ Installation
     cd ~/.dotfiles
     script/bootstrap
     script/install
+
+Testing
+-------
+
+Yeah, it's that bad.
+
+    docker build --tag dotfiles --no-cache .
+    docker run --volume $PWD:/root/.dotfiles --rm -ti dotfiles
+
+Then run
+
+    ~/.dotfiles/script/bootstrap && ~/.dotfiles/script/install ; zsh
