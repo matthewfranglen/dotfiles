@@ -224,7 +224,7 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
 
-CMD_MAX_EXEC_TIME=6
+readonly CMD_MAX_EXEC_TIME=5
 prompt_time() {
   local stop=`date +%s`
   local start=${cmd_timestamp:-$stop}

@@ -1,4 +1,5 @@
 source ~/.antigen.zsh
+
 [ -e ~/.antigen-plugins.zsh ] && source ~/.antigen-plugins.zsh
 antigen-bundle Tarrasch/zsh-colors
 antigen-bundle Tarrasch/zsh-functional
