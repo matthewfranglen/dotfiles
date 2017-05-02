@@ -111,6 +111,11 @@ function s:PrepareForPluginLoad()
     let g:NumberToggleTrigger="<leader>n"
 
     let g:syntastic_always_populate_loc_list = 1
+
+    " Use ag for ack if it is available
+    if executable('ag')
+        let g:ackprg = 'ag --vimgrep'
+    endif
 endfunction
 
 function s:InstallPluginLoader()
