@@ -219,10 +219,46 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
 
+CMD_MAX_EXEC_TIME=6
+prompt_time() {
+  local stop=`date +%s`
+  local start=${cmd_timestamp:-$stop}
+  let local elapsed=$stop-$start
+  if [ $elapsed -gt $CMD_MAX_EXEC_TIME ]; then
+    prompt_segment black default "`pretty_print_time $elapsed`"
+  fi
+}
+
+pretty_print_time() {
+  local seconds=$1
+  local minutes=$(($seconds / 60))
+  local hours=$(($minutes / 60))
+  local days=$(($hours / 24))
+
+  seconds=$(($seconds % 60))
+  minutes=$(($minutes % 60))
+  hours=$(($hours % 24))
+
+  # Create array of the non-zero times.
+  # Got to declare this separate from the local definition, otherwise things get all funny.
+  local result
+  result=()
+  for value unit in $days d $hours h $minutes m $seconds s
+  do
+    if [ $value -gt 0 ]; then
+      result[$(($#result + 1))]="${value}${unit}"
+    fi
+  done
+
+  # Join the array with spaces - could be much fancier
+  echo ${(j: :)result}
+}
+
 ## Main prompt
 build_prompt() {
   RETVAL=$?
   prompt_status
+  prompt_time
   prompt_virtualenv
   prompt_docker_machine
   prompt_context
@@ -233,9 +269,20 @@ build_prompt() {
   prompt_end
 }
 
-precmd() {
-  print -P '%{%f%b%k%}$(build_prompt)'
+record_timestamp() {
+    cmd_timestamp=`date +%s`
 }
+
+show_status() {
+  print -P '%{%f%b%k%}$(build_prompt)'
+
+  # Reset value since `preexec` isn't always triggered
+  unset cmd_timestamp
+}
+
+autoload -U add-zsh-hook
+add-zsh-hook preexec record_timestamp
+add-zsh-hook precmd show_status
 
 INSERT_PROMPT='%{%(?.%F{green}.%F{red})%}➜%{%f%} '
 NORMAL_PROMPT='%{%F{blue}%}➜%{%f%} '
@@ -249,5 +296,6 @@ function zle-keymap-select {
     esac
     zle reset-prompt
 }
-
 zle -N zle-keymap-select
+
+export DEFAULT_USER=matthew
