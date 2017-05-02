@@ -9,10 +9,10 @@ install () {
         return ${STATUS_ERROR}
     fi
 
-    install_antigen || return ${STATUS_ERROR}
-    install_fasd    || return ${STATUS_ERROR}
-    install_fzf     || return ${STATUS_ERROR}
-    install_noti    || return ${STATUS_ERROR}
+    install_antigen   || return ${STATUS_ERROR}
+    install_fzf       || return ${STATUS_ERROR}
+    install_noti      || return ${STATUS_ERROR}
+    install_oh_my_zsh || return ${STATUS_ERROR}
 }
 
 is_git_command_available () {
@@ -27,7 +27,24 @@ install_antigen () {
         return
     fi
 
-    get_url_to_file "https://cdn.rawgit.com/zsh-users/antigen/v1.2.1/bin/antigen.zsh" "${antigen_script_file}" || return 1
+    get_url_to_file "https://git.io/antigen" "${antigen_script_file}" || return 1
+}
+
+install_oh_my_zsh () {
+    if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
+        mv ~/.zshrc ~/.zshrc.pre-oh-my-zsh
+    fi
+
+    get_url_to_file "https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh" - | zsh
+    local install_status=$?
+
+    rm ~/.zshrc
+
+    if [ -f ~/.zshrc.pre-oh-my-zsh ] || [ -h ~/.zshrc.pre-oh-my-zsh ]; then
+        mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+    fi
+
+    return $install_status
 }
 
 install_fzf () {
@@ -38,24 +55,6 @@ install_fzf () {
 
     git clone --quiet --depth 1 "https://github.com/junegunn/fzf.git" "${HOME}/.fzf"
     "${HOME}/.fzf/install" --no-completion --key-bindings --update-rc
-}
-
-install_fasd () {
-    local fasd_script_file="${HOME}/.fasd.zsh"
-    local fasd_link_file="${LOCAL_BIN_FOLDER}/fasd"
-
-    make_local_bin
-
-    if [ ! -e "${fasd_script_file}" ]
-    then
-        get_url_to_file "https://raw.githubusercontent.com/clvv/fasd/master/fasd" "${fasd_script_file}" || return 1
-        chmod 755 "${fasd_script_file}"
-    fi
-
-    if [ ! -e "${fasd_link_file}" ]
-    then
-        ln -s "${fasd_script_file}" "${HOME}/.local/bin/fasd"
-    fi
 }
 
 install_noti () {

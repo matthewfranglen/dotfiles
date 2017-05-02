@@ -5,7 +5,12 @@ alias lla='ls -al'
 
 alias youtube='each "youtube-dl --extract-audio --output \"%(title)s.%(ext)s\" \"\$1\""'
 
-alias awkf="awk '{ print \$1 }'"
-alias awkl="awk '{ print \$NF }'"
+function mgk () {
+    gitk --all "$@" &!
+}
+
+function mgg () {
+    gitg --all "$@" &!
+}
 
 # vim: set ai et sw=4 syntax=zsh :

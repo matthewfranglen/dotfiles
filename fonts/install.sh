@@ -32,7 +32,7 @@ readonly FONTS_FOLDER="${HOME}/.local/share/fonts"
 readonly FONT_FILE="${FONTS_FOLDER}/Source Code Pro Black Nerd Font Complete Mono.ttf"
 
 install_fonts () {
-    [ ! -e "${FONTS_FOLDER}" ] && mkdir "${FONTS_FOLDER}"
+    [ ! -e "${FONTS_FOLDER}" ] && mkdir -p "${FONTS_FOLDER}"
     get_url_to_file "${FONT_URL}" "${FONT_FILE}"
     fc-cache -f "${FONTS_FOLDER}"
 }

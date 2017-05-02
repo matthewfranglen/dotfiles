@@ -92,7 +92,7 @@ get_url_to_file () {
         wget --quiet --output-document "${filename}" "${url}"
     elif which curl >/dev/null
     then
-        curl --silent --location "${url}" > "${filename}"
+        curl --fail --silent --show-error --location --output "${filename}" "${url}"
     else
         printf "Unable to download ${filename} from ${url}... wget and curl commands not found\n" >&2
         return 1
