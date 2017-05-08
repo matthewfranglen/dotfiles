@@ -1,5 +1,3 @@
-eval "$(~/.fasd.zsh --init auto)"
-
 # Takes a PID and executable name. Checks that the pid is running and is the executable.
 function is_running_as () {
     local process_pid=$1
