@@ -30,4 +30,6 @@ antigen-apply
 # Has to be done after loading.
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=5"
 
+source ~/.fzf.zsh
+
 # vim: set ai et sw=4 syntax=zsh :
