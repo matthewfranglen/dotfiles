@@ -54,7 +54,7 @@ install_fzf () {
     fi
 
     git clone --quiet --depth 1 "https://github.com/junegunn/fzf.git" "${HOME}/.fzf"
-    "${HOME}/.fzf/install" --no-completion --key-bindings --update-rc
+    "${HOME}/.fzf/install" --no-completion --key-bindings --no-update-rc
 }
 
 install_noti () {
