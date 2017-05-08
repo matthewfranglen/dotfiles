@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# Test dotfile installation in Docker
+
+set -euo pipefail
+
+/root/.dotfiles/script/bootstrap
+/root/.dotfiles/script/install
+
+exec zsh
