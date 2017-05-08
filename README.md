@@ -20,6 +20,5 @@ Yeah, it's that bad.
     docker build --tag dotfiles --no-cache .
     docker run --volume $PWD:/root/.dotfiles --rm -ti dotfiles
 
-Then run
-
-    ~/.dotfiles/script/bootstrap && ~/.dotfiles/script/install ; zsh
+If successful, this will launch a zsh shell inside the docker container.
+You can use this to check that all required commands are available.
