@@ -5,9 +5,10 @@ antigen-bundle Tarrasch/zsh-colors
 antigen-bundle Tarrasch/zsh-functional
 antigen-bundle bobthecow/git-flow-completion
 antigen-bundle matthewfranglen/easy-ln
-antigen-bundle matthewfranglen/git-update
 antigen-bundle matthewfranglen/git-stashes
+antigen-bundle matthewfranglen/git-update
 antigen-bundle matthewfranglen/memcached-cli
+antigen-bundle matthewfranglen/random
 antigen-bundle matthewfranglen/show-server-cert
 antigen-bundle matthewfranglen/spark
 antigen-bundle matthewfranglen/speedread
