@@ -95,7 +95,7 @@ install_dotfiles () {
   local overwrite_all=false backup_all=false skip_all=false
   local tmp_dst
 
-  for src in $(find "$DOTFILES_FOLDER/" -maxdepth 3 -name '*.symlink')
+  for src in $(find "$DOTFILES_FOLDER/" -maxdepth 4 -name '*.symlink')
   do
     tmp_dst="$HOME/.${src#$DOTFILES_FOLDER/*/}"
     dst="${tmp_dst%.*}"
