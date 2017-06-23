@@ -250,7 +250,7 @@ endfunction
 
 function s:ConfigureNERDTree()
     " http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
-    let g:NERDTreeIgnore = ['\.pyc$']
+    let g:NERDTreeIgnore = ['\.pyc$[[file]]', '__pycache__$[[dir]]']
 
     " http://stackoverflow.com/questions/8680752/how-to-open-a-file-in-new-tab-by-default-in-nerdtree
     let g:NERDTreeMapOpenInTab='<ENTER>'
