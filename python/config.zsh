@@ -1,12 +1,8 @@
-if [ -e ~/.local/bin/virtualenvwrapper_lazy.sh ]
+if [ -z "${PYENV_ROOT+x}" ]
 then
-    source ~/.local/bin/virtualenvwrapper_lazy.sh
-fi
+    export PYENV_ROOT="${HOME}/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
 
-if [ -e ~/.pyenv/bin ] && [ -z "${PYENV_INIT}" ]
-then
-    export PYENV_INIT=1
-    export PATH="${HOME}/.pyenv/bin:$PATH"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
