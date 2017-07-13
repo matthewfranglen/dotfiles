@@ -138,9 +138,12 @@ function s:RegisterPlugins()
     Plug 'https://github.com/lervag/vimtex.git'
     Plug 'https://github.com/vim-scripts/bnf.vim.git'
 
+    Plug 'https://github.com/SirVer/ultisnips.git'
+    Plug 'https://github.com/Valloric/YouCompleteMe.git', { 'do': './install.sh' }
     Plug 'https://github.com/bronson/vim-visual-star-search'
     Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
     Plug 'https://github.com/godlygeek/tabular.git'
+    Plug 'https://github.com/honza/vim-snippets.git'
     Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
     Plug 'https://github.com/junegunn/fzf.git', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
     Plug 'https://github.com/junegunn/tmux-complete.vim.git'
@@ -164,10 +167,6 @@ function s:RegisterPlugins()
     Plug 'https://github.com/tpope/vim-unimpaired.git'
     Plug 'https://github.com/vim-scripts/AnsiEsc.vim.git'
     Plug 'https://github.com/vim-scripts/kwbdi.vim.git'
-
-    Plug 'https://github.com/Valloric/YouCompleteMe.git', { 'do': './install.sh' }
-    Plug 'https://github.com/SirVer/ultisnips.git'
-    Plug 'https://github.com/honza/vim-snippets.git'
 
 endfunction
 
