@@ -8,7 +8,7 @@ endif
 let g:loaded_vimrc = 1
 
 
-function s:Main()
+function s:Main() abort
     call s:LoadPlugins()
     call s:LoadKeymaps()
     call s:LoadTags()
@@ -22,7 +22,7 @@ endfunction
 " :exe '! git add ' . join(BuffersList(), ' ')
 " Would add the file corresponding to every open buffer to git.
 " See http://stackoverflow.com/a/271709/170865
-function! BuffersList()
+function! BuffersList() abort
     let all = range(0, bufnr('$'))
     let result = []
 
@@ -36,7 +36,7 @@ function! BuffersList()
 endfunction
 
 
-function s:LoadPlugins()
+function s:LoadPlugins() abort
     if s:CannotLoadPlugins()
         return 0
     endif
@@ -63,28 +63,28 @@ function s:LoadPlugins()
     return 1
 endfunction
 
-function s:CannotLoadPlugins()
+function s:CannotLoadPlugins() abort
     return version <= 701
 endfunction
 
-function s:CanInstallPluginLoader()
+function s:CanInstallPluginLoader() abort
     " Can only install the plugin loader when vim is starting
     return has('vim_starting')
 endfunction
 
-function s:PluginLoaderMissing()
+function s:PluginLoaderMissing() abort
     return !filereadable(expand('~/.vim/autoload/plug.vim'))
 endfunction
 
-function s:CanUsePython()
+function s:CanUsePython() abort
     return has('python') || has('python3')
 endfunction
 
-function s:VersionSufficientToUseYouCompleteMe()
+function s:VersionSufficientToUseYouCompleteMe() abort
     return ( v:version > 704 || ( v:version > 703 && has('patch584') ) )
 endfunction
 
-function s:PluginsMissing()
+function s:PluginsMissing() abort
     " The g:plugs map maps the plugin name to the settings for it.
     " The most relevant setting for this is the 'dir' setting which is the
     " destination folder.
@@ -100,7 +100,7 @@ function s:PluginsMissing()
     return 0
 endfunction
 
-function s:PrepareForPluginLoad()
+function s:PrepareForPluginLoad() abort
     " Fuck YouCompleteMe. Bastard!
     let g:ycm_key_list_select_completion = []
     let g:ycm_key_list_previous_completion = []
@@ -118,14 +118,14 @@ function s:PrepareForPluginLoad()
     endif
 endfunction
 
-function s:InstallPluginLoader()
+function s:InstallPluginLoader() abort
     echo "Installing Vim Plug.."
     echo ""
     silent !mkdir --parents ~/.vim/autoload
     silent !curl --fail --location --output ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endfunction
 
-function s:RegisterPlugins()
+function s:RegisterPlugins() abort
     " Each of these is registered in the g:plugs map.
     Plug 'https://github.com/altercation/vim-colors-solarized.git'
     Plug 'https://github.com/flazz/vim-colorschemes.git'
@@ -171,7 +171,7 @@ function s:RegisterPlugins()
 
 endfunction
 
-function s:ConfigurePlugins()
+function s:ConfigurePlugins() abort
     call s:ConfigureColors()
     call s:ConfigureCtrlP()
     call s:ConfigureEasytags()
@@ -188,7 +188,7 @@ function s:ConfigurePlugins()
     endif
 endfunction
 
-function s:ConfigureColors()
+function s:ConfigureColors() abort
     " Convince Vim it can use 256 colors inside Gnome Terminal.
     " Needs CSApprox plugin
     set t_Co=256
@@ -198,7 +198,7 @@ function s:ConfigureColors()
     colorscheme solarized
 endfunction
 
-function s:ConfigureCtrlP()
+function s:ConfigureCtrlP() abort
     set wildignore+=*.class
     let g:ctrlp_by_filename = 1
     let g:ctrlp_custom_ignore = {
@@ -206,19 +206,19 @@ function s:ConfigureCtrlP()
       \ }
 endfunction
 
-function s:ConfigureEasytags()
+function s:ConfigureEasytags() abort
     " Update local tags files in preference to the global one
     let g:easytags_dynamic_files = 1
     let g:easytags_async = 1
 endfunction
 
-function s:ConfigureEclim()
+function s:ConfigureEclim() abort
     autocmd FileType java call s:ConfigureEclimJavaBindings()
     let g:EclimJavascriptLintEnabled = 0
     let g:EclimJavaSearchSingleResult = 'tabnew'
 endfunction
 
-function s:ConfigureEclimJavaBindings()
+function s:ConfigureEclimJavaBindings() abort
     nnoremap <silent> <buffer> <leader>jc :Checkstyle<CR>
     nnoremap <silent> <buffer> <leader>jC :JavaCorrect<CR>
     nnoremap <silent> <buffer> <leader>jd :JavaDocSearch -x declarations<CR>
@@ -235,20 +235,20 @@ function s:ConfigureEclimJavaBindings()
     nnoremap <silent> <buffer> <leader>jI :AddStaticImport<CR>
 endfunction
 
-function s:ConfigureJavaOmniComplete()
+function s:ConfigureJavaOmniComplete() abort
     autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
     autocmd FileType java if &completefunc != '' | let &omnifunc=&completefunc | endif
     autocmd FileType java nnoremap <silent> <buffer> <CR> :JavaSearchContext<CR>
 endfunction
 
-function s:ConfigureMarkdown()
+function s:ConfigureMarkdown() abort
     " Set markdown filetype and spelling
     " Required otherwise .md is modulo-2 filetype
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     autocmd BufRead,BufNewFile *.md setlocal spell
 endfunction
 
-function s:ConfigureNERDTree()
+function s:ConfigureNERDTree() abort
     " http://stackoverflow.com/questions/5601749/how-to-filter-out-files-by-extension-in-nerdtree
     let g:NERDTreeIgnore = ['\.pyc$[[file]]', '__pycache__$[[dir]]']
 
@@ -256,7 +256,7 @@ function s:ConfigureNERDTree()
     let g:NERDTreeMapOpenInTab='<ENTER>'
 endfunction
 
-function s:ConfigureRainbowParenthesis()
+function s:ConfigureRainbowParenthesis() abort
     " Load rainbow parens for clojure files
     autocmd FileType clojure RainbowParenthesesToggle
     autocmd Syntax clojure RainbowParenthesesLoadRound
@@ -264,22 +264,22 @@ function s:ConfigureRainbowParenthesis()
     autocmd Syntax clojure RainbowParenthesesLoadBraces
 endfunction
 
-function s:ConfigureSyntastic()
+function s:ConfigureSyntastic() abort
     let g:syntastic_python_checkers = ['python', 'pyflakes', 'pep8', 'pylint']
     let g:syntastic_javascript_checkers = ['eslint']
 endfunction
 
-function s:ConfigureUltiSnips()
+function s:ConfigureUltiSnips() abort
     let g:UltiSnipsExpandTrigger="<C-E>"
     let g:UltiSnipsJumpForwardTrigger="<C-N>"
     let g:UltiSnipsJumpBackwardTrigger="<C-P>"
 endfunction
 
-function s:ConfigurePowerline()
+function s:ConfigurePowerline() abort
     set rtp+=~/.local/lib/python2.7/site-packages/powerline/bindings/vim
 endfunction
 
-function s:LoadKeymaps()
+function s:LoadKeymaps() abort
     autocmd FileType perl :call <SID>LoadPerlKeymaps()
 
     " Map leader to space.
@@ -307,27 +307,27 @@ function s:LoadKeymaps()
     nmap <F8> :TagbarToggle<CR>
 endfunction
 
-function s:LoadPerlKeymaps()
+function s:LoadPerlKeymaps() abort
     nmap <leader>f :% ! perltidy<CR>
     iabbrev _dump Data::Dumper->new( [ ] )->Dump;
 endfunction
 
-function s:ShowGitDiff()
+function s:ShowGitDiff() abort
     execute g:ExecuteInShell('git diff')
     set syntax=diff
 endfunction
 
-function s:LoadCustomSettings()
+function s:LoadCustomSettings() abort
     if filereadable("./vimrc")
         source ./vimrc
     endif
 endfunction
 
-function s:LoadTags()
+function s:LoadTags() abort
     set tags=$HOME/.vimtags_jdk,./tags
 endfunction
 
-function s:LoadPath()
+function s:LoadPath() abort
     autocmd FileType java setlocal path=,,.,**/src/**/java
 endfunction
 
