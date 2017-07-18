@@ -6,3 +6,5 @@ then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
+
+export PIP_REQUIRE_VIRTUALENV=true
