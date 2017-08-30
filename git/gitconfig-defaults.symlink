@@ -56,5 +56,8 @@
     }; f"
 [push]
     default = tracking
+[filter "clean_ipynb"]
+    clean = jq --indent 1 --monochrome-output '. + if .metadata.git.suppress_outputs | not then { cells: [.cells[] | . + if .cell_type == \"code\" then { outputs: [], execution_count: null } else {} end ] } else {} end'
+    smudge = cat
 
 # vim: set ai et sw=4 syntax=gitconfig :
