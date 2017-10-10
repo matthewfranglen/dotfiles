@@ -4,10 +4,15 @@
     pager = less -F -X
 [color]
     ui = true
+[commit]
+    verbose = true
 [diff]
     algorithm = patience
 [merge]
     tool = vimdiff
+    ff = false
+[mergetool]
+    keepBackup = false
 [alias]
     fap = fetch --all --prune
 
@@ -33,6 +38,15 @@
 
 # The first commit cannot be rebased so it's nice to have it empty
     new = "!git init && git commit -m 'Initial commit' --allow-empty"
+
+# Make ignoring files easy
+# https://github.com/caius/zshrc/blob/master/dotfiles/gitconfig#L72
+# http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
+    assume = update-index --assume-unchanged
+    unassume = update-index --no-assume-unchanged
+    assumed = "!git ls-files -v | awk '/^h / { sub(/^h /, ""); print $0 }'"
+
+    standup = "!git log --since yesterday --oneline --author \"$(git config user.name)\""
 
 # This performs a shell command bound to a git alias.
 # See: http://blogs.atlassian.com/2014/10/advanced-git-aliases/
