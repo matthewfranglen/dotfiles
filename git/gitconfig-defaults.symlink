@@ -44,7 +44,7 @@
 # http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
     assume = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
-    assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+    assumed = "!git ls-files -v | awk '/^h / { sub(/^h /, ""); print $0 }'"
 
     standup = "!git log --since yesterday --oneline --author \"$(git config user.name)\""
 
