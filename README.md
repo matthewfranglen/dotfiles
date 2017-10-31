@@ -12,6 +12,11 @@ Installation
     script/bootstrap
     script/install
 
+This requires pip3 and neovim to be installed:
+
+    sudo apt-get install python3-pip
+    PIP_REQUIRE_VIRTUALENV= pip3 install neovim --user
+
 Testing
 -------
 

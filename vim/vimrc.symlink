@@ -1,4 +1,3 @@
-" Guard against loading this twice. This does mean you cannot do:
 " source $MYVIMRC
 " to pick up changes, but that isn't usually what you want anyway (it does not
 " clear existing settings that are no longer being set).
@@ -80,10 +79,6 @@ function s:CanUsePython() abort
     return has('python') || has('python3')
 endfunction
 
-function s:VersionSufficientToUseYouCompleteMe() abort
-    return ( v:version > 704 || ( v:version > 703 && has('patch584') ) )
-endfunction
-
 function s:PluginsMissing() abort
     " The g:plugs map maps the plugin name to the settings for it.
     " The most relevant setting for this is the 'dir' setting which is the
@@ -101,16 +96,12 @@ function s:PluginsMissing() abort
 endfunction
 
 function s:PrepareForPluginLoad() abort
-    " Fuck YouCompleteMe. Bastard!
-    let g:ycm_key_list_select_completion = []
-    let g:ycm_key_list_previous_completion = []
-
-    let g:ycm_add_preview_to_completeopt = 0
     set completeopt=menuone
 
     let g:NumberToggleTrigger="<leader>n"
 
     let g:syntastic_always_populate_loc_list = 1
+    let g:python3_host_prog = 'python3'
 
     " Use ag for ack if it is available
     if executable('ag')
@@ -138,8 +129,11 @@ function s:RegisterPlugins() abort
     Plug 'https://github.com/lervag/vimtex.git'
     Plug 'https://github.com/vim-scripts/bnf.vim.git'
 
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+
     Plug 'https://github.com/SirVer/ultisnips.git'
-    Plug 'https://github.com/Valloric/YouCompleteMe.git', { 'do': './install.sh' }
     Plug 'https://github.com/bronson/vim-visual-star-search'
     Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
     Plug 'https://github.com/godlygeek/tabular.git'
@@ -174,6 +168,7 @@ endfunction
 function s:ConfigurePlugins() abort
     call s:ConfigureColors()
     call s:ConfigureCtrlP()
+    call s:ConfigureDeoplete()
     call s:ConfigureEasytags()
     call s:ConfigureEclim()
     call s:ConfigureJavaOmniComplete()
@@ -204,6 +199,14 @@ function s:ConfigureCtrlP() abort
     let g:ctrlp_custom_ignore = {
       \ 'dir':  '/target$',
       \ }
+endfunction
+
+function s:ConfigureDeoplete() abort
+    if has("python3")
+        call deoplete#enable()
+    else
+        echo "Cannot enable deoplete, need python3 support"
+    endif
 endfunction
 
 function s:ConfigureEasytags() abort
