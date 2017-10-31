@@ -202,7 +202,11 @@ function s:ConfigureCtrlP() abort
 endfunction
 
 function s:ConfigureDeoplete() abort
-    call deoplete#enable()
+    if has("python3")
+        call deoplete#enable()
+    else
+        echo "Cannot enable deoplete, need python3 support"
+    endif
 endfunction
 
 function s:ConfigureEasytags() abort
