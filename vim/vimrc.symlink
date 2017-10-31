@@ -101,6 +101,7 @@ function s:PrepareForPluginLoad() abort
     let g:NumberToggleTrigger="<leader>n"
 
     let g:syntastic_always_populate_loc_list = 1
+    let g:python3_host_prog = 'python3'
 
     " Use ag for ack if it is available
     if executable('ag')
@@ -128,7 +129,10 @@ function s:RegisterPlugins() abort
     Plug 'https://github.com/lervag/vimtex.git'
     Plug 'https://github.com/vim-scripts/bnf.vim.git'
 
-    Plug 'https://github.com/Shougo/neocomplete.vim.git'
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+
     Plug 'https://github.com/SirVer/ultisnips.git'
     Plug 'https://github.com/bronson/vim-visual-star-search'
     Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
@@ -164,6 +168,7 @@ endfunction
 function s:ConfigurePlugins() abort
     call s:ConfigureColors()
     call s:ConfigureCtrlP()
+    call s:ConfigureDeoplete()
     call s:ConfigureEasytags()
     call s:ConfigureEclim()
     call s:ConfigureJavaOmniComplete()
@@ -194,6 +199,10 @@ function s:ConfigureCtrlP() abort
     let g:ctrlp_custom_ignore = {
       \ 'dir':  '/target$',
       \ }
+endfunction
+
+function s:ConfigureDeoplete() abort
+    call deoplete#enable()
 endfunction
 
 function s:ConfigureEasytags() abort
