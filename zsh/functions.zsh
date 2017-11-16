@@ -166,6 +166,12 @@ function zip_recursive_search () {
     return 1
 }
 
+function docker_clean () {
+    docker rm $(docker ps -aq 2>/dev/null) 2> /dev/null
+    docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2> /dev/null
+    docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2> /dev/null
+}
+
 # Don't dirty up the process tree on remote servers
 if [ -z $SSH_CONNECTION ]
 then
