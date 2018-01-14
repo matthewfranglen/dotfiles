@@ -176,7 +176,7 @@ function mgk () {
     if ! git rev-parse --show-toplevel >/dev/null 2>&1
     then
         echo "Not inside a git repository" >&2
-        return
+        return 1
     fi
 
     (
