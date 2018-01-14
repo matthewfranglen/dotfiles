@@ -172,6 +172,15 @@ function docker_clean () {
     docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2> /dev/null
 }
 
+function mgk () {
+    gitk --all "$@" &!
+}
+
+function mgg () {
+    gitg --all "$@" &!
+}
+
+
 # Don't dirty up the process tree on remote servers
 if [ -z $SSH_CONNECTION ]
 then
