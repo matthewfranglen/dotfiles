@@ -173,8 +173,14 @@ function docker_clean () {
 }
 
 function mgk () {
+    if ! git rev-parse --show-toplevel >/dev/null 2>&1
+    then
+        echo "Not inside a git repository" >&2
+        return
+    fi
+
     (
-        cd "$(git rev-parse --show-toplevel)" &&
+        cd "$(git rev-parse --show-toplevel)" ;
         gitk --all "$@" &!
     )
 }
