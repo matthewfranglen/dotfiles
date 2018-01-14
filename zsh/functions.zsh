@@ -173,7 +173,10 @@ function docker_clean () {
 }
 
 function mgk () {
-    gitk --all "$@" &!
+    (
+        cd "$(git rev-parse --show-toplevel)" ;
+        gitk --all "$@" &!
+    )
 }
 
 function mgg () {
