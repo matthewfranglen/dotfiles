@@ -37,7 +37,9 @@ install_oh_my_zsh () {
     fi
 
     get_url_to_file "https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh" - | zsh 2>&1
-    rm ~/.zshrc
+    if [ -e ~/.zshrc ]; then
+        rm ~/.zshrc
+    fi
 
     if [ -f ~/.zshrc.pre-oh-my-zsh ] || [ -h ~/.zshrc.pre-oh-my-zsh ]; then
         mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
