@@ -13,8 +13,9 @@ install () {
         return ${STATUS_ERROR}
     fi
 
-    install_pip   || return ${STATUS_ERROR}
-    install_pyenv || return ${STATUS_ERROR}
+    install_pip    || return ${STATUS_ERROR}
+    install_pyenv  || return ${STATUS_ERROR}
+    install_pipenv || return ${STATUS_ERROR}
 
     return ${STATUS_OK}
 }
@@ -22,6 +23,10 @@ install () {
 install_pyenv () {
     git clone --quiet https://github.com/pyenv/pyenv.git ~/.pyenv
     git clone --quiet https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+}
+
+install_pipenv () {
+    pip install --user pipenv
 }
 
 install
