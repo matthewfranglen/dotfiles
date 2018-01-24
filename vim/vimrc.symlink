@@ -164,6 +164,7 @@ function s:RegisterPlugins() abort
 endfunction
 
 function s:ConfigurePlugins() abort
+    call s:ConfigureAle()
     call s:ConfigureColors()
     call s:ConfigureCtrlP()
     call s:ConfigureDeoplete()
@@ -179,6 +180,10 @@ function s:ConfigurePlugins() abort
     if s:CanUsePython()
         call s:ConfigurePowerline()
     endif
+endfunction
+
+function s:ConfigureAle() abort
+    let g:ale_linters = { 'python': ['pylint'] }
 endfunction
 
 function s:ConfigureColors() abort
