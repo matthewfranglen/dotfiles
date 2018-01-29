@@ -23,6 +23,7 @@
     up = pull --rebase --autostash
 
     root = rev-parse --show-toplevel
+    current-branch = rev-parse --abbrev-ref HEAD
 
     ff = flow feature
     ffs = flow feature start
