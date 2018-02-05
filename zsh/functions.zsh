@@ -63,11 +63,6 @@ function set_terminal_title () {
     echo -ne "\033k${1}\033\\"
 }
 
-function show_github_activity () {
-    antigen-bundle matthewfranglen/git-activity
-    git-activity --limit $COLUMNS matthewfranglen | spark
-}
-
 # Combine fasd and control-p for quick file lookups.
 # This isn't bound to a key as it needs a directory, so the name is short.
 function vp () {
