@@ -59,25 +59,6 @@ function most_useless_use_of_zsh {
     done
 }
 
-function make_java_source_ctags_file () {
-    local jdk=${1:A}
-
-    if [ ! -e ${jdk}/src.zip ]
-    then
-        echo "You must provide the path to the JDK" >&2
-        false
-        return
-    fi
-
-    (
-        mkdir /tmp/java-source-code
-        cd /tmp/java-source-code
-        unzip ${jdk}/src.zip >/dev/null
-        ctags --recurse -f ~/.vimtags_jdk .
-    )
-    rm -r /tmp/java-source-code
-}
-
 function set_terminal_title () {
     echo -ne "\033k${1}\033\\"
 }
