@@ -63,19 +63,6 @@ function set_terminal_title () {
     echo -ne "\033k${1}\033\\"
 }
 
-# Combine fasd and control-p for quick file lookups.
-# This isn't bound to a key as it needs a directory, so the name is short.
-function vp () {
-    (
-        z "$*"
-        vim +:CtrlP
-    )
-}
-
-function vf () {
-    vim $(f "$*")
-}
-
 # Join a list of arguments by the first argument
 function join () {
     local IFS=$1
