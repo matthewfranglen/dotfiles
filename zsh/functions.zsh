@@ -59,45 +59,8 @@ function most_useless_use_of_zsh {
     done
 }
 
-function make_java_source_ctags_file () {
-    local jdk=${1:A}
-
-    if [ ! -e ${jdk}/src.zip ]
-    then
-        echo "You must provide the path to the JDK" >&2
-        false
-        return
-    fi
-
-    (
-        mkdir /tmp/java-source-code
-        cd /tmp/java-source-code
-        unzip ${jdk}/src.zip >/dev/null
-        ctags --recurse -f ~/.vimtags_jdk .
-    )
-    rm -r /tmp/java-source-code
-}
-
 function set_terminal_title () {
     echo -ne "\033k${1}\033\\"
-}
-
-function show_github_activity () {
-    antigen-bundle matthewfranglen/git-activity
-    git-activity --limit $COLUMNS matthewfranglen | spark
-}
-
-# Combine fasd and control-p for quick file lookups.
-# This isn't bound to a key as it needs a directory, so the name is short.
-function vp () {
-    (
-        z "$*"
-        vim +:CtrlP
-    )
-}
-
-function vf () {
-    vim $(f "$*")
 }
 
 # Join a list of arguments by the first argument
@@ -167,9 +130,7 @@ function zip_recursive_search () {
 }
 
 function docker_clean () {
-    docker rm $(docker ps -aq 2>/dev/null) 2> /dev/null
-    docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2> /dev/null
-    docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2> /dev/null
+    docker system prune -a
 }
 
 function mgk () {
