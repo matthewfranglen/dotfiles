@@ -134,7 +134,6 @@ function s:RegisterPlugins() abort
 
     Plug 'https://github.com/SirVer/ultisnips.git'
     Plug 'https://github.com/bronson/vim-visual-star-search'
-    Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
     Plug 'https://github.com/godlygeek/tabular.git'
     Plug 'https://github.com/honza/vim-snippets.git'
     Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
@@ -166,10 +165,10 @@ endfunction
 function s:ConfigurePlugins() abort
     call s:ConfigureAle()
     call s:ConfigureColors()
-    call s:ConfigureCtrlP()
     call s:ConfigureDeoplete()
     call s:ConfigureEasytags()
     call s:ConfigureEclim()
+    call s:ConfigureFZF()
     call s:ConfigureJavaOmniComplete()
     call s:ConfigureMarkdown()
     call s:ConfigureNERDTree()
@@ -194,14 +193,6 @@ function s:ConfigureColors() abort
 
     let g:solarized_termcolors = 256
     colorscheme solarized
-endfunction
-
-function s:ConfigureCtrlP() abort
-    set wildignore+=*.class
-    let g:ctrlp_by_filename = 1
-    let g:ctrlp_custom_ignore = {
-      \ 'dir':  '/target$',
-      \ }
 endfunction
 
 function s:ConfigureDeoplete() abort
@@ -239,6 +230,10 @@ function s:ConfigureEclimJavaBindings() abort
     " Add static import with <leader>jI
     " based on adding a regular import with <leader>ji
     nnoremap <silent> <buffer> <leader>jI :AddStaticImport<CR>
+endfunction
+
+function s:ConfigureFZF() abort
+    nnoremap <C-p> :FZF<CR>
 endfunction
 
 function s:ConfigureJavaOmniComplete() abort
