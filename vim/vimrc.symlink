@@ -159,6 +159,7 @@ function s:RegisterPlugins() abort
     Plug 'https://github.com/vim-scripts/AnsiEsc.vim.git'
     Plug 'https://github.com/vim-scripts/kwbdi.vim.git'
     Plug 'https://github.com/w0rp/ale.git'
+    Plug 'https://github.com/zchee/deoplete-jedi.git'
 
 endfunction
 
