@@ -45,17 +45,17 @@ autoload -U         edit-command-line
 zle      -N         edit-command-line
 bindkey  -M vicmd v edit-command-line
 
-# Map control-p to the vim ctrlp command. Will open vim and run ctrlp.
-function vim-ctrlp () {
+# Map control-p to the vim FZF command. Will open vim and run :FZF.
+function vim-fzf () {
     if [ $#BUFFER -ne 0 ]
     then
         zle push-line
     fi
-    BUFFER='vim +:CtrlP'
+    BUFFER='vim +:FZF'
     zle accept-line
 }
-zle -N                vim-ctrlp
-bindkey -M viins '^P' vim-ctrlp
+zle -N                vim-fzf
+bindkey -M viins '^P' vim-fzf
 
 function shell-fg () {
     if [ $#BUFFER -ne 0 ]
