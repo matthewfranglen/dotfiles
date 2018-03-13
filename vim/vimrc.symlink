@@ -141,6 +141,7 @@ function s:RegisterPlugins() abort
     Plug 'https://github.com/junegunn/tmux-complete.vim.git'
     Plug 'https://github.com/kien/rainbow_parentheses.vim.git'
     Plug 'https://github.com/majutsushi/tagbar.git'
+    Plug 'https://github.com/matthewfranglen/vim-gf-python.git'
     Plug 'https://github.com/matthewfranglen/vim-mf-defaults.git'
     Plug 'https://github.com/matthewfranglen/vim-nerdtree-direnter.git'
     Plug 'https://github.com/matthewfranglen/vim-repl.git'
