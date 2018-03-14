@@ -134,6 +134,7 @@ function s:RegisterPlugins() abort
 
     Plug 'https://github.com/SirVer/ultisnips.git'
     Plug 'https://github.com/bronson/vim-visual-star-search'
+    Plug 'https://github.com/davidhalter/jedi-vim.git'
     Plug 'https://github.com/godlygeek/tabular.git'
     Plug 'https://github.com/honza/vim-snippets.git'
     Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
@@ -141,7 +142,6 @@ function s:RegisterPlugins() abort
     Plug 'https://github.com/junegunn/tmux-complete.vim.git'
     Plug 'https://github.com/kien/rainbow_parentheses.vim.git'
     Plug 'https://github.com/majutsushi/tagbar.git'
-    Plug 'https://github.com/matthewfranglen/vim-gf-python.git'
     Plug 'https://github.com/matthewfranglen/vim-mf-defaults.git'
     Plug 'https://github.com/matthewfranglen/vim-nerdtree-direnter.git'
     Plug 'https://github.com/matthewfranglen/vim-repl.git'
