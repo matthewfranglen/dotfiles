@@ -2,14 +2,13 @@ set -eu
 
 . "`dirname \`dirname \\\`readlink -f $0\\\`\``/script/lib.sh"
 
+readonly PYENV_FOLDER="${HOME}/.pyenv"
+readonly PYENV_VIRTUALENV_FOLDER="${HOME}/.pyenv/plugins/pyenv-virtualenv"
+
 install () {
-    if [ -e "${HOME}/.pyenv" ] || [ -n "${PYENV_ROOT+x}" ]
-    then
-        return ${STATUS_OK}
-    fi
     if ! is_python_command_available
     then
-        echo "Unable to install pyenv... python not found" >&2
+        echo "Unable to install python environment... python not found" >&2
         return ${STATUS_ERROR}
     fi
 
@@ -21,12 +20,18 @@ install () {
 }
 
 install_pyenv () {
-    git clone --quiet https://github.com/pyenv/pyenv.git ~/.pyenv
-    git clone --quiet https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+    if [ ! -e "${PYENV_FOLDER}" ]
+    then
+        git clone --quiet https://github.com/pyenv/pyenv.git "${PYENV_FOLDER}"
+    fi
+    if [ ! -e "${PYENV_VIRTUALENV_FOLDER}" ]
+    then
+        git clone --quiet https://github.com/pyenv/pyenv-virtualenv.git "${PYENV_VIRTUALENV_FOLDER}"
+    fi
 }
 
 install_pipenv () {
-    pip install --user pipenv
+    PIP_REQUIRE_VIRTUALENV= pip install --user pipenv
 }
 
 install
