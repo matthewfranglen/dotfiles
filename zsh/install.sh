@@ -32,6 +32,8 @@ install_antigen () {
 }
 
 install_oh_my_zsh () {
+    export ZSH=$HOME/.oh-my-zsh
+
     if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
         mv ~/.zshrc ~/.zshrc.pre-oh-my-zsh
     fi
