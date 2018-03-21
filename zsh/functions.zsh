@@ -150,6 +150,16 @@ function mgg () {
     gitg --all "$@" &!
 }
 
+function title_override () {
+    export DISABLE_AUTO_TITLE=true
+
+    title "${*}"
+}
+
+function title_restore () {
+    unset DISABLE_AUTO_TITLE
+}
+
 
 # Don't dirty up the process tree on remote servers
 if [ -z $SSH_CONNECTION ]
