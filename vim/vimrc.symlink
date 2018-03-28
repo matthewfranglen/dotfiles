@@ -136,6 +136,7 @@ function s:RegisterPlugins() abort
     Plug 'https://github.com/bronson/vim-visual-star-search'
     Plug 'https://github.com/davidhalter/jedi-vim.git'
     Plug 'https://github.com/godlygeek/tabular.git'
+    Plug 'https://github.com/google/yapf.git', { 'rtp': 'plugins/vim', 'for': 'python' }
     Plug 'https://github.com/honza/vim-snippets.git'
     Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
     Plug 'https://github.com/junegunn/fzf.git', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
