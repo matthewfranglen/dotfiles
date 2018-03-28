@@ -136,6 +136,7 @@ function s:RegisterPlugins() abort
     Plug 'https://github.com/bronson/vim-visual-star-search'
     Plug 'https://github.com/davidhalter/jedi-vim.git'
     Plug 'https://github.com/godlygeek/tabular.git'
+    Plug 'https://github.com/google/yapf.git', { 'rtp': 'plugins/vim', 'for': 'python' }
     Plug 'https://github.com/honza/vim-snippets.git'
     Plug 'https://github.com/jeffkreeftmeijer/vim-numbertoggle'
     Plug 'https://github.com/junegunn/fzf.git', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
@@ -178,6 +179,7 @@ function s:ConfigurePlugins() abort
     call s:ConfigureRainbowParenthesis()
     call s:ConfigureSyntastic()
     call s:ConfigureUltiSnips()
+    call s:ConfigureYAPF()
 
     if s:CanUsePython()
         call s:ConfigurePowerline()
@@ -185,7 +187,7 @@ function s:ConfigurePlugins() abort
 endfunction
 
 function s:ConfigureAle() abort
-    let g:ale_linters = { 'python': ['pylint'] }
+    let g:ale_linters = { 'python': ['pylint', 'mypy'] }
 endfunction
 
 function s:ConfigureColors() abort
@@ -277,6 +279,11 @@ function s:ConfigureUltiSnips() abort
     let g:UltiSnipsExpandTrigger="<C-E>"
     let g:UltiSnipsJumpForwardTrigger="<C-N>"
     let g:UltiSnipsJumpBackwardTrigger="<C-P>"
+endfunction
+
+function s:ConfigureYAPF() abort
+    autocmd FileType python map <leader>f :call yapf#YAPF()<CR>
+    autocmd FileType python imap <leader>f <C-O>:call yapf#YAPF()<CR>
 endfunction
 
 function s:ConfigurePowerline() abort
