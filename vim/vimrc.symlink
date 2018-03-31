@@ -284,7 +284,6 @@ endfunction
 
 function s:ConfigureYAPF() abort
     autocmd FileType python map <leader>f :call yapf#YAPF()<CR>
-    autocmd FileType python imap <leader>f <C-O>:call yapf#YAPF()<CR>
 endfunction
 
 function s:ConfigurePowerline() abort
