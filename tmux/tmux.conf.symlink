@@ -43,10 +43,6 @@ setw -g automatic-rename
 # setw -g monitor-activity on
 set -g visual-activity on
 
-# Possible fix for the right hand side of the powerline
-# See: http://stackoverflow.com/a/13247602
-set -g utf8 on
-
 # tmux powerline configuration
 # If you have problems with this then consult the /tmp/tmux.log file.
 #
