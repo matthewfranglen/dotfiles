@@ -188,7 +188,7 @@ function s:ConfigurePlugins() abort
 endfunction
 
 function s:ConfigureAle() abort
-    let g:ale_linters = { 'python': ['pylint', 'mypy'] }
+    let g:ale_linters = { 'python': ['pylint', 'mypy'], 'java': [] }
     let g:ale_lint_on_text_changed = 'never'
 endfunction
 
