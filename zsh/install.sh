@@ -53,7 +53,7 @@ install_fasd () {
 
 install_fd () {
     local fd_download="/tmp/fd.tar.gz"
-    local fd_binary="${LOCAL_BIN_FOLDER}/rg"
+    local fd_binary="${LOCAL_BIN_FOLDER}/fd"
     if [ -e "${fd_binary}" ]
     then
         return
