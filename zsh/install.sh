@@ -11,6 +11,7 @@ install () {
 
     install_antigen   || return ${STATUS_ERROR}
     install_fasd      || return ${STATUS_ERROR}
+    install_fd        || return ${STATUS_ERROR}
     install_fzf       || return ${STATUS_ERROR}
     install_noti      || return ${STATUS_ERROR}
     install_oh_my_zsh || return ${STATUS_ERROR}
@@ -48,6 +49,30 @@ install_fasd () {
     then
         ln -s "${fasd_script_file}" "${HOME}/.local/bin/fasd"
     fi
+}
+
+install_fd () {
+    local fd_download="/tmp/fd.tar.gz"
+    local fd_binary="${LOCAL_BIN_FOLDER}/rg"
+    if [ -e "${fd_binary}" ]
+    then
+        return
+    fi
+
+    local fd_folder="$(mktemp -d)"
+    if [ ! -d "${fd_folder}" ]
+    then
+        return "${STATUS_ERROR}"
+    fi
+
+    get_url_to_file "https://github.com/sharkdp/fd/releases/download/v7.0.0/fd-v7.0.0-x86_64-unknown-linux-gnu.tar.gz" "${fd_download}" || return 1
+    (
+        cd "${fd_folder}"
+        tar -xzf "${fd_download}"
+        mv */fd "${fd_binary}"
+        rm "${fd_download}"
+    )
+    rm -rf "${fd_folder}"
 }
 
 install_fzf () {
