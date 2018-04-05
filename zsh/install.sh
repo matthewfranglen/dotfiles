@@ -31,23 +31,6 @@ install_antigen () {
     get_url_to_file "https://git.io/antigen" "${antigen_script_file}" || return 1
 }
 
-install_oh_my_zsh () {
-    export ZSH=$HOME/.oh-my-zsh
-
-    if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
-        mv ~/.zshrc ~/.zshrc.pre-oh-my-zsh
-    fi
-
-    get_url_to_file "https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh" - | zsh 2>&1
-    if [ -e ~/.zshrc ]; then
-        rm ~/.zshrc
-    fi
-
-    if [ -f ~/.zshrc.pre-oh-my-zsh ] || [ -h ~/.zshrc.pre-oh-my-zsh ]; then
-        mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
-    fi
-}
-
 install_fasd () {
     local fasd_script_file="${HOME}/.fasd.zsh"
     local fasd_link_file="${LOCAL_BIN_FOLDER}/fasd"
@@ -91,6 +74,23 @@ install_noti () {
         tar -xzf "${noti_download}"
         rm "${noti_download}"
     )
+}
+
+install_oh_my_zsh () {
+    export ZSH=$HOME/.oh-my-zsh
+
+    if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
+        mv ~/.zshrc ~/.zshrc.pre-oh-my-zsh
+    fi
+
+    get_url_to_file "https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh" - | zsh 2>&1
+    if [ -e ~/.zshrc ]; then
+        rm ~/.zshrc
+    fi
+
+    if [ -f ~/.zshrc.pre-oh-my-zsh ] || [ -h ~/.zshrc.pre-oh-my-zsh ]; then
+        mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+    fi
 }
 
 install
