@@ -23,6 +23,9 @@ export UBUNTU_MENUPROXY=
 # Support multiple terms each of which must match exactly (i.e. not fuzzed).
 # Can fuzz a word by starting with '
 export FZF_DEFAULT_OPTS="--extended-exact"
+# Setting fd as the default source for fzf
+# This respects .gitignore
+export FZF_DEFAULT_COMMAND='fd --type f'
 
 # Disable python virtualenv prompt modifications
 # They are handled by the prompt.zsh config
