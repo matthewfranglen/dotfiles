@@ -14,6 +14,7 @@ install () {
     install_fzf       || return ${STATUS_ERROR}
     install_noti      || return ${STATUS_ERROR}
     install_oh_my_zsh || return ${STATUS_ERROR}
+    install_ripgrep   || return ${STATUS_ERROR}
 }
 
 is_git_command_available () {
@@ -91,6 +92,30 @@ install_oh_my_zsh () {
     if [ -f ~/.zshrc.pre-oh-my-zsh ] || [ -h ~/.zshrc.pre-oh-my-zsh ]; then
         mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
     fi
+}
+
+install_ripgrep () {
+    local ripgrep_download="/tmp/ripgrep.tar.gz"
+    local ripgrep_binary="${LOCAL_BIN_FOLDER}/rg"
+    if [ -e "${ripgrep_binary}" ]
+    then
+        return
+    fi
+
+    local ripgrep_folder="$(mktemp -d)"
+    if [ ! -d "${ripgrep_folder}" ]
+    then
+        return "${STATUS_ERROR}"
+    fi
+
+    get_url_to_file "https://github.com/BurntSushi/ripgrep/releases/download/0.8.1/ripgrep-0.8.1-x86_64-unknown-linux-musl.tar.gz" "${ripgrep_download}" || return 1
+    (
+        cd "${ripgrep_folder}"
+        tar -xzf "${ripgrep_download}"
+        mv */rg "${ripgrep_binary}"
+        rm "${ripgrep_download}"
+    )
+    rm -rf "${ripgrep_folder}"
 }
 
 install
