@@ -24,6 +24,14 @@
 
     root = rev-parse --show-toplevel
     current-branch = rev-parse --abbrev-ref HEAD
+    current-remote = "!f() {                                            \
+        if [ -f ~/.config/hub ]; then                                   \
+            local remote=`awk ' /user:/ { print $NF } ' ~/.config/hub`; \
+            git config gitflow.origin ${remote:-origin};                \
+        fi;                                                             \
+                                                                        \
+        echo ${remote:-origin};                                         \
+    }; f"
 
     ff = flow feature
     ffs = flow feature start
@@ -51,20 +59,28 @@
 
 # This performs a shell command bound to a git alias.
 # See: http://blogs.atlassian.com/2014/10/advanced-git-aliases/
-    flow-push = "!f() {          \
-        git push origin master;  \
-        git push origin develop; \
-        git push --tags;         \
+    flow-push = "!f() {                    \
+        local remote=`git current-remote`; \
+        git push ${remote} master;         \
+        git push ${remote} develop;        \
+        git push ${remote} --tags;         \
     }; f"
 
-    flow-quick-release = "!f() {\
-        local release=${1:?Must provide tag as only argument};\
-        git checkout master  && git pull &&\
-        git checkout develop && git pull &&\
-        git flow release start ${release} &&\
-        git flow release finish --nobackmerge --message ${release} ${release} &&\
-        git checkout develop;\
+    flow-quick-release = "!f() {                                                     \
+        local release=${1:?Must provide tag as only argument};                       \
+        git checkout master                                                       && \
+            git pull --ff                                                         && \
+            git checkout develop                                                  && \
+            git pull --ff                                                         && \
+            git flow release start ${release}                                     && \
+            git flow release finish --nobackmerge --message ${release} ${release} && \
+            git checkout develop;                                                    \
     }; f"
+
+    flow-fix = "!f() {                         \
+        local remote=`git current-remote`;     \
+        git remote set-head ${remote} develop; \
+    }; f"                                      \
 
     fixie = "!f() {\
         git commit --fixup $(git log --pretty=%h --grep=\"$*\");\
