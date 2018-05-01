@@ -41,7 +41,7 @@ install_fasd () {
 
     if [ ! -e "${fasd_script_file}" ]
     then
-        get_url_to_file "https://raw.githubusercontent.com/clvv/fasd/master/fasd" "${fasd_script_file}" || return 1
+        get_url_to_file "https://raw.githubusercontent.com/whjvenyl/fasd/master/fasd" "${fasd_script_file}" || return 1
         chmod 755 "${fasd_script_file}"
     fi
 
