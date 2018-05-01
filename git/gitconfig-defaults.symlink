@@ -68,6 +68,15 @@
             git checkout develop;                                                    \
     }; f"
 
+    flow-fix = "!f() {                                                  \
+        if [ -f ~/.config/hub ]; then                                   \
+            local remote=`awk ' /user:/ { print $NF } ' ~/.config/hub`; \
+            git config gitflow.origin ${remote:-origin};                \
+        fi;                                                             \
+                                                                        \
+        git remote set-head ${remote:-origin} develop;                  \
+    }; f"                                                               \
+
     fixie = "!f() {\
         git commit --fixup $(git log --pretty=%h --grep=\"$*\");\
     }; f"
