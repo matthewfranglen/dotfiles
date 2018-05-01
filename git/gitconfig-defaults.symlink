@@ -57,13 +57,15 @@
         git push --tags;         \
     }; f"
 
-    flow-quick-release = "!f() {\
-        local release=${1:?Must provide tag as only argument};\
-        git checkout master  && git pull &&\
-        git checkout develop && git pull &&\
-        git flow release start ${release} &&\
-        git flow release finish --nobackmerge --message ${release} ${release} &&\
-        git checkout develop;\
+    flow-quick-release = "!f() {                                                     \
+        local release=${1:?Must provide tag as only argument};                       \
+        git checkout master                                                       && \
+            git pull --ff                                                         && \
+            git checkout develop                                                  && \
+            git pull --ff                                                         && \
+            git flow release start ${release}                                     && \
+            git flow release finish --nobackmerge --message ${release} ${release} && \
+            git checkout develop;                                                    \
     }; f"
 
     fixie = "!f() {\
