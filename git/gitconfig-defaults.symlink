@@ -24,6 +24,14 @@
 
     root = rev-parse --show-toplevel
     current-branch = rev-parse --abbrev-ref HEAD
+    current-remote = "!f() {                                            \
+        if [ -f ~/.config/hub ]; then                                   \
+            local remote=`awk ' /user:/ { print $NF } ' ~/.config/hub`; \
+            git config gitflow.origin ${remote:-origin};                \
+        fi;                                                             \
+                                                                        \
+        echo ${remote:-origin};                                         \
+    }; f"
 
     ff = flow feature
     ffs = flow feature start
