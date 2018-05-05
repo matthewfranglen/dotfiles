@@ -79,6 +79,10 @@ install_pip () {
     return $status
 }
 
+is_gem_command_available () {
+    which gem >/dev/null
+}
+
 is_python_command_available () {
     which python >/dev/null
 }
