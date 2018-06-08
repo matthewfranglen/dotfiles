@@ -9,7 +9,7 @@ This is my current set of dotfiles. It has been rewritten to be based heavily on
 Installation
 ------------
 
-    git clone https://github.com/matthewfranglen/dotfiles.git ~/.dotfiles
+    git clone https://gitlab.com/matthewfranglen/dotfiles.git ~/.dotfiles
     cd ~/.dotfiles
     script/bootstrap
     script/install
