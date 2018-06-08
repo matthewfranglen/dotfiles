@@ -85,6 +85,13 @@
     fixie = "!f() {\
         git commit --fixup $(git log --pretty=%h --grep=\"$*\");\
     }; f"
+
+    to-gitlab = "!f() {                                     \
+        (                                                   \
+            cd \"$(git root)\";                             \
+            sed -i -e s/github.com/gitlab.com/ .git/config; \
+        )                                                   \
+    }; f"
 [push]
     default = tracking
 [filter "clean_ipynb"]
